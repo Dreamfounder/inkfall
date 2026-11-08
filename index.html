@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0b100e">
-  <meta name="description" content="《墨蚀：拾字纪》——一款以汉字为骨、以故事为墨的叙事打字游戏。16 卷 48 个刻印节点，24 个独立卷结局、20 个终局，其中 12 个隐藏结局；每关限时、每卷分支。">
+  <meta name="description" content="《墨蚀：拾字纪》——一款以汉字为骨、以故事为墨的叙事打字游戏。16 卷 48 个刻印节点；明线 16 卷 + 暗线 16 段；36 个世界观词条、20 份人物档案、32 段回忆、44 种正经结局。">
   <title>墨蚀：拾字纪 · INKFALL</title>
   <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iNiIgZmlsbD0iIzBiMTAwZSIvPgogIDxyZWN0IHg9IjciIHk9IjciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgcng9IjMiIGZpbGw9IiM4ZjMzMjciIHN0cm9rZT0iI2U4Y2I4ZSIgc3Ryb2tlLW9wYWNpdHk9Ii41NSIvPgogIDxwYXRoIGQ9Ik0xMyAxNWgzOE0xMyA0OWgzOE0xNSAxM3YzOE00OSAxM3YzOCIgc3Ryb2tlPSIjZThjYjhlIiBzdHJva2Utb3BhY2l0eT0iLjE4IiBmaWxsPSJub25lIi8+CiAgPHRleHQgeD0iMzIiIHk9IjQzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU2ltU3VuLCBzZXJpZiIgZm9udC1zaXplPSIzMSIgZmlsbD0iI2YyZTNjOSI+5aKoPC90ZXh0Pgo8L3N2Zz4K" type="image/svg+xml">
   <style>
@@ -3260,6 +3260,60 @@ h1, h2, h3, h4, p {
   letter-spacing: 0.2em;
 }
 
+.typing-reason {
+  position: relative;
+  z-index: 1;
+  max-width: 850px;
+  margin: 0 0 18px;
+  padding: 9px 13px;
+  border-left: 1px solid var(--gold-dim);
+  background: rgba(201, 169, 106, 0.035);
+  color: var(--paper-3);
+  font-family: var(--kai);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.typing-reason::before {
+  content: "此刻落笔 · ";
+  color: var(--gold);
+  font-family: var(--sans);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+}
+
+.dialog-why {
+  margin-top: 16px;
+  padding: 12px 15px;
+  border-left: 1px solid var(--gold-dim);
+  background: rgba(201, 169, 106, 0.035);
+}
+
+.dialog-why > span {
+  color: var(--gold);
+  font-size: 7px;
+  letter-spacing: 0.16em;
+}
+
+.dialog-why p {
+  margin-top: 5px;
+  color: var(--paper-2);
+  font-family: var(--kai);
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+.level-reason {
+  display: block;
+  margin-top: 3px;
+  overflow: hidden;
+  color: var(--gold-dim);
+  font-size: 8px;
+  letter-spacing: 0.02em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .target-text {
   min-height: 3.8em;
   padding: 30px 0 32px;
@@ -3616,6 +3670,51 @@ h1, h2, h3, h4, p {
   line-height: 2.1;
 }
 
+.ending-echoes {
+  max-width: 640px;
+  margin: 22px auto 0;
+  padding: 13px 18px;
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.ending-echoes > span {
+  color: var(--gold);
+  font-size: 7px;
+  letter-spacing: 0.18em;
+}
+
+.ending-echoes > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.ending-echoes button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 8px;
+  border: 1px solid var(--line-soft);
+  background: transparent;
+  color: var(--paper-3);
+  font-size: 8px;
+}
+
+.ending-echoes button:hover {
+  border-color: var(--line);
+  color: var(--gold-bright);
+}
+
+.ending-echoes button b {
+  color: var(--gold);
+  font-family: var(--serif);
+  font-size: 12px;
+  font-weight: 400;
+}
+
 .word-form {
   max-width: 480px;
   margin: 32px auto 0;
@@ -3934,9 +4033,9 @@ body.layer-inner .story-layer-tab.is-active {
 
 .story-layer-tabs {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
-  max-width: 680px;
+  max-width: 880px;
   margin-bottom: 28px;
 }
 
@@ -6411,6 +6510,1023 @@ body.layer-inner .story-layer-tab.is-active {
   }
 }
 
+@media (max-width: 1040px) {
+  .main-nav {
+    margin-left: 0;
+  }
+
+  .main-nav a {
+    padding: 10px 9px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+  }
+}
+
+/* ---------- people / memories ---------- */
+
+.people-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 260px));
+  gap: 10px;
+  margin-bottom: 26px;
+}
+
+.people-tab {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--line-soft);
+  background: rgba(16, 25, 21, 0.35);
+  transition: all 0.3s ease;
+}
+
+.people-tab:hover,
+.people-tab.is-active {
+  border-color: var(--line-strong);
+  background:
+    linear-gradient(110deg, rgba(201, 169, 106, 0.08), transparent 58%),
+    rgba(20, 32, 26, 0.6);
+}
+
+.people-tab > span {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(185, 74, 55, 0.4);
+  color: var(--gold-bright);
+  font-family: var(--serif);
+  font-size: 16px;
+}
+
+.people-tab strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.people-tab small {
+  display: block;
+  color: var(--faint);
+  font-size: 7px;
+  letter-spacing: 0.07em;
+}
+
+.people-intro {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.people-intro > span {
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.people-intro p {
+  color: var(--faint);
+  font-size: 9px;
+}
+
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.person-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: 16px;
+  min-height: 176px;
+  padding: 18px;
+  border: 1px solid var(--line-soft);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.026), transparent 52%),
+    rgba(13, 21, 18, 0.45);
+  text-align: left;
+  transition: all 0.35s var(--ease);
+}
+
+.person-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--line);
+  background-color: rgba(23, 36, 30, 0.6);
+}
+
+.person-portrait {
+  position: relative;
+  width: 76px;
+  height: 94px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(201, 169, 106, 0.3);
+  background:
+    radial-gradient(circle at 40% 25%, rgba(201, 169, 106, 0.16), transparent 48%),
+    #0b1210;
+  color: var(--gold-bright);
+  font-family: var(--serif);
+  font-size: 34px;
+  overflow: hidden;
+}
+
+.person-portrait::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(201, 169, 106, 0.13);
+}
+
+.person-portrait i {
+  position: absolute;
+  bottom: -22px;
+  right: -18px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(201, 169, 106, 0.06);
+}
+
+.person-portrait.large {
+  width: 88px;
+  height: 108px;
+  flex: 0 0 auto;
+  font-size: 42px;
+}
+
+.person-copy {
+  min-width: 0;
+}
+
+.person-copy small {
+  color: var(--faint);
+  font-size: 7px;
+  letter-spacing: 0.08em;
+}
+
+.person-copy strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--paper);
+  font-family: var(--serif);
+  font-size: 23px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+}
+
+.person-copy p {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.8;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.person-state {
+  position: absolute;
+  right: 14px;
+  top: 12px;
+  color: var(--gold-dim);
+  font-size: 7px;
+  letter-spacing: 0.08em;
+}
+
+/* character dialog */
+
+.character-dialog-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding-right: 34px;
+}
+
+.character-dialog-head h2 {
+  margin-top: 4px;
+}
+
+.character-voice {
+  margin-top: 22px;
+  padding: 12px 16px;
+  border-left: 1px solid var(--gold-dim);
+  color: var(--paper-2);
+  font-family: var(--kai);
+  font-size: 17px;
+  line-height: 1.9;
+}
+
+.character-view-tabs {
+  display: flex;
+  gap: 7px;
+  margin-top: 22px;
+}
+
+.character-view-tabs button {
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--line-soft);
+  background: transparent;
+  color: var(--faint);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.character-view-tabs button.is-active {
+  border-color: var(--line-strong);
+  color: var(--gold-bright);
+  background: rgba(201, 169, 106, 0.06);
+}
+
+.character-view-tabs button.is-locked {
+  opacity: 0.45;
+}
+
+.character-record {
+  margin-top: 16px;
+  padding: 18px;
+  border: 1px solid var(--line-soft);
+  background: rgba(13, 21, 18, 0.42);
+}
+
+.character-record.margin {
+  border-color: rgba(196, 117, 94, 0.3);
+  background: rgba(28, 14, 11, 0.38);
+}
+
+.character-record > span {
+  color: var(--gold);
+  font-size: 7px;
+  letter-spacing: 0.16em;
+}
+
+.character-record p {
+  margin-top: 8px;
+  color: var(--paper-2);
+  font-family: var(--kai);
+  font-size: 15px;
+  line-height: 2;
+}
+
+.character-hints {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border: 1px solid rgba(196, 117, 94, 0.28);
+  background: rgba(120, 37, 28, 0.08);
+}
+
+.character-hints > span,
+.memory-clue > span {
+  color: var(--cinnabar-bright);
+  font-size: 7px;
+  letter-spacing: 0.14em;
+}
+
+.character-hints p {
+  margin-top: 7px;
+  color: #e6cfc1;
+  font-family: var(--kai);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.memory-clue {
+  margin-top: 20px;
+  padding: 14px 16px;
+  border-left: 1px solid var(--cinnabar);
+  background: rgba(120, 37, 28, 0.07);
+}
+
+.memory-clue p {
+  margin-top: 6px;
+  color: #e6cfc1;
+  font-family: var(--kai);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.character-relations,
+.character-memories {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.character-relations > span,
+.character-memories > span {
+  display: block;
+  margin-bottom: 9px;
+  color: var(--faint);
+  font-size: 7px;
+  letter-spacing: 0.14em;
+}
+
+.character-relations > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.character-relations button,
+.character-memories button {
+  padding: 7px 10px;
+  border: 1px solid var(--line-soft);
+  background: transparent;
+  color: var(--paper-2);
+  font-size: 9px;
+  text-align: left;
+}
+
+.character-relations button:hover,
+.character-memories button:hover {
+  border-color: var(--line-strong);
+  color: var(--gold-bright);
+}
+
+.character-relations button small,
+.character-memories button small {
+  display: block;
+  margin-top: 2px;
+  color: var(--faint);
+  font-size: 7px;
+}
+
+.memory-text {
+  margin-top: 22px;
+  color: var(--paper-2);
+  font-family: var(--kai);
+  font-size: 17px;
+  line-height: 2.1;
+}
+
+/* memory list */
+
+.memory-summary {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 26px;
+  padding: 18px 20px;
+  border: 1px solid var(--line-soft);
+  background: rgba(201, 169, 106, 0.035);
+}
+
+.memory-summary span {
+  color: var(--gold);
+  font-size: 8px;
+  letter-spacing: 0.15em;
+}
+
+.memory-summary strong {
+  display: block;
+  margin-top: 3px;
+  color: var(--paper);
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.memory-summary p {
+  max-width: 470px;
+  color: var(--faint);
+  font-size: 9px;
+  line-height: 1.7;
+}
+
+.memory-chapter {
+  margin-bottom: 24px;
+}
+
+.memory-chapter > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 9px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.memory-chapter > header span {
+  color: var(--gold);
+  font-family: var(--serif);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+
+.memory-chapter > header b {
+  color: var(--faint);
+  font-size: 8px;
+  font-weight: 400;
+}
+
+.memory-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.memory-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 108px;
+  padding: 14px 18px;
+  border: 1px solid var(--line-soft);
+  background: rgba(13, 21, 18, 0.4);
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.memory-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--line);
+  background: rgba(23, 36, 30, 0.56);
+}
+
+.memory-kind {
+  color: var(--cinnabar-bright);
+  font-size: 7px;
+  letter-spacing: 0.12em;
+}
+
+.memory-card strong {
+  margin-top: 5px;
+  color: var(--paper);
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.memory-card small {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 8px;
+  line-height: 1.6;
+}
+
+.memory-arrow {
+  position: absolute;
+  right: 13px;
+  top: 12px;
+  color: var(--gold-dim);
+  font-size: 11px;
+}
+
+/* chapter memory / cast */
+
+.chapter-cast {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.chapter-cast h3 {
+  margin-bottom: 8px;
+  color: var(--faint);
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+}
+
+.chapter-cast button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0 4px 4px 0;
+  padding: 4px 7px;
+  border: 1px solid var(--line-soft);
+  background: transparent;
+  color: var(--paper-3);
+  font-size: 8px;
+}
+
+.chapter-cast button:hover {
+  border-color: var(--line);
+  color: var(--gold-bright);
+}
+
+.chapter-cast button span {
+  color: var(--gold);
+  font-family: var(--serif);
+  font-size: 11px;
+}
+
+.chapter-memory-room {
+  margin-top: 20px;
+  padding: clamp(22px, 3vw, 32px);
+  border: 1px solid var(--line-soft);
+  background:
+    linear-gradient(120deg, rgba(201, 169, 106, 0.045), transparent 52%),
+    rgba(16, 25, 21, 0.36);
+}
+
+.chapter-memory-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.chapter-memory-head span {
+  color: var(--gold);
+  font-size: 8px;
+  letter-spacing: 0.16em;
+}
+
+.chapter-memory-head h2 {
+  margin-top: 4px;
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+}
+
+.chapter-memory-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+@media (max-width: 920px) {
+  .people-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .memory-list,
+  .chapter-memory-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .people-intro,
+  .memory-summary {
+    display: block;
+  }
+
+  .people-intro p,
+  .memory-summary p {
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 760px) {
+  .people-tabs {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .people-tab {
+    padding: 10px;
+  }
+
+  .person-card {
+    grid-template-columns: 62px minmax(0, 1fr);
+    min-height: 150px;
+    padding: 14px;
+  }
+
+  .person-portrait {
+    width: 62px;
+    height: 80px;
+    font-size: 28px;
+  }
+
+  .person-copy strong {
+    font-size: 21px;
+  }
+
+  .chapter-memory-head {
+    display: block;
+  }
+
+  .chapter-memory-head .text-link {
+    margin-top: 8px;
+  }
+
+  .chapter-cast {
+    display: none;
+  }
+
+  .character-dialog-head {
+    gap: 12px;
+  }
+
+  .person-portrait.large {
+    width: 68px;
+    height: 86px;
+    font-size: 32px;
+  }
+}
+
+/* ---------- scenes / interludes ---------- */
+
+.chapter-scene {
+  position: relative;
+  margin-top: 24px;
+  padding: 22px 26px 22px 30px;
+  border-left: 1px solid var(--gold-dim);
+  background:
+    linear-gradient(100deg, rgba(201, 169, 106, 0.045), transparent 60%),
+    rgba(13, 21, 18, 0.3);
+}
+
+.chapter-scene::before {
+  content: "";
+  position: absolute;
+  left: -3px;
+  top: 22px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.chapter-scene > span {
+  color: var(--gold);
+  font-size: 7px;
+  letter-spacing: 0.2em;
+}
+
+.chapter-scene p {
+  max-width: 830px;
+  margin-top: 8px;
+  color: var(--paper-2);
+  font-family: var(--kai);
+  font-size: 16px;
+  letter-spacing: 0.03em;
+  line-height: 2.1;
+}
+
+.chapter-interlude {
+  margin-top: 28px;
+  padding: clamp(24px, 3.4vw, 36px);
+  border: 1px solid rgba(201, 169, 106, 0.2);
+  background:
+    radial-gradient(circle at 85% 0%, rgba(201, 169, 106, 0.06), transparent 35%),
+    rgba(12, 19, 16, 0.46);
+}
+
+.interlude-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.interlude-head span {
+  color: var(--gold);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+}
+
+.interlude-head b {
+  color: var(--faint);
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+
+.chapter-interlude h2 {
+  margin-top: 16px;
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.chapter-interlude > p {
+  max-width: 850px;
+  margin-top: 10px;
+  color: var(--paper-2);
+  font-family: var(--kai);
+  font-size: 16px;
+  line-height: 2.05;
+}
+
+.outro-interlude {
+  margin-top: 22px;
+  padding: 18px 20px;
+  border: 1px solid var(--line-soft);
+  background: rgba(201, 169, 106, 0.035);
+}
+
+.outro-interlude > span {
+  color: var(--gold);
+  font-size: 7px;
+  letter-spacing: 0.14em;
+}
+
+.outro-interlude h3 {
+  margin-top: 5px;
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.outro-interlude p {
+  margin-top: 7px;
+  color: var(--paper-2);
+  font-family: var(--kai);
+  font-size: 14px;
+  line-height: 1.95;
+}
+
+.tree-interlude {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 10px 0 0 47px;
+  padding: 4px 8px;
+  border: 1px solid var(--line-soft);
+  color: var(--faint);
+  font-size: 8px;
+}
+
+.tree-interlude > span {
+  color: var(--gold);
+  font-family: var(--serif);
+  font-size: 12px;
+}
+
+.tree-interlude strong {
+  color: var(--paper-3);
+  font-weight: 400;
+}
+
+.tree-interlude small {
+  color: var(--faint);
+  font-size: 7px;
+}
+
+@media (max-width: 760px) {
+  .chapter-scene {
+    padding: 18px 18px 18px 22px;
+  }
+
+  .chapter-scene p,
+  .chapter-interlude > p {
+    font-size: 15px;
+  }
+
+  .tree-interlude {
+    margin-left: 0;
+  }
+}
+
+/* ---------- dark line ---------- */
+
+.dark-line-intro {
+  max-width: 860px;
+  margin-bottom: 26px;
+  padding: 16px 20px;
+  border-left: 1px solid rgba(196, 117, 94, 0.45);
+  background: rgba(120, 37, 28, 0.055);
+}
+
+.dark-line-intro > span {
+  color: var(--cinnabar-bright);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+
+.dark-line-intro p {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+.dark-line-list {
+  position: relative;
+  max-width: 940px;
+}
+
+.dark-line-list::before {
+  content: "";
+  position: absolute;
+  left: 27px;
+  top: 12px;
+  bottom: 12px;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(196, 117, 94, 0.4), rgba(196, 117, 94, 0.04));
+}
+
+.dark-thread {
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 18px;
+  margin-bottom: 14px;
+}
+
+.dark-thread-index {
+  position: relative;
+  z-index: 1;
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-soft);
+  background: var(--bg-deep);
+  color: var(--faint);
+  font-family: var(--serif);
+  font-size: 16px;
+}
+
+.dark-thread.is-unlocked .dark-thread-index {
+  border-color: rgba(196, 117, 94, 0.4);
+  color: var(--cinnabar-bright);
+}
+
+.dark-thread-index i {
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.035);
+}
+
+.dark-thread-body {
+  padding: 18px 20px;
+  border: 1px solid var(--line-soft);
+  background: rgba(13, 21, 18, 0.4);
+}
+
+.dark-thread.is-locked .dark-thread-body {
+  border-style: dashed;
+  opacity: 0.48;
+}
+
+.dark-thread-body header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.dark-thread-body header span {
+  color: var(--gold);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+
+.dark-thread-body header b {
+  color: var(--cinnabar-bright);
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+
+.dark-thread-body h2 {
+  margin-top: 12px;
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+}
+
+.dark-thread-body > p {
+  margin-top: 7px;
+  color: var(--paper-2);
+  font-family: var(--kai);
+  font-size: 15px;
+  line-height: 2;
+}
+
+.dark-clue {
+  margin-top: 14px;
+  padding: 10px 13px;
+  border-left: 1px solid rgba(196, 117, 94, 0.55);
+  background: rgba(120, 37, 28, 0.09);
+}
+
+.dark-clue > span {
+  color: var(--cinnabar-bright);
+  font-size: 7px;
+  letter-spacing: 0.14em;
+}
+
+.dark-clue p {
+  margin-top: 5px;
+  color: #e6cfc1;
+  font-family: var(--kai);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.dark-thread.is-locked h2 {
+  color: var(--faint);
+  font-size: 17px;
+}
+
+.dark-thread.is-locked > .dark-thread-body > p {
+  color: var(--faint);
+  font-family: var(--sans);
+  font-size: 9px;
+}
+
+.chapter-dark-thread {
+  margin-top: 24px;
+  padding: clamp(22px, 3vw, 32px);
+  border: 1px solid rgba(196, 117, 94, 0.32);
+  background:
+    linear-gradient(120deg, rgba(120, 37, 28, 0.11), transparent 58%),
+    rgba(14, 10, 9, 0.45);
+}
+
+.dark-thread-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(196, 117, 94, 0.25);
+}
+
+.dark-thread-head span {
+  color: var(--cinnabar-bright);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+}
+
+.dark-thread-head b {
+  color: var(--faint);
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+
+.chapter-dark-thread h2 {
+  margin-top: 16px;
+  font-family: var(--serif);
+  font-size: 27px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.chapter-dark-thread > p {
+  max-width: 850px;
+  margin-top: 9px;
+  color: #e2d2c6;
+  font-family: var(--kai);
+  font-size: 16px;
+  line-height: 2.05;
+}
+
+.chapter-dark-thread .text-link {
+  margin-top: 14px;
+}
+
+.outro-dark {
+  border-color: rgba(196, 117, 94, 0.3);
+  background: rgba(120, 37, 28, 0.08);
+}
+
+.outro-dark > span {
+  color: var(--cinnabar-bright);
+}
+
+.tree-dark-thread {
+  border-color: rgba(196, 117, 94, 0.28);
+}
+
+.tree-dark-thread > span {
+  color: var(--cinnabar-bright);
+}
+
+@media (max-width: 920px) {
+  .dark-thread {
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .dark-thread-index {
+    width: 42px;
+    height: 42px;
+    font-size: 13px;
+  }
+
+  .dark-line-list::before {
+    left: 20px;
+  }
+}
+
 /* ---------- responsive additions ---------- */
 
 @media (max-width: 1120px) {
@@ -6771,7 +7887,7 @@ body.layer-inner .story-layer-tab.is-active {
     bottom: 0;
     z-index: 80;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 0;
     padding: 6px 8px max(6px, env(safe-area-inset-bottom));
     border-top: 1px solid var(--line);
@@ -7324,6 +8440,7 @@ body.layer-inner .story-layer-tab.is-active {
         <a href="#/story" data-nav="story">主线</a>
         <a href="#/side" data-nav="side">支线</a>
         <a href="#/challenge" data-nav="challenge">挑战</a>
+        <a href="#/people" data-nav="people">人物</a>
         <a href="#/tree" data-nav="tree">树谱</a>
       </nav>
 
@@ -7426,6 +8543,7 @@ body.layer-inner .story-layer-tab.is-active {
 
       <div class="typing-sheet">
         <div class="typing-seal-mark" id="typingSealMark" aria-hidden="true">墨</div>
+        <p class="typing-reason" id="typingReason"></p>
         <div class="sheet-head">
           <span>刻印原文</span>
           <span id="typingCharCount">0 字</span>
@@ -9141,6 +10259,970 @@ window.INK_VOLUME_ENDINGS = [
 
   </script>
   <script>
+/* 《墨蚀：拾字纪》人物志与回忆录
+ * 人物档案分为「官修版」与「页边版」；回忆按卷解锁。
+ */
+window.INK_PEOPLE = {
+  characters: [
+    {
+      id: 'shen-yan',
+      name: '沈砚',
+      seal: '砚',
+      role: '补字师',
+      faction: '拾遗城 · 校经阁',
+      unlockChapter: 1,
+      revealChapter: 1,
+      appearsIn: ['ch1', 'ch2', 'ch6', 'ch9', 'ch12', 'ch16'],
+      official: '拾遗城最年轻的补字师，师从陆观澜。墨历九十七年因修补报晓钟成名。户籍记为沈无咎之女，无兄弟姐妹。',
+      margin: '户籍上的「女」字是后补的。沈无咎在第七版里删去过她的死，又用一个错字把她写回来。她既是女儿，也是被修正的错字；她自己越来越不确定，究竟是她写下了故事，还是故事写下了她。可每一次补字、每一次让出下一页，仍然是她的选择。她的存在不在户籍里，在她选择成为谁的那一刻。',
+      voice: '我不是被写出来的。我是被读到的。',
+      relations: [
+        { id: 'shen-wu-jiu', label: '母亲' },
+        { id: 'lu-guan-lan', label: '师父' },
+        { id: 'a-jian', label: '同行者' },
+        { id: 'pei-zhao', label: '同代人' }
+      ]
+    },
+    {
+      id: 'a-jian',
+      name: '阿笺',
+      seal: '笺',
+      role: '纸灵 / 边注',
+      faction: '无户籍',
+      unlockChapter: 2,
+      revealChapter: 2,
+      appearsIn: ['ch2', 'ch4', 'ch7', 'ch10', 'ch12'],
+      official: '沈无咎留下的纸人，负责照看沈砚起居。无户籍，无字脉，不计入城籍。',
+      margin: '她不是纸人，是第七版的边注。每替沈砚挡一次空白，就少一个字。她记得自己第一次被折起来的声音，也记得沈无咎在纸角写下的那句：替她看着小砚。',
+      voice: '我只是一句边注，可边注也会疼。',
+      relations: [
+        { id: 'shen-yan', label: '被托付的人' },
+        { id: 'shen-wu-jiu', label: '写她的人' }
+      ]
+    },
+    {
+      id: 'lu-guan-lan',
+      name: '陆观澜',
+      seal: '陆',
+      role: '前校经阁主事',
+      faction: '拾遗城 · 校经阁',
+      unlockChapter: 1,
+      revealChapter: 9,
+      appearsIn: ['ch1', 'ch6', 'ch9', 'ch12'],
+      official: '校经阁前主事，沈砚之师。墨历六十七年参与删去初版末行，后自请守塔，晚年下落不明。',
+      margin: '他删过一行字，也补过一个人。沈砚是他从空白里抱回来的；他教她补字，是怕她有一天发现，整座城都是他删剩下的句子。他胸口那道疤，是自己刻的「罪」字。',
+      voice: '这次别补我。',
+      relations: [
+        { id: 'shen-yan', label: '学生' },
+        { id: 'shen-wu-jiu', label: '同案者' },
+        { id: 'pei-xuan', label: '旧友' }
+      ]
+    },
+    {
+      id: 'pei-zhao',
+      name: '裴照',
+      seal: '裴',
+      role: '刻字师',
+      faction: '刻字世家 · 第七代',
+      unlockChapter: 3,
+      revealChapter: 3,
+      appearsIn: ['ch3', 'ch11', 'ch12', 'ch16'],
+      official: '刻字世家第七代继承人，活字塔青年匠师。性情傲慢，手艺精湛，尤擅铜活字与碑刻。',
+      margin: '裴家世代为官府刻去罪臣姓名。他十六岁才知道，父亲刻掉的第一个名字是自己的姑母。他留在塔里，是为了把那些名字一枚枚刻回背面。',
+      voice: '字可以刻错，人不能。',
+      relations: [
+        { id: 'shen-yan', label: '同代人' },
+        { id: 'pei-xuan', label: '父亲' }
+      ]
+    },
+    {
+      id: 'wen-sheng',
+      name: '闻笙',
+      seal: '笙',
+      role: '听墨人',
+      faction: '纸声电台',
+      unlockChapter: 5,
+      revealChapter: 5,
+      appearsIn: ['ch5', 'ch7', 'ch8', 'ch11'],
+      official: '盲眼听墨人，纸声电台主唱。以耳辨纸，能听出墨的干湿与纸张的年龄。',
+      margin: '她不是天生失明。七岁那年她听见初版背面有人在哭，看见了不该看见的第七版，于是自己把眼睛闭上了。她能听见读者翻页的声音，只是从不说。',
+      voice: '纸不会说谎，写字的人会。',
+      relations: [
+        { id: 'shen-yan', label: '同行者' },
+        { id: 'a-ci', label: '听见过的声音' }
+      ]
+    },
+    {
+      id: 'jian',
+      name: '简',
+      seal: '简',
+      role: '删页会主使',
+      faction: '删页会 / 前校书人',
+      unlockChapter: 5,
+      revealChapter: 10,
+      appearsIn: ['ch5', 'ch10', 'ch13', 'ch16'],
+      official: '删页会幕后主使，前校书人。主张删去一切姓名，被拾遗城通缉，行踪不明。',
+      margin: '他删掉女儿的名字，是因为女儿说「被记住太累了」。他真正想删的不是世界，是每次重读都会让阿辞再死一次的那一页。他不是要毁掉故事，他只是想让她歇一歇。',
+      voice: '我不是要毁掉故事。我只是想让她歇一歇。',
+      relations: [
+        { id: 'a-ci', label: '女儿' },
+        { id: 'shen-wu-jiu', label: '旧同僚' }
+      ]
+    },
+    {
+      id: 'shen-wu-jiu',
+      name: '沈无咎',
+      seal: '咎',
+      role: '最后一任守字人',
+      faction: '拾遗城 · 守字人',
+      unlockChapter: 2,
+      revealChapter: 6,
+      appearsIn: ['ch2', 'ch6', 'ch9', 'ch10', 'ch12', 'ch16'],
+      official: '最后一任守字人。墨历八十七年进入空白，下落不明。初版校勘参与者之一。',
+      margin: '她不是失踪。她把自己写成了一行页边注，托住所有会掉下去的字。她每一次出现，都少一个偏旁。她不是沈砚的作者，她只是第一个读到沈砚的人。',
+      voice: '别找我，去读下一页。',
+      relations: [
+        { id: 'shen-yan', label: '女儿' },
+        { id: 'lu-guan-lan', label: '同案者' },
+        { id: 'a-jian', label: '留下的人' }
+      ]
+    },
+    {
+      id: 'a-ci',
+      name: '阿辞',
+      seal: '辞',
+      role: '被删的名字',
+      faction: '无',
+      unlockChapter: 10,
+      revealChapter: 10,
+      appearsIn: ['ch10', 'ch13', 'ch16'],
+      official: '简之女。墨历六十七年病殁，年九岁。名不入死者册。',
+      margin: '她不是病死的。她在第七版里对父亲说：把我删掉吧，这样你就不用每次读到我都难过。她至今仍在页边，只是不再被叫名字。',
+      voice: '爸爸，这次别写我。',
+      relations: [
+        { id: 'jian', label: '父亲' }
+      ]
+    },
+    {
+      id: 'chun-sheng',
+      name: '春生 / 十七',
+      seal: '春',
+      role: '借名者',
+      faction: '城隍庙地下市场',
+      unlockChapter: 4,
+      revealChapter: 4,
+      appearsIn: ['ch4', 'ch11'],
+      official: '城隍庙地下市场借名者，原名不详。以「春生」二字典当三年，现已赎回。',
+      margin: '她叫十七，因为她是借名市场的第十七个无名者。春生是她女儿在某一版里叫过她的声音，不是她的名字。她把名字赎回之后，仍觉得自己更像「十七」。',
+      voice: '妈妈的味道不在名字里，在面汤里。',
+      relations: [
+        { id: 'a-he', label: '女儿' }
+      ]
+    },
+    {
+      id: 'a-he',
+      name: '阿禾',
+      seal: '禾',
+      role: '面馆的孩子',
+      faction: '北巷 · 第七码',
+      unlockChapter: 4,
+      revealChapter: 7,
+      appearsIn: ['ch4', 'ch7', 'ch11', 'ch16'],
+      official: '借名者之女。墨历九十七年病愈。户籍随母，无姓。',
+      margin: '她记得母亲，不记得母亲的名字。她后来学会写「娘」，写的却是「米」字，因为母亲身上总有面汤味。她长大后开了一间面馆，招牌上只有一碗热气。',
+      voice: '娘，到家了。',
+      relations: [
+        { id: 'chun-sheng', label: '母亲' },
+        { id: 'chen-shu', label: '面馆' }
+      ]
+    },
+    {
+      id: 'qu-bu-wang',
+      name: '瞿不忘',
+      seal: '瞿',
+      role: '守夜人',
+      faction: '拾遗城 · 更房',
+      unlockChapter: 9,
+      revealChapter: 9,
+      appearsIn: ['ch9', 'ch11', 'ch14'],
+      official: '拾遗城守夜人，不识字。负责夜间巡城与敲更，无家属记录。',
+      margin: '他每晚把被遗忘的名字画成符号，已经画满七册。他给自己取名「不忘」，是因为他忘过自己的母亲。他不识字，却记得全城每一声哭。',
+      voice: '忘了那么多，总得有个名字提醒自己别忘。',
+      relations: [
+        { id: 'shen-yan', label: '替他写字的人' }
+      ]
+    },
+    {
+      id: 'lao-zhou',
+      name: '老周',
+      seal: '周',
+      role: '点灯人',
+      faction: '城北长街',
+      unlockChapter: 1,
+      revealChapter: 1,
+      appearsIn: ['ch1', 'ch8'],
+      official: '城北点灯人，负责长街路灯。妻阿蕙，空白症患者。',
+      margin: '阿蕙忘了他的名字，却记得他每晚回家的脚步。老周把名字写在灯罩内侧，让光替他记住。他说，名字忘了不要紧，回家的路还记得。',
+      voice: '名字忘了不要紧，回家的路还记得。',
+      relations: [
+        { id: 'a-hui', label: '妻子' }
+      ]
+    },
+    {
+      id: 'yu-boss',
+      name: '玉老板',
+      seal: '玉',
+      role: '戏班名角',
+      faction: '城南戏台',
+      unlockChapter: 4,
+      revealChapter: 4,
+      appearsIn: ['ch4', 'ch8'],
+      official: '拾遗城名角，工青衣。空白症后失声，现居城南戏台，不再登台。',
+      margin: '她不是失声，是忘了「唱」字。她每天在后台无声地唱完一整出戏，等一个字回来。她说，原来只是忘了有人听。',
+      voice: '原来只是忘了有人听。',
+      relations: []
+    },
+    {
+      id: 'old-woman',
+      name: '老妇人',
+      seal: '口',
+      role: '口传者',
+      faction: '初版之前',
+      unlockChapter: 15,
+      revealChapter: 15,
+      appearsIn: ['ch15', 'ch16'],
+      official: '口传时代讲述者，名字不可考。传说活过七个版本。',
+      margin: '她就是第一版的作者。她每一版都换个名字，把同一个故事讲给不同的人听。她说，原典不是她写的，是听众记住的。故事没有正确答案，只有讲述者愿意承担的那一版。',
+      voice: '第一版就是刚才那一遍。',
+      relations: [
+        { id: 'shen-wu-jiu', label: '听过她故事的人' }
+      ]
+    },
+    {
+      id: 'pei-xuan',
+      name: '裴玄',
+      seal: '玄',
+      role: '刻字世家第六代',
+      faction: '裴家 / 活字塔',
+      unlockChapter: 3,
+      revealChapter: 7,
+      appearsIn: ['ch3', 'ch7', 'ch8'],
+      official: '裴照之父，刻字世家第六代家主。墨历六十七年主持初版末行刻除，后因病去世。',
+      margin: '他刻掉的第一个名字是自己的姑母。此后每次刻碑，他都在碑背留一道极浅的划痕，像替被删的人留一个不会说话的记号。他死前把刻刀传给裴照，说：刻刀不认亲。',
+      voice: '刻刀不认亲。',
+      relations: [
+        { id: 'pei-zhao', label: '儿子' },
+        { id: 'lu-guan-lan', label: '旧友' }
+      ]
+    },
+    {
+      id: 'a-hui',
+      name: '阿蕙',
+      seal: '蕙',
+      role: '点灯人的妻子',
+      faction: '城北长街',
+      unlockChapter: 1,
+      revealChapter: 1,
+      appearsIn: ['ch1', 'ch8'],
+      official: '老周之妻，空白症患者。已忘记丈夫姓名，现居城北长街。',
+      margin: '她忘了老周的名字，却记得他每晚回家的脚步。她在灯罩内侧写了一个「周」字，字被灯烟熏黑了，她仍每天擦一遍。',
+      voice: '你回来啦。',
+      relations: [
+        { id: 'lao-zhou', label: '丈夫' }
+      ]
+    },
+    {
+      id: 'chen-shu',
+      name: '陈叔',
+      seal: '陈',
+      role: '面馆老板',
+      faction: '北巷 · 第七码',
+      unlockChapter: 4,
+      revealChapter: 4,
+      appearsIn: ['ch4', 'ch7', 'ch11'],
+      official: '北巷面馆老板，无字脉记录。收留借名者母女三年，未收房租。',
+      margin: '他把每个客人的名字写在碗底，客人吃完，字就露出来。有人说这样不吉利，他说：面可以不留名，人得留。',
+      voice: '一碗面，不加名字。',
+      relations: [
+        { id: 'a-he', label: '常客' },
+        { id: 'chun-sheng', label: '旧邻' }
+      ]
+    },
+    {
+      id: 'lao-luo',
+      name: '老骆',
+      seal: '骆',
+      role: '逆流邮局邮差',
+      faction: '逆流邮局',
+      unlockChapter: 12,
+      revealChapter: 12,
+      appearsIn: ['ch12', 'ch16'],
+      official: '逆流邮局邮差，专送无地址信件。工龄四十三年，无退件记录。',
+      margin: '他送的信大多没有收件人，只有一句「给下一个在夜里睡不着的人」。他把这些信按季节分袋，春天寄给孩子，冬天寄给老人。他说：地址不存在，收件人存在。',
+      voice: '地址不存在，收件人存在。',
+      relations: [
+        { id: 'shen-yan', label: '寄信人' },
+        { id: 'reader', label: '最终收件人' }
+      ]
+    },
+    {
+      id: 'a-man',
+      name: '阿满',
+      seal: '满',
+      role: '城北的孩子',
+      faction: '城北 · 豆浆摊',
+      unlockChapter: 1,
+      revealChapter: 1,
+      appearsIn: ['ch1', 'ch2', 'ch12'],
+      official: '城北豆浆摊主之子，年七岁。母亲于报晓钟失字当夜失名。',
+      margin: '他在手心里写母亲的名字，写一遍吹一口气，怕字被风吹走。后来他学会在灯谣里加一句「娘」，全城的孩子跟着唱，母亲的名字就一直没有真正消失。',
+      voice: '娘，豆浆要凉了。',
+      relations: [
+        { id: 'lao-zhou', label: '邻居' },
+        { id: 'shen-yan', label: '补字的人' }
+      ]
+    },
+    {
+      id: 'reader',
+      name: '读者',
+      seal: '读',
+      role: '页边房客',
+      faction: '书外',
+      unlockChapter: 14,
+      revealChapter: 14,
+      hidden: true,
+      appearsIn: ['ch14', 'ch16'],
+      official: '无户籍，无字脉，不属墨界。不可登记。',
+      margin: '住在页边房间，用铅笔、眼泪和停顿改写故事。沈砚第一次触到读者的手时，整本书翻了一页。读者不是一个人，是所有正在读这本书的人。她也不是故事外的神，她只是一个同样必须选择怎么读、怎么合书的人。',
+      voice: '你怎么知道我没有哭？',
+      relations: [
+        { id: 'shen-yan', label: '正在读的人' }
+      ]
+    }
+  ],
+
+  memories: [
+    {
+      id: 'm01',
+      chapter: 'ch1',
+      title: '钟楼下的孩子',
+      kind: '口述',
+      speaker: '沈砚',
+      text: '母亲第一次带我去钟楼时，我七岁。她让我把手放在铜钟上，说：你听，里面有人在数数。我什么也没听见，只听见她心跳得很快。后来我才知道，那一天是初版末行被删去的第三十年。'
+    },
+    {
+      id: 'm02',
+      chapter: 'ch1',
+      title: '第七下',
+      kind: '残页',
+      speaker: '陆观澜',
+      text: '修钟的规矩是敲七下。第七下不是给活人听的，是给那些被删掉、却还站在钟声里的人听的。沈砚补完钟铭那天，我听见第七下里多了一个孩子的声音。我没敢告诉她。'
+    },
+    {
+      id: 'm03',
+      chapter: 'ch2',
+      title: '纸人第一次折起',
+      kind: '梦',
+      speaker: '阿笺',
+      text: '我记得自己被折起来的声音。先折左手，再折右手，最后把脸折进胸口。沈无咎一边折一边说：别怕，等小砚打开你，你就自由了。可她没说，打开我之后，她自己会去哪里。'
+    },
+    {
+      id: 'm04',
+      chapter: 'ch2',
+      title: '雨停之后',
+      kind: '批注',
+      speaker: '沈无咎',
+      text: '雨停之后，纸人会忘记自己为什么被折起来。这很好。记得太多的人，最后都会想去删掉什么。小砚，如果你读到这里，不要替我记得。替我活下去。'
+    },
+    {
+      id: 'm05',
+      chapter: 'ch3',
+      title: '塔心的空行',
+      kind: '残页',
+      speaker: '裴玄',
+      text: '第七行原本不是空的。它写着：人非字，不可删。我们三个人看着那行字，谁也没有先说话。最后是我拿起刻刀。我一直以为自己在刻字，后来才明白，我是在替一座城刻掉它的良心。'
+    },
+    {
+      id: 'm06',
+      chapter: 'ch3',
+      title: '第七代的手',
+      kind: '口述',
+      speaker: '裴照',
+      text: '我父亲的手很稳，刻碑时连石屑都不会落在字里。可他死前那晚，手一直抖。他说他梦见姑母的名字从碑上走下来，问他为什么把她刻掉。我第一次看见他哭。'
+    },
+    {
+      id: 'm07',
+      chapter: 'ch4',
+      title: '春生的当票',
+      kind: '口述',
+      speaker: '春生',
+      text: '签当票那天，我没哭。名字从额头浮起来的时候，像有人把我脸上的一层皮揭走。可阿禾在门外哭，我一听见她的声音，就觉得自己还在。名字没了，娘还在。'
+    },
+    {
+      id: 'm08',
+      chapter: 'ch4',
+      title: '面汤里的字',
+      kind: '梦',
+      speaker: '阿禾',
+      text: '我梦见母亲在煮面。她把盐撒进锅里，盐粒落下去的时候，变成了一个个很小的字。我问她写的是什么，她说：是「娘」。可我看不清，只看见汤里的热气。'
+    },
+    {
+      id: 'm09',
+      chapter: 'ch5',
+      title: '火里的三千页',
+      kind: '录音',
+      speaker: '闻笙',
+      text: '火会认字。它先烧标题，再烧署名，最后烧那些被反复读过的句子。那天我听见三千本书同时断句，像三千个人在同一刻咽气。只有一页没有声音，它在你袖子里。'
+    },
+    {
+      id: 'm10',
+      chapter: 'ch5',
+      title: '删页会第一次集会',
+      kind: '残页',
+      speaker: '简',
+      text: '第一次集会来了九十七个人。每个人都说自己有一个想忘记的名字。我让他们把名字写在纸上，然后一起烧掉。火烧到一半，有人哭了，有人笑了。那是我第一次知道，忘记也会让人上瘾。'
+    },
+    {
+      id: 'm11',
+      chapter: 'ch6',
+      title: '月光下的字帖',
+      kind: '口述',
+      speaker: '沈无咎',
+      text: '小砚七岁写「永」字，捺脚总是太轻。我没有骂她。我知道她不是不会写，她只是不敢把最后一笔按下去。按下去，字就完成了；完成了，就会有一天被擦掉。'
+    },
+    {
+      id: 'm12',
+      chapter: 'ch6',
+      title: '背面的校勘',
+      kind: '批注',
+      speaker: '陆观澜',
+      text: '我们删掉末行那天，沈无咎在纸背写了一行小字。我问她写了什么。她说：写给我女儿。我当时没有看。三十年后我才知道，那行字是「别怕空白」。'
+    },
+    {
+      id: 'm13',
+      chapter: 'ch7',
+      title: '纸船',
+      kind: '梦',
+      speaker: '阿笺',
+      text: '我在逆流河上漂过一夜。河水把我身上的字一个一个洗淡，最后只剩「笺」字。我听见母亲在岸上叫我，可我没有力气应。第二天，沈砚把我捞起来，说：你怎么这么轻。'
+    },
+    {
+      id: 'm14',
+      chapter: 'ch7',
+      title: '第二个句号',
+      kind: '口述',
+      speaker: '船夫',
+      text: '河里沉着两个句号。第一个是初版末行的，第二个是一个孩子写了一半的。孩子说，等他写完，母亲就会回来。他没写完。后来我每年都在同一个地方下网，想替他捞上来。'
+    },
+    {
+      id: 'm15',
+      chapter: 'ch8',
+      title: '第九十八张请柬',
+      kind: '残页',
+      speaker: '裴玄',
+      text: '无名宴发了九十七张请柬。第九十八张没有写名字，只写了一个空白的座位。市长说那是给空白的。可我知道，那是留给一个不会来的人的。每年都留。'
+    },
+    {
+      id: 'm16',
+      chapter: 'ch8',
+      title: '没有碰杯的人',
+      kind: '录音',
+      speaker: '闻笙',
+      text: '满座举杯时，只有一个人没有喝。他的杯子一直停在半空，像在等另一只杯子。我听见他小声说：阿辞，今天是你生日。后来我才知道，他是简。'
+    },
+    {
+      id: 'm17',
+      chapter: 'ch9',
+      title: '门前的三个孩子',
+      kind: '口述',
+      speaker: '陆观澜',
+      text: '我在城门前跪了一夜，换回三个孩子。一个后来成了补字师，一个成了刻字师，还有一个去了删页会。别人说我救了他们。我只知道，我救不了他们的以后。'
+    },
+    {
+      id: 'm18',
+      chapter: 'ch9',
+      title: '刀与笔',
+      kind: '批注',
+      speaker: '沈无咎',
+      text: '陆观澜问我，删字和补字有什么不同。我说，用的是同一把刀。他笑了，说：那我们至少得记住，刀口朝哪一边。后来他朝自己。'
+    },
+    {
+      id: 'm19',
+      chapter: 'ch10',
+      title: '阿辞的最后一句',
+      kind: '口述',
+      speaker: '简',
+      text: '阿辞死前说：爸爸，把我删掉吧。这样你就不用每次读到我都难过。我以为那是孩子的胡话。第二天，我真的把她删了。然后我发现，我记得她，可全世界都不记得。那种轻，比死还重。'
+    },
+    {
+      id: 'm20',
+      chapter: 'ch10',
+      title: '纸桥',
+      kind: '梦',
+      speaker: '阿笺',
+      text: '我散开的时候，没有觉得疼。每一片纸都记得自己该去哪里。它们拼成桥，托住沈砚的脚。我第一次知道，原来被折起来的人，也可以成为路。'
+    },
+    {
+      id: 'm21',
+      chapter: 'ch11',
+      title: '万人同写',
+      kind: '口述',
+      speaker: '瞿不忘',
+      text: '我不识字，只会画圈。可那天我也在塔下写了一个圈。沈砚问我写的是谁，我说是我娘。她说你娘叫什么。我想了很久，说：忘了。她就把那个圈写成了一个名字。'
+    },
+    {
+      id: 'm22',
+      chapter: 'ch11',
+      title: '血与版',
+      kind: '批注',
+      speaker: '裴照',
+      text: '父亲说，刻字世家的血能镇版。我一直以为那是迷信。那天我把手划破，血落在版边，原版真的不烫了。我才知道，所谓镇版，是拿自己的命去替一张纸承担重量。'
+    },
+    {
+      id: 'm23',
+      chapter: 'ch12',
+      title: '纸鸟',
+      kind: '口述',
+      speaker: '沈砚',
+      text: '阿笺走后，每天清晨都有一只纸鸟落在窗台。它不叫，也不飞走。我试着在它翅膀上写字，写什么它都受着。后来我不写了。它只是一只鸟，不该替我记住那么多。'
+    },
+    {
+      id: 'm24',
+      chapter: 'ch12',
+      title: '表卷的最后一页',
+      kind: '批注',
+      speaker: '读者',
+      text: '第一次读到这里时，我用铅笔在页边画了一条线。我不知道为什么要画。也许是因为我想让这本书知道：有人来过。后来那条线变成了第七个圈的起点。'
+    },
+    {
+      id: 'm25',
+      chapter: 'ch13',
+      title: '第七版校样',
+      kind: '残页',
+      speaker: '校勘者',
+      text: '第七版原本有沈砚。她在第三页就死了。校样退回来时，页边有一行铅笔字：读者不接受。于是我们把她写活了。从那以后，我每次改稿都会先问：这一次，读者会接受吗？'
+    },
+    {
+      id: 'm26',
+      chapter: 'ch13',
+      title: '第二页的边角',
+      kind: '批注',
+      speaker: '沈无咎',
+      text: '第二页不是初版。它是初版之前的那一页。我把它藏在纸背，是因为上面写着：本版主角可以由读者指定。小砚，你不是我写出来的，你是被读出来的。'
+    },
+    {
+      id: 'm27',
+      chapter: 'ch14',
+      title: '茶为什么是温的',
+      kind: '口述',
+      speaker: '读者',
+      text: '房间里的茶总是温的，因为时间在这里不是流动的，是被翻动的。你读一页，它才走一步。你合上书，它就停住。沈砚第一次来时，茶已经温了很多年。'
+    },
+    {
+      id: 'm28',
+      chapter: 'ch14',
+      title: '镜子里的空页',
+      kind: '梦',
+      speaker: '沈砚',
+      text: '我在镜子里看见一页白纸。纸上只有我的轮廓，没有五官。我伸手去摸，镜面像水一样软。那一刻我明白，我也可以是空白的。空白不一定是失去，也可以是没有被决定。'
+    },
+    {
+      id: 'm29',
+      chapter: 'ch15',
+      title: '火塘边的第七个人',
+      kind: '口述',
+      speaker: '老妇人',
+      text: '火塘边永远坐着七个人。六个记得故事，一个负责把它讲给下一个人。每次讲完，第七个人就换一张脸。这一版，他长着简的脸。下一版，也许会是你的。'
+    },
+    {
+      id: 'm30',
+      chapter: 'ch15',
+      title: '第一句话之前',
+      kind: '梦',
+      speaker: '沈无咎',
+      text: '第一句话被写下之前，世界是一片很轻的静。那不是空，是所有话都还没有说。我走进那片静里，听见有人在很远的地方问：你在吗。我没有回答。我怕一回答，世界就开始失去。可后来我才明白，世界没有预先的意义。意义是后来的人，在火塘边一句一句讲出来的。'
+    },
+    {
+      id: 'm31',
+      chapter: 'ch16',
+      title: '未完成',
+      kind: '批注',
+      speaker: '沈砚',
+      text: '最后一页没有写完。我本来想写「完」，笔尖落下时却写成了「未」。我没有改。也许这本书最好的结局，就是承认它还没有结束。她第一次觉得，未完成不是欠缺，而是自由。'
+    },
+    {
+      id: 'm32',
+      chapter: 'ch16',
+      title: '第七个圈',
+      kind: '口述',
+      speaker: '读者',
+      text: '第七个圈画下去的时候，我听见书里有人吸了一口气。那不是沈砚，也不是阿笺。那是这本书自己。它终于知道，自己不是被读完的，是被陪着的。'
+    }
+  ]
+};
+
+  </script>
+  <script>
+/* 《墨蚀：拾字纪》场景细描与间章
+ * scenes：每卷开头的电影式场景描写
+ * interludes：每卷卷末的间章，用次要人物补完主线之间的空白
+ */
+window.INK_SCENES = {
+  scenes: {
+    ch1: '晨雾从城北漫过来，带着铜锈、冷油和隔夜的煤灰味。报晓钟悬在钟楼最高处，钟口朝下，像一只闭了太久的眼睛。沈砚伸手推门，门轴发出一声很轻的呻吟，仿佛整座城都在等她这一下。',
+    ch2: '纸雨落在瓦上没有声音，落在水洼里却会浮起一层极细的白。雨巷两侧的招牌像被谁用湿手指抹过，字迹晕成一团团灰。阿笺站在屋檐下，纸做的裙角被风掀起，露出里面密密麻麻的小字。',
+    ch3: '活字塔在夜里转动时，十万枚铜字依次咬合，声音像一场没有尽头的暴雨。塔身没有窗，只有无数细小的字缝，灯光从缝里漏出来，在墙上拼出一句又一句互相矛盾的话。裴照把耳朵贴在塔壁上，听见有人在里面数数。',
+    ch4: '地下市场的灯是借来的。每一盏灯罩里都写着一个已经不在的人名，火光透过薄纸，把名字投在来来往往的脸上。空气里有墨、药渣、湿棉花和面汤的味道，一个母亲正把最后半勺糖喂给孩子。',
+    ch5: '书楼烧了一夜，天亮时，灰烬还在冒热气。烧焦的纸页被风卷起来，像一群找不到归处的黑鸟。闻笙坐在废墟外弹琴，琴弦上落满白灰。她说火里有三千个故事在同时断句，只有一页没有声音。',
+    ch6: '书房只有五步宽，窗被砖封死，桌上却有一层很薄的月光。月光墨干在砚台里，裂成细小的纹。沈砚把母亲的纸页举高，纸背透出字迹，像有人从另一个房间隔着墙对她说话。',
+    ch7: '逆流河的水是倒着走的。浪头从下游往上游推，水声像一盘被倒放的磁带。渡口没有码头，只有一块被磨得发亮的青石。船夫把竹篙插进水里，篙尖碰到无数沉在河底的名字，发出细碎的碰撞声。',
+    ch8: '市政厅的吊灯有九十七盏，每一盏都罩着磨砂玻璃，光落下来像一层薄薄的雪。长桌铺着白布，菜一道道端上来，没有名字，只有编号。侍者的皮鞋踩在地毯上，没有声音，像所有人都在踮着脚忘记什么。',
+    ch9: '活字塔的地下没有白天。铜字堆成墙，墙上渗着绿色的铜锈，空气里有金属和旧纸混合的腥味。陆观澜坐在一堆废字中间，面前摊着三十年前的校勘原稿。他的影子被一盏小灯拉得很长，像另一个还站着的人。',
+    ch10: '空白里没有风，也没有回声。沈砚踩下去，脚下像踩着一层很厚的雪，却留不下脚印。阿笺走在前面，身上的字一个接一个变淡。远处有一道没有门框的门，门后白得发亮，像一张还没有落笔的纸。',
+    ch11: '半座城已经白了。剩下的街道挤在活字塔周围，像一圈被火围住的纸。人们把书搬到街上，用身体压住被风吹起的页角。有人在哭，有人在写字，一个卖豆腐的老人忘了「豆」字，却记得死去妻子的名字。',
+    ch12: '纸鸟落在窗台上，翅膀湿了一点。沈砚伸手，它不躲。城外的空白退成一条很细的边，天光从那里透进来，照在桌上那支已经干了的笔上。远处有人在敲钟，钟声很轻，像怕吵醒谁。',
+    ch13: '第二页是在月光里浮起来的。它比第一页更薄，边缘被裁得很整齐，像一片从旧书里取出的蝉翼。纸面上有七道折痕，每一道都对应一个被删去的结局。沈砚用指尖抚过最后一道，指尖沾了一点银色的墨。',
+    ch14: '读者房间里的光是斜的，从很高很远的地方落下来，像有人在书架顶端开了一扇天窗。桌上的茶没有热气，杯壁却是温的。椅子微微转向门口，仿佛刚刚有人起身。书页边上全是铅笔线、泪痕和用指甲划出的浅痕。',
+    ch15: '火塘里的火没有烟，光却把每个人的脸照得很清楚。老妇人的手背上写满细小的字，每讲一句故事，就有一个字从她皮肤上淡下去。火塘边坐着七个人，第七个人始终低着头，看不清脸。',
+    ch16: '最后一页像所有版本的叠影：第一版的火塘、第三版的洪水、第六版的母亲、第七版的沈砚，全在同一张纸上微微发亮。纸的边缘没有裁齐，风从毛边里穿过，带来很多声音，又带走很多声音。'
+  },
+
+  interludes: {
+    ch1: {
+      title: '钟声之后',
+      speaker: '城北 · 清晨',
+      text: '钟声响过第七下，卖豆浆的人重新支起摊子。阿满蹲在门槛上，把母亲的名字写在手心里，写一遍，吹一口气，再写一遍。沈砚从钟楼下来，鞋底沾着铜屑。她没有回头，却知道钟腹里那行粉笔字正在慢慢变淡，像一个人说完话之后留下的呼吸。'
+    },
+    ch2: {
+      title: '纸雨停后',
+      speaker: '雨巷 · 黄昏',
+      text: '纸雨停后，巷子里积了一层薄薄的白。孩子们跑出来踩水，脚印里浮起字，又很快沉下去。阿笺蹲在屋檐下，把被打湿的纸页一张张摊开。她忽然停住，指着其中一张说：这是妈妈的字。沈砚凑过去，只看懂了一个「别」字。'
+    },
+    ch3: {
+      title: '塔停之夜',
+      speaker: '活字塔 · 子夜',
+      text: '活字塔停转后的第一个夜晚，全城安静得反常。裴照一个人留在塔里，把散落的铜字按笔画排好。他排到「人」字时，发现背面刻着一个小女孩的名字。他把那枚字翻过来，又翻回去，最后把它放进了自己的口袋。'
+    },
+    ch4: {
+      title: '夜市收摊',
+      speaker: '城隍庙 · 后半夜',
+      text: '借名市场收摊时，春生把最后半碗面汤分给阿禾。阿禾喝得很慢，说里面有娘的味道。春生低头收拾碗筷，没有告诉她，自己的名字已经从额头上消失了。摊子外的灯一盏盏灭下去，像有人在一本名册上逐个打叉。'
+    },
+    ch5: {
+      title: '灰烬',
+      speaker: '书楼 · 天亮前',
+      text: '闻笙在灰烬里摸到一张没有烧完的纸。纸上只剩半句话：我们不是要忘记，我们只是想……她把纸贴在耳边，听了很久，说：后面没有字了。可写这句话的人，哭过。'
+    },
+    ch6: {
+      title: '月光墨',
+      speaker: '槐花巷 · 夜',
+      text: '母亲的砚台里还剩一点月光墨。沈砚用指尖蘸了蘸，在桌上写了一个「归」字。字没有干，反而慢慢淡下去，像被桌面吸走了。阿笺说：她在告诉你，有些字写出来，就是为了让它消失。'
+    },
+    ch7: {
+      title: '渡口',
+      speaker: '逆流河 · 凌晨',
+      text: '船夫把船靠岸，从水里捞起一截断桨。桨上刻着一个孩子的名字，已经被水泡得发白。他说这桨在这里漂了很多年，每年都有人来认，没人认对。沈砚把桨接过来，觉得它比整条河还沉。'
+    },
+    ch8: {
+      title: '后厨',
+      speaker: '市政厅 · 散宴后',
+      text: '无名宴散后，后厨还剩十二道菜。厨子把每道菜都装进小盒，写上编号，放进冰窖。徒弟问为什么不留名字。厨子说：名字都被人吃掉了，菜总得留个记号。冰窖的门关上时，里面传来很轻的滴水声。'
+    },
+    ch9: {
+      title: '塔门落下',
+      speaker: '活字塔 · 地下',
+      text: '塔门落下后，陆观澜在黑暗里坐了很久。他摸到身边三枚铜字，拼在一起，正好是三个孩子的名字。他没有把它们交出去。黑暗里传来翻页声，像有人在很远的地方替他念一封没有写完的信。'
+    },
+    ch10: {
+      title: '纸桥',
+      speaker: '白页之门 · 无声',
+      text: '阿笺散开后，纸屑在空白里停了很久。风一来，它们才慢慢拼成桥。每一片纸都记得自己该去哪里：有的托住脚，有的垫在桥栏，有的落在沈砚肩上，像一只手，轻轻按了按她。'
+    },
+    ch11: {
+      title: '万人夜',
+      speaker: '活字塔下 · 深夜',
+      text: '万人同写的那一夜，瞿不忘在塔下画了九十七个圈。他不识字，只能画圈。沈砚替他把圈写成名字，写到最后，发现有一个圈里什么也没有。瞿不忘说：那是我自己。我忘了自己的名字。'
+    },
+    ch12: {
+      title: '纸鸟',
+      speaker: '城门口 · 清晨',
+      text: '表卷结束后的第一个清晨，纸鸟落在城门的「记得」二字上。沈砚伸手，它不飞。她把手指收回来，纸鸟却自己跳到她肩上。她忽然想起阿笺说过：纸做的东西，最怕被人折起来。所以这一次，她没有伸手。'
+    },
+    ch13: {
+      title: '装订工',
+      speaker: '印坊 · 子夜',
+      text: '印坊的装订工把第二页夹进初版时，发现两张纸的纤维方向相反。他没有拆开，只在书脊里加了一根很细的红线。后来每一本被装订的书都多了一根红线，读者以为是装饰。只有装订工知道，那是为了记住哪一页曾经被拒绝。'
+    },
+    ch14: {
+      title: '茶凉之前',
+      speaker: '读者房间 · 某一页',
+      text: '沈砚离开后，房间里的茶终于凉了。椅子转回桌前，书页自己合上，又打开。铅笔在页边写下一行很小的字：她刚才坐在这里。字迹很轻，像怕把纸压疼。'
+    },
+    ch15: {
+      title: '火塘第七人',
+      speaker: '初版之前 · 夜',
+      text: '火塘边的第七个人一直没有抬头。老妇人讲完最后一个故事，他才站起来，把脸转向沈砚。那张脸很年轻，还没有失去女儿。沈砚想叫他的名字，却发现自己不知道。老妇人说：别急，下一版你会知道。'
+    },
+    ch16: {
+      title: '余页',
+      speaker: '最后一页之后',
+      text: '书没有合上。风从页间穿过，吹动所有版本。沈砚把笔搁在最后一页旁边，向后退了一步。桌上多出一张空白纸，纸上没有字，只有一道很浅的折痕。她知道，那是留给下一个人的。没有人能替她决定这张纸该写什么，她也不打算再等一个正确的版本。'
+    }
+  }
+};
+
+  </script>
+  <script>
+/* 每个刻印节点的“此刻为何落笔”
+ * 用在关卡简报和刻印台，避免突然把玩家推进打字框。
+ */
+window.INK_BRIDGES = {
+  'ch1-l1': '钟声必须在第七下之前补完，否则全城会错过天亮。',
+  'ch1-l2': '阿满的母亲还在街上，只有这首灯谣能把她引回来。',
+  'ch1-l3': '裂缝每扩大一寸，北墙上的「拾遗」就少一笔。',
+  'ch2-l1': '纸人没有名字就站不住，沈砚必须先给她一个称呼。',
+  'ch2-l2': '雨巷的招牌快被洗空，阿笺在梯子下扶着，等一个字回来。',
+  'ch2-l3': '月光只停留三息，母亲的字必须在纸背消失前读完。',
+  'ch3-l1': '塔门只认门铭，错一个字就不会为沈砚打开。',
+  'ch3-l2': '活字版卡住了，必须按口诀重新推字，塔心才能转动。',
+  'ch3-l3': '第七行的缺口正在扩大，补文必须挡在裴照落锤之前。',
+  'ch4-l1': '春生不识字，契约只能由沈砚代写——每一笔都决定她还能不能记得女儿。',
+  'ch4-l2': '掌柜只认暗语，问不出「沈无咎」，当票就永远不会出现。',
+  'ch4-l3': '名字赎回后若不立刻写下，春生会再次忘记自己是谁。',
+  'ch5-l1': '火场边的宣言正在燃烧，沈砚要在最后一行烧尽前记下线索。',
+  'ch5-l2': '书楼目录是三千卷书唯一的归路，火已经烧到索引。',
+  'ch5-l3': '闻笙听见的那一页没有声音，沈砚必须替她把听见的写下来。',
+  'ch6-l1': '字帖上的批注正在褪色，沈砚想留住母亲最后一句评语。',
+  'ch6-l2': '月光墨只能显影一次，错过今夜，纸背的字就会永远退回去。',
+  'ch6-l3': '母亲的信被撕掉半行，沈砚必须把能读的部分先抄下来。',
+  'ch7-l1': '渡口只认倒念的名字，念错一字，船会把他们送回昨天。',
+  'ch7-l2': '纸船正在散开，船歌要压住阿笺身上越来越淡的字。',
+  'ch7-l3': '句号沉在河底，沈砚只有一次伸手的机会。',
+  'ch8-l1': '菜单上的名字正在被侍者逐道划掉，沈砚要在上菜前记全。',
+  'ch8-l2': '祝酒词必须由补字师当众写，市长才肯让她留在宴席上。',
+  'ch8-l3': '名单即将被烧，沈砚要在火盆落下前把死者名字念完。',
+  'ch9-l1': '旧校勘记只剩最后一页，沈砚必须抄下三个人的名字。',
+  'ch9-l2': '审问只有一炷香，她必须把问题写成师父无法回避的句子。',
+  'ch9-l3': '陆观澜的供词正在被塔外的脚步声盖住，得趁他还肯说。',
+  'ch10-l1': '门铭补完，白页之门才会为活人打开一条缝。',
+  'ch10-l2': '简只肯听完整的句子，沈砚必须把质问一字不差地写给他。',
+  'ch10-l3': '阿笺的身体正在变回白纸，沈砚要赶在她消失前记住这句话。',
+  'ch11-l1': '全城都在等一句话，沈砚必须把它写得连卖豆腐的人也能记住。',
+  'ch11-l2': '万人笔迹正在互相覆盖，需要一个共同的字符把它们压住。',
+  'ch11-l3': '第一页只剩最后一处空缺，空白正在等他们补完。',
+  'ch12-l1': '简要一个答案，沈砚必须在原版边缘写下能让他停手的那句话。',
+  'ch12-l2': '母亲的名字被涂改七次，必须由女儿亲手写回原样。',
+  'ch12-l3': '最后一页正在变白，沈砚只有一次重写结局的机会。',
+  'ch13-l1': '新定城志要把两套记忆钉在一页上，否则城市会继续分裂。',
+  'ch13-l2': '第二页只在月光里浮一次，沈砚必须读出上面的批注。',
+  'ch13-l3': '校勘者按正在自动褪色，沈砚得在它消失前抄完。',
+  'ch14-l1': '房间的记录要求实时补全，沈砚想知道读者究竟看见了什么。',
+  'ch14-l2': '阅读记录会改写现实，她必须写下页码，阻止下一次误读。',
+  'ch14-l3': '镜子只回答一次，问题必须写得让读者无法回避。',
+  'ch15-l1': '火塘边的故事每复述一遍就少一段，沈砚必须替第七个人记下。',
+  'ch15-l2': '火塘熄灭后，黑暗会吃掉所有声音，她要先写下静默。',
+  'ch15-l3': '第一句话只能在石头上写一次，写错，火塘就再也不会亮。',
+  'ch16-l1': '简要一个理由，沈砚必须写下能让他松开书脊的句子。',
+  'ch16-l2': '最后一页正在收拢，沈砚得先写下把笔交出去的那句话。',
+  'ch16-l3': '全书只剩一个空，沈砚必须决定用什么字结束这一次阅读。'
+};
+
+  </script>
+  <script>
+/* 隐藏结局的“角色台词 / 回忆小字”提示
+ * 不直接列出条件，用角色自己的说法留下可执行的线索。
+ */
+window.INK_HINTS = {
+  characters: {
+    'shen-wu-jiu': [
+      '十六卷全留在页边，七条旁注画满圈，第七个圈会自己合上。',
+      '河底还有第二个句号。三笔都不迟，七圈都画圆，它才会浮上来。'
+    ],
+    'a-jian': [
+      '若你迟到七次，空白会给你留一把椅子。别急着道歉，先坐下。',
+      '删去十六卷之后再迟到七次，空白会请你喝茶。'
+    ],
+    'jian': [
+      '删去十六卷，书就会轻得能被一口气读完。',
+      '删去第九卷，并至少迟一笔——塔门后还有一间校经阁。'
+    ],
+    'reader': [
+      '旁注上的圈不是装饰，是让我抬头。够七个，我就会出现。',
+      '如果你把十六卷都留下，又迟到了七次，我们可以一起读同一页。'
+    ],
+    'lao-zhou': [
+      '灯可以晚一点亮。有人会等你把最后一个字写完。'
+    ],
+    'qu-bu-wang': [
+      '全留、全及时、一个圈也不画——那天夜里，我替你守灯。',
+      '三笔及时，把第十一卷留在页边，万人阵里会多出一个空位。'
+    ],
+    'lu-guan-lan': [
+      '四十八笔都不迟，七个圈都画圆，校勘者会来收走你的笔。'
+    ],
+    'old-woman': [
+      '把十六卷都删去，再回火塘边坐坐。空白会给你让个位置。'
+    ],
+    'a-ci': [
+      '爸爸把书合上时，请替我把那一页留空。',
+      '若十六卷都被删去，四十八笔却都不迟，第七版会认你做主角。'
+    ],
+    'wen-sheng': [
+      '火里还有第七页。三笔都及时，再删去第五卷，它会自己浮出来。'
+    ],
+    'pei-zhao': [
+      '四十八笔都不迟，才配刻最后一页。刻刀会记住你的手。'
+    ]
+  },
+  memories: {
+    m09: '火里还有一页没有烧完。三笔及时，再删去第五卷，它会浮出来。',
+    m14: '河底的第二个句号，只在三笔及时、七圈画满时浮起。',
+    m18: '删去第九卷，并至少迟一笔，塔门后还有一间校经阁。',
+    m19: '把十六卷都删去，阿辞的名字就会从死者册上彻底消失。',
+    m21: '三笔及时，把第十一卷留在页边，万人阵里会多出一个空位。',
+    m26: '十六卷全留，七圈画满，第七个圈会替你翻开第二页。',
+    m27: '如果你把十六卷都留下，又迟到七次，这杯茶会一直是温的。',
+    m29: '全留、全及时、零圈，守页人会在火塘边替你守夜。',
+    m31: '若四十八笔都不迟，又删去十六卷，第七版会重新开始。',
+    m32: '第七个圈不是句号。它只会在十六卷全留、七条旁注都画圈时合上。'
+  }
+};
+
+  </script>
+  <script>
+/* 《墨蚀：拾字纪》暗线
+ * 每卷一段，与明线同章并行；由沈无咎、阿笺、简、陆观澜、读者、老妇人等页边视角讲述。
+ */
+window.INK_DARK_LINE = [
+  {
+    id: 'dark-ch1',
+    chapter: 'ch1',
+    title: '钟腹里的粉笔字',
+    pov: '沈无咎',
+    text: '钟声停下的前一夜，我从页边回到钟腹。空白已经吃掉了「鸣」字的最后一笔，我只能用自己的手指补上。粉笔灰落在铜壁上，像一小片不肯化的雪。我知道沈砚会来。我也知道，她不会认出这是母亲的笔迹——我每次从页边回来，都会少一个偏旁。',
+    clue: '十六卷全留、七圈画满，钟腹里会响起第八下。'
+  },
+  {
+    id: 'dark-ch2',
+    chapter: 'ch2',
+    title: '纸人醒来之前',
+    pov: '阿笺',
+    text: '我在纸雨里醒来。第一眼看见的不是沈砚，是陆观澜。他叫了一个名字，那个名字让我的纸页从里到外发烫。我知道自己不该记得，可我的边角里藏着沈无咎的字：替她看着小砚。于是我低下头，假装什么也不懂。',
+    clue: '迟到七次之后，纸人会在门口等你。'
+  },
+  {
+    id: 'dark-ch3',
+    chapter: 'ch3',
+    title: '第七行是谁刻掉的',
+    pov: '裴玄',
+    text: '第七行是我刻掉的。陆观澜按住我的手腕，沈无咎站在塔门边，谁也没有阻止。那行字说「人非字，不可删」。我刻完最后一刀，听见塔心有个孩子在哭。后来我才知道，那孩子是沈砚；她那时还没有被写进第七版。',
+    clue: '四十八笔都不迟、七圈都画圆，校勘者会来收笔。'
+  },
+  {
+    id: 'dark-ch4',
+    chapter: 'ch4',
+    title: '当票的赎金',
+    pov: '阿笺',
+    text: '沈砚在灯下看当票时，我在灯影外数自己身上的字。赎金不是墨尘，是我从纸页上撕下来的三行边注。掌柜不肯收，说纸人的字不值钱。我把那三行字按在柜台上，说：那你看清楚，这是谁的字。他看完，手抖了很久。'
+  },
+  {
+    id: 'dark-ch5',
+    chapter: 'ch5',
+    title: '火不是我点的',
+    pov: '简',
+    text: '火不是我点的。删页会里有人等不及了。我站在书楼外，看三千卷书一起烧，忽然想起阿辞死那天，灵堂里也烧过纸。闻笙在火里听见一页没有声音的书；我知道那一页是什么——是我写给阿辞的公文，上面还留着我删掉的签名。',
+    clue: '三笔及时，再删去第五卷，火里会留下第七页。'
+  },
+  {
+    id: 'dark-ch6',
+    chapter: 'ch6',
+    title: '信为什么写在背面',
+    pov: '沈无咎',
+    text: '我不能把信写在正面。正面会被今本覆盖，被校勘者按删掉，被下一版当成错字。只有纸背能留住一个母亲最后的话。我写「小砚，别怕空白」时，墨已经快用完了。最后那个「白」字少了一撇，她大概会以为那是泪痕。',
+    clue: '十六卷全留、七圈画满，第七个圈会自己合上。'
+  },
+  {
+    id: 'dark-ch7',
+    chapter: 'ch7',
+    title: '第二个句号',
+    pov: '沈无咎',
+    text: '河底有两个句号。第一个是初版末行的，第二个是阿辞的。阿辞死前写了一半句子，简把句号也删了。我把第二个句号按在河底，等一个愿意逆流的人来捞。沈砚捞起它时，我听见阿辞在很远的地方笑了一声。',
+    clue: '三笔及时、七圈画满，河底会浮出第二个句号。'
+  },
+  {
+    id: 'dark-ch8',
+    chapter: 'ch8',
+    title: '第九十八张请柬',
+    pov: '简',
+    text: '无名宴的第九十八张请柬是我送进去的。没有名字，只有一个空位。我想看看，一座城要怎样吃饭，才能假装死者从未存在。市长举杯时，我在后厨把阿辞的画像烧了。灰落在汤里，没有人尝出来。'
+  },
+  {
+    id: 'dark-ch9',
+    chapter: 'ch9',
+    title: '塔门为什么从里面锁',
+    pov: '陆观澜',
+    text: '沈砚以为我被追兵关在塔里。其实门是我从里面锁的。三十年前我删掉那行字，三十年后我不能再让她替我删掉第二行。我坐在废字堆里，把三个孩子的名字拼在一起，拼到一半，听见门外有人叫我师父。我没有应。',
+    clue: '删去第九卷，并至少迟一笔，塔门后还有第七版。'
+  },
+  {
+    id: 'dark-ch10',
+    chapter: 'ch10',
+    title: '删掉阿辞的那天',
+    pov: '简',
+    text: '我删阿辞的名字时，她就在我身后。她问我：爸爸，你写完公文了吗？我说快了。她没有哭，只说：那你写吧，写完我就不疼了。第二天，名册上少了一行，灵堂里少了一个人，只有我记得她坐在我身后。',
+    clue: '把十六卷都删去，再迟到七次，阿辞会替你留一个空位。'
+  },
+  {
+    id: 'dark-ch11',
+    chapter: 'ch11',
+    title: '页边的第一个圈',
+    pov: '读者',
+    text: '万人同写的那一夜，我在页边画了第一个圈。不是名字，也不是字，只是一个很小的圈。沈砚看不见我，可她的笔在圈边停了一下。她大概以为那是墨点。我没有擦掉。我想让她知道：有人在看。',
+    clue: '三笔及时，把第十一卷留在页边，万人阵里会多出一个空位。'
+  },
+  {
+    id: 'dark-ch12',
+    chapter: 'ch12',
+    title: '记得两个字',
+    pov: '读者',
+    text: '沈砚在城门口写下「记得」时，我的手在页边抖了一下。不是因为她写得好看，是因为她写的时候没有问任何人这样对不对。她只是写了。我忽然明白，读者能改故事，但改不了一个人愿意承担的那一笔。'
+  },
+  {
+    id: 'dark-ch13',
+    chapter: 'ch13',
+    title: '第三页的死者',
+    pov: '校勘者',
+    text: '第七版第三页，沈砚死了。死因写得很清楚：替母亲挡下空白。校样退回来时，页边有一行铅笔字：读者不接受。我们围坐了一夜，最后决定把她写活。没有人问她自己愿不愿意。直到很久以后，我才在页边听见她说：下一次，让我自己选。',
+    clue: '四十八笔全及时，再删去十六卷，第七版会重新开始。'
+  },
+  {
+    id: 'dark-ch14',
+    chapter: 'ch14',
+    title: '茶为什么一直温着',
+    pov: '读者',
+    text: '沈砚进来时，我把茶放在桌上。茶是温的，因为时间在页边不走，只在翻页时走。她坐下的那一刻，书页停住了。我听见她的心跳，比钟声还响。她问：有人吗。我没有回答。我怕一回答，她就会知道，读者也会害怕。',
+    clue: '十六卷全留、七圈、七次迟到，茶会一直是温的。'
+  },
+  {
+    id: 'dark-ch15',
+    chapter: 'ch15',
+    title: '第一遍讲述',
+    pov: '老妇人',
+    text: '火塘边的人问我，第一版是谁写的。我说没有第一版，只有第一遍。那遍故事讲完，听的人记住了母亲、河和钟，忘了我。后来每一版都从他们的记忆里长出来。沈砚以为她在找母亲，其实她在找那个愿意把故事讲下去的人。',
+    clue: '全留、全及时、一个圈也不画，火塘边会留一个守夜的位置。'
+  },
+  {
+    id: 'dark-ch16',
+    chapter: 'ch16',
+    title: '页边退开',
+    pov: '沈无咎',
+    text: '最后一页，我本该站在沈砚身边。可一个守字人不能替主角走完最后一步。我从页边退开，像一句话说完之后留下的停顿。她看不见我，却知道我在。这就够了。她写下最后一个字时，我终于可以把「母亲」这个身份放下，只做一个读过她的人。',
+    clue: '四十八笔全及时，再删去十六卷，第七版会认你做主角。'
+  }
+];
+
+  </script>
+  <script>
 /* 《墨蚀：拾字纪》深层档案
  * 页边批注、版本对照与可点击词条。
  * 这些内容不改变关卡文本，只让同一段故事出现第二层读法。
@@ -9433,6 +11515,66 @@ window.INK_DEEP = {
       related: ['校勘', '版本']
     },
     {
+      term: '墨界',
+      kind: '世界',
+      text: '由《万卷初版》与所有被读过的版本叠成的世界。纸面是今本，纸背是旧版，页边是读者留下的修改。墨界不是固定在某一页上的，它在每一次翻页时重新成立。',
+      related: ['原典', '版本', '纸背']
+    },
+    {
+      term: '拾遗城',
+      kind: '地点',
+      text: '墨界最后一座还有活字的城。城名换过三次：拾遗、不归、记得。每一次改名都对应一次版本更替，只有城北的报晓钟始终没有换过位置。',
+      related: ['活字塔', '白蚀', '版本']
+    },
+    {
+      term: '第七版',
+      kind: '版本',
+      text: '沈砚不存在的版本。在这一版里，她于第三页死去；校样退回时，页边多了一行铅笔字：读者不接受。于是校勘者把她写活，也把「读者」正式写进了墨界的历史。',
+      related: ['版本', '读者', '沈砚']
+    },
+    {
+      term: '名册',
+      kind: '器物',
+      text: '守夜人瞿不忘手画的名册。他不识字，用圈、叉和横线记录被遗忘的人。名册最后一页永远空着，留给守夜人自己——他说，等哪天忘了自己，就请别人替他画一个圈。',
+      related: ['瞿不忘', '失名者', '守字人']
+    },
+    {
+      term: '阿笺',
+      kind: '人物',
+      text: '沈无咎留下的纸灵，也是第七版的边注。每替沈砚挡一次空白，她身上就少一个字。她不是工具，也不是替身；她是母亲留给女儿的一句「替她看着小砚」。',
+      related: ['沈无咎', '沈砚', '纸背']
+    },
+    {
+      term: '陆观澜',
+      kind: '人物',
+      text: '校经阁前主事，沈砚的师父，三十年前删去初版末行的三人之一。他教沈砚补字，也教她怀疑原文。他胸口的「罪」字是自己刻的，最后一课是让学生不要补他。',
+      related: ['沈砚', '沈无咎', '校勘']
+    },
+    {
+      term: '裴照',
+      kind: '人物',
+      text: '刻字世家第七代，活字塔青年匠师。裴家世代替官府刻去罪臣姓名；他十六岁才知道，父亲刻掉的第一个名字是自己的姑母。他留在塔里，是为了把那些名字一枚枚刻回背面。',
+      related: ['裴玄', '活字塔', '第七版']
+    },
+    {
+      term: '存在',
+      kind: '法则',
+      text: '在墨界，存在不是被户籍、版本或读者预先定义的东西。沈砚的身份一直不确定，但她每一次选择补字、选择让出下一页，才把自己变成了「沈砚」。存在先于本质，这句话在墨界的意思是：你先写，才知道自己是谁。',
+      related: ['自由', '空白', '读者']
+    },
+    {
+      term: '自由',
+      kind: '法则',
+      text: '墨界没有预先写好的正确结局。合书、留白、落字、交笔，都没有世界颁发的保证。自由不是知道答案，而是在不知道答案时仍然选择，并承担这一版被写成什么样。',
+      related: ['存在', '荒诞', '未完成']
+    },
+    {
+      term: '荒诞',
+      kind: '状态',
+      text: '世界不回答人的问题，人却仍然写。墨界的荒诞不是绝望，而是承认没有终极校勘之后，仍然愿意为某一页负责。沈砚最后没有等到母亲、读者或原典给她一个正确答案。',
+      related: ['自由', '空白', '读者']
+    },
+    {
       term: '未完成',
       kind: '状态',
       text: '不是失败，也不是拖延。未完成是故事仍然呼吸的证据。第十六卷之后，沈砚把「未完成」写在城门上，作为对读者最诚实的邀请。',
@@ -9446,11 +11588,27 @@ window.INK_DEEP = {
 /* 数据总装与世界观常量 */
 (function () {
   const deep = window.INK_DEEP || { notes: {}, variants: {}, lexicon: [] };
+  const scenes = window.INK_SCENES || { scenes: {}, interludes: {} };
+  const bridges = window.INK_BRIDGES || {};
+  const hints = window.INK_HINTS || { characters: {}, memories: {} };
 
   window.INK_STORY.forEach((chapter) => {
     if (!chapter.part) chapter.part = chapter.index <= 12 ? 'outer' : 'inner';
     chapter.notes = deep.notes[chapter.id] || [];
     chapter.variants = deep.variants[chapter.id] || [];
+    chapter.scene = scenes.scenes[chapter.id] || '';
+    chapter.interlude = scenes.interludes[chapter.id] || null;
+    chapter.levels.forEach((level) => {
+      level.reason = bridges[level.id] || level.intro;
+    });
+  });
+
+  const people = window.INK_PEOPLE || { characters: [], memories: [] };
+  people.characters.forEach((character) => {
+    character.hints = hints.characters[character.id] || [];
+  });
+  people.memories.forEach((memory) => {
+    memory.clue = hints.memories[memory.id] || '';
   });
 
   window.INK_DATA = {
@@ -9458,9 +11616,9 @@ window.INK_DEEP = {
       title: '墨蚀',
       subtitle: '拾字纪',
       en: 'INKFALL · THE UNWRITTEN',
-      version: '2.6',
+      version: '3.2',
       tagline: '当世界开始失字，你是最后一个补字师。',
-      description: '一款以汉字为骨、以故事为墨的叙事打字游戏。16 卷 48 个刻印节点；24 个独立卷结局、20 个终局，其中 12 个隐藏结局；每关限时、每卷分支。',
+      description: '一款以汉字为骨、以故事为墨的叙事打字游戏。16 卷 48 个刻印节点；明线 16 卷 + 暗线 16 段；36 个世界观词条、20 份人物档案、32 段回忆、44 种正经结局。',
       world: [
         {
           title: '墨界',
@@ -9556,7 +11714,7 @@ window.INK_DEEP = {
         hidden: false,
         hint: '给世界一个不再改写的结局。',
         title: '世界有了一个不再改写的结局',
-        text: '你合上了书。拾遗城停在最后一页，所有人终于不必再被下一版修改。沈砚没有消失，她只是停在你合上书的那一页里。'
+        text: '你合上了书。拾遗城停在最后一页，所有人终于不必再被下一版修改。瞿不忘合上名册，老周把长街的灯一盏盏熄掉。沈砚没有消失，她只是停在你合上书的那一页里。合上也是一种选择，不必等世界批准。'
       },
       {
         id: 'blank',
@@ -9566,7 +11724,7 @@ window.INK_DEEP = {
         hidden: false,
         hint: '不写结局，把空白留成邀请。',
         title: '空白第一次成为邀请',
-        text: '你把最后一页留空。没有结局，也没有告别。空白不再是白蚀，而是下一本书尚未落笔的地方。'
+        text: '你把最后一页留空。没有结局，也没有告别。老妇人在火塘边留了一个空位，说给还没来的人坐。空白不再是白蚀，而是下一本书尚未落笔的地方。空白不会回答你。你仍然要决定，往里面放什么。'
       },
       {
         id: 'word',
@@ -9576,7 +11734,7 @@ window.INK_DEEP = {
         hidden: false,
         hint: '在最后一页留下一个自己的字。',
         title: '世界记得你写下的字',
-        text: '你在最后一页留下了一个字。它不会被上传，也不会被排名，只留在这台机器和这段故事里。'
+        text: '你在最后一页留下了一个字。它不会被上传，也不会被排名，只留在这台机器和这段故事里。瞿不忘把你的字抄进名册，笔画很轻，像怕把它惊醒。意义不是被找到的，是被写下的。'
       },
       {
         id: 'pass',
@@ -9586,7 +11744,7 @@ window.INK_DEEP = {
         hidden: false,
         hint: '不写结局，把笔交给下一位读者。',
         title: '笔没有被放下，只是换了手',
-        text: '你没有写最后一个字，也没有合上书。你把笔搁在页边，向后退了一步。下一页会由另一个人翻开，而沈砚终于不必再为每一个读者活一遍。书页之间传来很轻的翻动声，像有人在很远的地方接住了这支笔。'
+        text: '你没有写最后一个字，也没有合上书。你把笔搁在页边，向后退了一步。裴照接过笔，在桌角刻了一个很小的「续」。下一页会由另一个人翻开，而沈砚终于不必再为每一个读者活一遍。书页之间传来很轻的翻动声，像有人在很远的地方接住了这支笔。自由不是没有下一页，而是把下一页交给别人。'
       },
       {
         id: 'archive',
@@ -9686,7 +11844,7 @@ window.INK_DEEP = {
         hidden: true,
         hint: '在七次时限之后仍然把字写完。',
         title: '空白为迟到的人留了一把椅子',
-        text: '你总是晚一步。空白先漫过纸面，你才把最后一个字补上。可空白没有吃掉你，它在每一次迟到的地方为你留了一把椅子。后来拾遗城的人说，夜里能听见翻页声，很慢，很稳，像一个不肯赶路的人。'
+        text: '你总是晚一步。空白先漫过纸面，你才把最后一个字补上。可空白没有吃掉你，它在每一次迟到的地方为你留了一把椅子。老周把长街的灯留到很晚，说夜里还有人没写完。后来拾遗城的人说，翻页声很慢，很稳，像一个不肯赶路的人。'
       },
       {
         id: 'unwriter',
@@ -9696,7 +11854,7 @@ window.INK_DEEP = {
         hidden: true,
         hint: '把十六卷全部从目录里删去。',
         title: '书轻得能被一口气读完',
-        text: '你删去了所有卷宗。世界变得很轻，轻到能够被一口气读完。沈砚没有消失，她只是成了页边的一条空白。删页会终于承认：他们不是恨故事，他们只是希望故事不要再让人疼。'
+        text: '你删去了所有卷宗。世界变得很轻，轻到能够被一口气读完。沈砚没有消失，她只是成了页边的一条空白。简抱着阿辞的旧画像，第一次没有删。删页会终于承认：他们不是恨故事，他们只是希望故事不要再让人疼。'
       },
       {
         id: 'co-reader',
@@ -9716,7 +11874,7 @@ window.INK_DEEP = {
         hidden: true,
         hint: '删去十六卷，并迟到七次。',
         title: '空白给你留了一个位置',
-        text: '你删去了十六卷，也总是迟到。空白没有生气，反而在页边为你留了一个位置。它说：终于有人不急着读完我。于是你坐在空白里，听那些被删掉的故事一个一个讲完。它们没有名字，但都记得自己曾经被写下过。'
+        text: '你删去了十六卷，也总是迟到。空白没有生气，反而在页边为你留了一个位置。阿笺的纸鸟落在空位上，收起翅膀。它说：终于有人不急着读完我。于是你坐在空白里，听那些被删掉的故事一个一个讲完。它们没有名字，但都记得自己曾经被写下过。'
       },
       {
         id: 'corrector',
@@ -9726,7 +11884,7 @@ window.INK_DEEP = {
         hidden: true,
         hint: '四十八笔都赶在空白之前，并在七条旁注上画圈。',
         title: '校勘者来收走了你的笔',
-        text: '四十八笔没有一笔迟到，七个圈也都画得极圆。校勘者从页边走来，没有脸，只有一双沾着朱墨的手。他收走你的笔，在第十六卷的末页写下：此本已校，可以不刊。你忽然明白，被校勘者承认，不等于被世界需要——但已经够了。'
+        text: '四十八笔没有一笔迟到，七个圈也都画得极圆。校勘者从页边走来，没有脸，只有一双沾着朱墨的手。陆观澜的旧校勘笔在桌上自己立起来，笔尖朝向你。他收走你的笔，在第十六卷的末页写下：此本已校，可以不刊。你忽然明白，被校勘者承认，不等于被世界需要——但已经够了。'
       },
       {
         id: 'keeper',
@@ -9736,7 +11894,7 @@ window.INK_DEEP = {
         hidden: true,
         hint: '十六卷都留在页边，四十八笔皆及时，却没有画下任何圈。',
         title: '有人替你把灯守到了天亮',
-        text: '你把十六卷都留在页边，四十八笔没有一笔迟到。可你一条旁注也没有圈。夜里，守页人提着一盏没有火的灯走来，在每一卷的页脚坐一会儿。他说：不画圈也很好，说明你只是读，不急着留下证据。天亮时，书页没有多一个字，灯却亮着。'
+        text: '你把十六卷都留在页边，四十八笔没有一笔迟到。可你一条旁注也没有圈。夜里，守页人提着一盏没有火的灯走来，在每一卷的页脚坐一会儿。瞿不忘在名册最后多留了一页，没有写名字。他说：不画圈也很好，说明你只是读，不急着留下证据。天亮时，书页没有多一个字，灯却亮着。'
       },
       {
         id: 'seventh-protagonist',
@@ -9746,11 +11904,14 @@ window.INK_DEEP = {
         hidden: true,
         hint: '十六卷全部删去，四十八笔却都赶在空白之前。',
         title: '第七版终于有了一个不迟到的沈砚',
-        text: '你删去了十六卷，却把四十八笔都赶在空白之前。第七版的校样自己翻开，里面没有读者，也没有页边；只有沈砚站在空白的正中央，第一次不必等谁来补写她。她抬头看了看你，说：这一版，我自己来。然后书从第一页开始，重新写了一遍。'
+        text: '你删去了十六卷，却把四十八笔都赶在空白之前。第七版的校样自己翻开，里面没有读者，也没有页边；只有沈砚站在空白的正中央，第一次不必等谁来补写她。简在火塘边听见阿辞叫了他一声，没有回头。沈砚抬头看了看你，说：这一版，我自己来。然后书从第一页开始，重新写了一遍。'
       }
     ],
     lexicon: deep.lexicon || [],
     volumeEndings: window.INK_VOLUME_ENDINGS || [],
+    characters: (window.INK_PEOPLE && window.INK_PEOPLE.characters) || [],
+    memories: (window.INK_PEOPLE && window.INK_PEOPLE.memories) || [],
+    darkLine: window.INK_DARK_LINE || [],
     chapters: window.INK_STORY,
     sideStories: window.INK_SIDES,
     challenges: window.INK_CHALLENGES
@@ -9778,6 +11939,36 @@ window.INK_DEEP = {
   const VOLUME_ENDINGS = DATA.volumeEndings || [];
   const VOLUME_ENDING_MAP = new Map(VOLUME_ENDINGS.map((ending) => [ending.id, ending]));
   const TOTAL_ENDINGS = ENDINGS.length + VOLUME_ENDINGS.length;
+  const CHARACTERS = DATA.characters || [];
+  const MEMORIES = DATA.memories || [];
+  const CHARACTER_MAP = new Map(CHARACTERS.map((character) => [character.id, character]));
+  const MEMORY_MAP = new Map(MEMORIES.map((memory) => [memory.id, memory]));
+  const TOTAL_MEMORIES = MEMORIES.length;
+  const DARK_LINE = DATA.darkLine || [];
+  const DARK_MAP = new Map(DARK_LINE.map((entry) => [entry.chapter, entry]));
+  const TOTAL_DARK = DARK_LINE.length;
+  const ENDING_ECHOES = {
+    closed: ['qu-bu-wang', 'lao-zhou', 'a-jian'],
+    blank: ['old-woman', 'a-jian'],
+    word: ['qu-bu-wang', 'shen-wu-jiu'],
+    pass: ['pei-zhao', 'shen-yan'],
+    archive: ['qu-bu-wang', 'lu-guan-lan'],
+    'next-page': ['old-woman', 'reader'],
+    burn: ['wen-sheng', 'pei-zhao'],
+    'read-aloud': ['a-jian', 'qu-bu-wang'],
+    mail: ['shen-yan', 'a-jian', 'lao-luo'],
+    lamp: ['lao-zhou', 'a-he'],
+    rubbing: ['pei-zhao', 'shen-wu-jiu'],
+    return: ['qu-bu-wang', 'lao-zhou'],
+    seventh: ['reader', 'shen-yan'],
+    slow: ['lao-zhou', 'reader'],
+    unwriter: ['jian', 'a-ci'],
+    'co-reader': ['reader', 'shen-yan'],
+    'blank-friend': ['a-jian', 'old-woman'],
+    corrector: ['lu-guan-lan', 'reader'],
+    keeper: ['qu-bu-wang', 'reader'],
+    'seventh-protagonist': ['jian', 'a-ci', 'shen-yan']
+  };
   const PARTS = DATA.meta.parts || {
     outer: { key: 'outer', seal: '表', label: '表卷', en: 'THE SURFACE', title: '纸面', desc: '' },
     inner: { key: 'inner', seal: '背', label: '里卷', en: 'THE VERSO', title: '纸背', desc: '' }
@@ -9816,6 +12007,7 @@ window.INK_DEEP = {
   const targetText = $('#targetText');
   const pauseVeil = $('#pauseVeil');
   const toastRoot = $('#toastRoot');
+  const typingReason = $('#typingReason');
   const lexiconDrawer = $('#lexiconDrawer');
   const lexiconScrim = $('#lexiconScrim');
   const lexiconTerm = $('#lexiconTerm');
@@ -9833,6 +12025,8 @@ window.INK_DEEP = {
   let drawHistory = {};
   let audioCtx = null;
   let currentLexiconTerm = '';
+  let characterView = 'official';
+  let currentCharacterId = '';
 
   /* ------------------------------------------------------------
      Utilities
@@ -9990,6 +12184,47 @@ window.INK_DEEP = {
 
   function volumeEndingsUnlockedCount() {
     return Object.keys(save.endings || {}).filter((id) => id.startsWith('vol-')).length;
+  }
+
+  function characterVisible(character) {
+    if (!character) return false;
+    if (character.hidden && !characterMarginVisible(character)) return false;
+    const chapter = CHAPTERS[character.unlockChapter - 1];
+    return Boolean(chapter && chapterUnlocked(chapter));
+  }
+
+  function characterMarginVisible(character) {
+    if (!character) return false;
+    const chapter = CHAPTERS[character.revealChapter - 1];
+    return Boolean(chapter && chapterDone(chapter));
+  }
+
+  function memoriesForChapter(chapter) {
+    return MEMORIES.filter((memory) => memory.chapter === chapter.id);
+  }
+
+  function memoryUnlocked(memory) {
+    const chapter = CHAPTER_MAP.get(memory.chapter);
+    return Boolean(chapter && chapterDone(chapter));
+  }
+
+  function memoryUnlockedCount() {
+    return MEMORIES.filter(memoryUnlocked).length;
+  }
+
+  function charactersForChapter(chapter) {
+    return CHARACTERS.filter((character) => character.appearsIn && character.appearsIn.includes(chapter.id) && characterVisible(character));
+  }
+
+  function darkForChapter(chapter) {
+    return DARK_MAP.get(chapter.id) || null;
+  }
+
+  function darkUnlockedCount() {
+    return DARK_LINE.filter((entry) => {
+      const chapter = CHAPTER_MAP.get(entry.chapter);
+      return Boolean(chapter && chapterDone(chapter));
+    }).length;
   }
 
   function sideChoiceCount(choice) {
@@ -10648,11 +12883,233 @@ window.INK_DEEP = {
     return next.chapter.seal;
   }
 
+  function renderPeople(tab) {
+    const active = tab === 'memories' ? 'memories' : 'characters';
+    const visibleCharacters = CHARACTERS.filter(characterVisible);
+    const hiddenCount = CHARACTERS.length - visibleCharacters.length;
+    const unlockedMemories = MEMORIES.filter(memoryUnlocked);
+    const memoryChapters = CHAPTERS.filter((chapter) => chapterDone(chapter) && memoriesForChapter(chapter).length);
+
+    return `
+      <div class="view-enter page people-page">
+        <div class="container">
+          <div class="page-head">
+            <div>
+              <span class="kicker">PERSONAE · MEMORIA</span>
+              <h1>人物志<br><em>每个名字都有两种写法。</em></h1>
+              <p class="page-lede">官修档案记录一个人在城里的位置；页边档案记录他在纸上留下的重量。人物会随卷宗显影，回忆只在你读完那一卷后出现。未遇到的名字，不会提前出现。</p>
+            </div>
+            <div class="page-side">
+              <span>已显影人物</span>
+              <strong>${visibleCharacters.length} / ${CHARACTERS.length}</strong>
+              <small>回忆显影 · ${unlockedMemories.length} / ${TOTAL_MEMORIES}</small>
+            </div>
+          </div>
+
+          <div class="people-tabs">
+            <a class="people-tab ${active === 'characters' ? 'is-active' : ''}" href="#/people">
+              <span>人</span><strong>人物志</strong><small>${visibleCharacters.length} 已显影</small>
+            </a>
+            <a class="people-tab ${active === 'memories' ? 'is-active' : ''}" href="#/people/memories">
+              <span>忆</span><strong>回忆录</strong><small>${unlockedMemories.length} / ${TOTAL_MEMORIES}</small>
+            </a>
+          </div>
+
+          ${active === 'characters' ? `
+            <div class="people-intro">
+              <span>${hiddenCount > 0 ? `还有 ${hiddenCount} 个名字尚未显形。` : '所有名字都已显影。'}</span>
+              <p>点击人物查看「官修版」；读过对应卷宗后，可翻开「页边版」。</p>
+            </div>
+            <div class="people-grid">
+              ${visibleCharacters.map((character, index) => `
+                <button class="person-card" type="button" data-action="open-character" data-character="${character.id}" style="--i:${index}">
+                  <span class="person-portrait"><b>${character.seal}</b><i></i></span>
+                  <span class="person-copy">
+                    <small>${escapeHTML(character.role)} · ${escapeHTML(character.faction)}</small>
+                    <strong>${escapeHTML(character.name)}</strong>
+                    <p>${escapeHTML(character.official)}</p>
+                  </span>
+                  <span class="person-state">${characterMarginVisible(character) ? '页边已显影' : '仅官修版'}</span>
+                </button>
+              `).join('')}
+            </div>
+            ${visibleCharacters.length ? '' : '<div class="empty-state"><div><div class="seal-mark">人</div><h2>还没有人显影</h2><p>先去主线里遇见第一个人。</p></div></div>'}
+          ` : `
+            <div class="memory-summary">
+              <div><span>回忆录</span><strong>${unlockedMemories.length} / ${TOTAL_MEMORIES}</strong></div>
+              <p>每一卷有两段回忆。它们不是正文，而是正文没有写下的那部分。</p>
+            </div>
+            ${memoryChapters.length ? memoryChapters.map((chapter) => `
+              <section class="memory-chapter">
+                <header>
+                  <span>第${chapter.numeral}卷 · ${escapeHTML(chapter.title)}</span>
+                  <b>${memoriesForChapter(chapter).filter(memoryUnlocked).length} / 2</b>
+                </header>
+                <div class="memory-list">
+                  ${memoriesForChapter(chapter).filter(memoryUnlocked).map((memory) => `
+                    <button class="memory-card" type="button" data-action="open-memory" data-memory="${memory.id}">
+                      <span class="memory-kind">${escapeHTML(memory.kind)}</span>
+                      <strong>${escapeHTML(memory.title)}</strong>
+                      <small>${escapeHTML(memory.speaker)} · ${firstChars(memory.text, 54)}…</small>
+                      <span class="memory-arrow">↗</span>
+                    </button>
+                  `).join('')}
+                </div>
+              </section>
+            `).join('') : '<div class="empty-state"><div><div class="seal-mark">忆</div><h2>回忆还没有显影</h2><p>完成一卷后，再回到这里。</p></div></div>'}
+          `}
+        </div>
+      </div>
+    `;
+  }
+
+  function openCharacter(characterId, view) {
+    const character = CHARACTER_MAP.get(characterId);
+    if (!character || !characterVisible(character)) {
+      toast('这个人的名字还没有显影。');
+      return;
+    }
+    currentCharacterId = character.id;
+    const marginVisible = characterMarginVisible(character);
+    characterView = marginVisible && view === 'margin' ? 'margin' : 'official';
+    const related = (character.relations || [])
+      .map((relation) => ({ relation, character: CHARACTER_MAP.get(relation.id) }))
+      .filter((item) => item.character && characterVisible(item.character));
+    const memories = MEMORIES.filter((memory) => memory.speaker === character.name && memoryUnlocked(memory));
+    openDialog(`
+      <div class="dialog-card character-dialog">
+        ${closeButtonHTML()}
+        <div class="character-dialog-head">
+          <span class="person-portrait large"><b>${character.seal}</b><i></i></span>
+          <div>
+            <div class="dialog-kicker">人物档案 · ${escapeHTML(character.role)}</div>
+            <h2>${escapeHTML(character.name)}<span class="sub">${escapeHTML(character.faction)}</span></h2>
+          </div>
+        </div>
+        <p class="character-voice">「${escapeHTML(character.voice)}」</p>
+        <div class="character-view-tabs">
+          <button class="${characterView === 'official' ? 'is-active' : ''}" type="button" data-action="character-view" data-character="${character.id}" data-view="official">官修版</button>
+          <button class="${characterView === 'margin' ? 'is-active' : ''} ${marginVisible ? '' : 'is-locked'}" type="button" data-action="character-view" data-character="${character.id}" data-view="margin" ${marginVisible ? '' : 'disabled'}>页边版 ${marginVisible ? '' : '· 未显影'}</button>
+        </div>
+        <div class="character-record ${characterView}">
+          <span>${characterView === 'official' ? 'CITY RECORD · 官修' : 'MARGIN · 页边'}</span>
+          <p>${escapeHTML(characterView === 'official' ? character.official : character.margin)}</p>
+        </div>
+        ${marginVisible && characterView === 'margin' && character.hints && character.hints.length ? `
+          <div class="character-hints">
+            <span>页边暗语 · MARGINAL WHISPER</span>
+            ${character.hints.map((hint) => `<p>${escapeHTML(hint)}</p>`).join('')}
+          </div>
+        ` : ''}
+        ${related.length ? `
+          <div class="character-relations">
+            <span>关系</span>
+            <div>${related.map(({ relation, character: target }) => `<button type="button" data-action="open-character" data-character="${target.id}">${escapeHTML(target.name)}<small>${escapeHTML(relation.label)}</small></button>`).join('')}</div>
+          </div>
+        ` : ''}
+        ${memories.length ? `
+          <div class="character-memories">
+            <span>相关回忆</span>
+            ${memories.map((memory) => `<button type="button" data-action="open-memory" data-memory="${memory.id}">${escapeHTML(memory.title)} <small>${escapeHTML(memory.kind)}</small></button>`).join('')}
+          </div>
+        ` : ''}
+      </div>
+    `, { wide: true });
+  }
+
+  function openMemory(memoryId) {
+    const memory = MEMORY_MAP.get(memoryId);
+    if (!memory) return;
+    if (!memoryUnlocked(memory)) {
+      toast('这段回忆还没有显影。');
+      return;
+    }
+    const chapter = CHAPTER_MAP.get(memory.chapter);
+    openDialog(`
+      <div class="dialog-card memory-dialog">
+        ${closeButtonHTML()}
+        <div class="dialog-kicker">第${chapter.numeral}卷 · 回忆 · ${escapeHTML(memory.kind)}</div>
+        <h2>${escapeHTML(memory.title)}<span class="sub">${escapeHTML(memory.speaker)}</span></h2>
+        <p class="memory-text">${escapeHTML(memory.text)}</p>
+        ${memory.clue ? `<div class="memory-clue"><span>页边小字 · CLUE</span><p>${escapeHTML(memory.clue)}</p></div>` : ''}
+        <p class="dialog-note">回忆不是正文。它只负责解释正文为什么长成现在这样。</p>
+        <div class="dialog-actions">
+          <button class="btn btn-ghost" type="button" data-action="close-dialog">合上回忆 <span class="arrow">→</span></button>
+        </div>
+      </div>
+    `, { wide: true });
+  }
+
   /* ------------------------------------------------------------
      Story index
      ------------------------------------------------------------ */
 
+  function renderDarkLine() {
+    const innerLocked = !outerComplete();
+    return `
+      <div class="view-enter page story-page dark-line-page">
+        <div class="container">
+          <div class="page-head">
+            <div>
+              <span class="kicker">THE MARGIN · DARK LINE</span>
+              <h1>暗线 · 页边<br><em>沈砚走明线，别人替她走暗线。</em></h1>
+              <p class="page-lede">每一卷背后，都有另一个人在做沈砚看不见的事：沈无咎在钟腹写字，阿笺去赎当票，简在火场外看着，陆观澜从里面锁上塔门。暗线与明线同章并行，读完该卷才会显影。</p>
+            </div>
+            <div class="page-side">
+              <span>暗线显影</span>
+              <strong>${darkUnlockedCount()} / ${TOTAL_DARK}</strong>
+              <small>读完对应卷宗后解锁</small>
+            </div>
+          </div>
+
+          <div class="story-layer-tabs">
+            <a class="story-layer-tab" href="#/story/outer">
+              <span class="layer-tab-seal">表</span>
+              <span><strong>表卷</strong><small>明线 · 十二卷</small></span>
+            </a>
+            <a class="story-layer-tab ${innerLocked ? 'is-locked' : ''}" href="#/story/inner">
+              <span class="layer-tab-seal">背</span>
+              <span><strong>里卷</strong><small>纸背 · 四卷 · ${innerLocked ? '未显形' : `${innerCompletedCount()} / 4`}</small></span>
+            </a>
+            <a class="story-layer-tab is-active" href="#/story/dark">
+              <span class="layer-tab-seal">暗</span>
+              <span><strong>暗线</strong><small>页边 · 十六段 · ${darkUnlockedCount()} / ${TOTAL_DARK}</small></span>
+            </a>
+          </div>
+
+          <div class="dark-line-intro">
+            <span>明线记录“发生了什么”，暗线记录“谁替它付了代价”。</span>
+            <p>暗线不是另一个结局，而是同一件事的背面。它不会改写明线的结果，只会让你在重读时看见那些没有站在光里的人。</p>
+          </div>
+
+          <div class="dark-line-list">
+            ${CHAPTERS.map((chapter, index) => {
+              const entry = darkForChapter(chapter);
+              if (!entry) return '';
+              const unlocked = chapterDone(chapter);
+              return `
+                <article class="dark-thread ${unlocked ? 'is-unlocked' : 'is-locked'}">
+                  <div class="dark-thread-index"><span>${String(index + 1).padStart(2, '0')}</span><i></i></div>
+                  <div class="dark-thread-body">
+                    <header>
+                      <span>第${chapter.numeral}卷 · ${escapeHTML(chapter.title)}</span>
+                      <b>${unlocked ? escapeHTML(entry.pov) : '未显影'}</b>
+                    </header>
+                    ${unlocked
+                      ? `<h2>${escapeHTML(entry.title)}</h2><p>${escapeHTML(entry.text)}</p>${entry.clue ? `<div class="dark-clue"><span>页边小字</span><p>${escapeHTML(entry.clue)}</p></div>` : ''}`
+                      : `<h2>这一页还没有从背面透出来。</h2><p>完成第${chapter.numeral}卷后，暗线才会显影。</p>`}
+                  </div>
+                </article>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
   function renderStory(layer) {
+    if (layer === 'dark') return renderDarkLine();
     const activeLayer = layer === 'inner' ? 'inner' : 'outer';
     const part = PARTS[activeLayer];
     const list = layerChapters(activeLayer);
@@ -10694,6 +13151,10 @@ window.INK_DEEP = {
             <a class="story-layer-tab ${activeLayer === 'inner' ? 'is-active' : ''} ${innerLocked ? 'is-locked' : ''}" href="#/story/inner">
               <span class="layer-tab-seal">背</span>
               <span><strong>里卷</strong><small>纸背 · 四卷 · ${innerLocked ? '未显形' : `${innerCompletedCount()} / 4`}</small></span>
+            </a>
+            <a class="story-layer-tab" href="#/story/dark">
+              <span class="layer-tab-seal">暗</span>
+              <span><strong>暗线</strong><small>页边 · 十六段 · ${darkUnlockedCount()} / ${TOTAL_DARK}</small></span>
             </a>
           </div>
 
@@ -10910,6 +13371,7 @@ window.INK_DEEP = {
     const choice = chapterChoice(chapter.id);
     const relatedSides = SIDES.filter((side) => side.chapter === chapter.index && sideUnlocked(side));
     const volumes = done ? volumeEndingsForChapter(chapter).filter((ending) => !ending.hidden || volumeEndingUnlocked(ending)) : [];
+    const darkThread = darkForChapter(chapter);
 
     return `
       <article class="tree-chapter ${done ? 'is-done' : current ? 'is-current' : ''}">
@@ -10936,6 +13398,22 @@ window.INK_DEEP = {
           }).join('')}
           ${hiddenLevels > 0 ? `<span class="tree-level is-veiled">+ ${hiddenLevels} 笔未显形</span>` : ''}
         </div>
+
+        ${done && chapter.interlude ? `
+          <div class="tree-interlude">
+            <span>间</span>
+            <strong>${escapeHTML(chapter.interlude.title)}</strong>
+            <small>${escapeHTML(chapter.interlude.speaker)}</small>
+          </div>
+        ` : ''}
+
+        ${done && darkThread ? `
+          <div class="tree-interlude tree-dark-thread">
+            <span>暗</span>
+            <strong>${escapeHTML(darkThread.title)}</strong>
+            <small>${escapeHTML(darkThread.pov)}</small>
+          </div>
+        ` : ''}
 
         <div class="tree-fork">
           <span class="tree-fork-label">卷末分支（记录）</span>
@@ -11028,6 +13506,9 @@ window.INK_DEEP = {
     const variants = chapter.variants || [];
     const volumeEndings = volumeEndingsForChapter(chapter);
     const visibleVolumeEndings = volumeEndings.filter((ending) => !ending.hidden || volumeEndingUnlocked(ending) || volumeEndingEligible(ending));
+    const cast = charactersForChapter(chapter);
+    const chapterMemories = memoriesForChapter(chapter);
+    const darkThread = darkForChapter(chapter);
 
     return `
       <div class="view-enter page chapter-page layer-${part.key}">
@@ -11048,8 +13529,16 @@ window.INK_DEEP = {
               <div class="progress-number">${doneLevels} <em>/ 3</em></div>
               <div class="mini-progress"><i style="width:${(doneLevels / 3) * 100}%"></i></div>
               <p class="aside-note">${done ? '本章已完卷，可随时重读。' : next && next.chapter.id === chapter.id ? '从下一段空白开始。' : '本章尚有未补完的句子。'}</p>
+              ${cast.length ? `<div class="chapter-cast"><h3>本章人物</h3>${cast.map((character) => `<button type="button" data-action="open-character" data-character="${character.id}"><span>${character.seal}</span>${escapeHTML(character.name)}</button>`).join('')}</div>` : ''}
             </aside>
           </header>
+
+          ${chapter.scene ? `
+            <div class="chapter-scene">
+              <span>SCENE · 场景</span>
+              <p>${escapeHTML(chapter.scene)}</p>
+            </div>
+          ` : ''}
 
           <div class="reading-hint"><span>旁注</span> 正文中的虚线下划线可以展开词条；右侧是同一页的页边批注。</div>
 
@@ -11109,6 +13598,7 @@ window.INK_DEEP = {
                       <span class="level-role">${escapeHTML(level.role)}</span>
                       <h3>${escapeHTML(level.title)}</h3>
                       <span class="level-excerpt">${record ? '已刻印 · 可重读此段' : `${firstChars(level.text, 26)}…`}</span>
+                      <span class="level-reason">${escapeHTML(level.reason || '')}</span>
                       <span class="level-time">限时 ${timeLimitForText(level.text)} 秒 · ${record && record.branch === 'late' ? '上次迟笔' : record && record.branch === 'timely' ? '上次及时' : '等待落笔'}</span>
                     </span>
                     <span class="level-state">
@@ -11139,11 +13629,57 @@ window.INK_DEEP = {
             </div>
           `}
 
+          ${done && chapter.interlude ? `
+            <section class="chapter-interlude">
+              <div class="interlude-head">
+                <span>间章 · INTERLUDE</span>
+                <b>${escapeHTML(chapter.interlude.speaker)}</b>
+              </div>
+              <h2>${escapeHTML(chapter.interlude.title)}</h2>
+              <p>${escapeHTML(chapter.interlude.text)}</p>
+            </section>
+          ` : ''}
+
+          ${done && darkThread ? `
+            <section class="chapter-dark-thread">
+              <div class="dark-thread-head">
+                <span>暗线 · THE MARGIN</span>
+                <b>${escapeHTML(darkThread.pov)}</b>
+              </div>
+              <h2>${escapeHTML(darkThread.title)}</h2>
+              <p>${escapeHTML(darkThread.text)}</p>
+              ${darkThread.clue ? `<div class="dark-clue"><span>页边小字</span><p>${escapeHTML(darkThread.clue)}</p></div>` : ''}
+              <a class="text-link" href="#/story/dark">查看全部暗线 <span>→</span></a>
+            </section>
+          ` : ''}
+
           ${done && relatedSides.length ? `
             <div class="side-unlock-note">
               <span>本卷关联支线已解锁：${unlockedSides.map((side) => `<strong>${escapeHTML(side.title)}</strong>`).join('、')}</span>
               <a class="text-link" href="#/side">查看档案 <span>→</span></a>
             </div>
+          ` : ''}
+
+          ${done && chapterMemories.length ? `
+            <section class="chapter-memory-room">
+              <div class="chapter-memory-head">
+                <div>
+                  <span>本卷回忆 · MEMORIA</span>
+                  <h2>正文没有写下的那部分。</h2>
+                </div>
+                <a class="text-link" href="#/people/memories">全部回忆 <span>→</span></a>
+              </div>
+              <div class="chapter-memory-grid">
+                ${chapterMemories.map((memory) => `
+                  <button class="memory-card" type="button" data-action="open-memory" data-memory="${memory.id}">
+                    <span class="memory-kind">${escapeHTML(memory.kind)}</span>
+                    <strong>${escapeHTML(memory.title)}</strong>
+                    <small>${escapeHTML(memory.speaker)} · ${firstChars(memory.text, 46)}…</small>
+                    <span class="memory-arrow">↗</span>
+                  </button>
+                `).join('')}
+              </div>
+            </section>
           ` : ''}
 
           ${done ? `
@@ -11540,6 +14076,7 @@ window.INK_DEEP = {
         <div class="dialog-kicker">第${chapter.numeral}卷 · 刻印 ${String(index + 1).padStart(2, '0')} / 03</div>
         <h2>${escapeHTML(level.title)}<span class="sub">${escapeHTML(level.role)} · ${escapeHTML(chapter.title)}</span></h2>
         <p class="dialog-text">${escapeHTML(level.intro)}</p>
+        <div class="dialog-why"><span>此刻落笔</span><p>${escapeHTML(level.reason || level.intro)}</p></div>
         <div class="dialog-preview">
           <div class="preview-label"><span>即将刻印</span><span>${count} 字</span></div>
           <p>${escapeHTML(level.text)}</p>
@@ -11574,6 +14111,7 @@ window.INK_DEEP = {
         <div class="dialog-kicker">支线档案 ${side.no} · ${escapeHTML(side.tag)}</div>
         <h2>${escapeHTML(side.level.title)}<span class="sub">${escapeHTML(side.title)} · ${escapeHTML(side.npc)}</span></h2>
         <p class="dialog-text">${escapeHTML(side.level.intro || side.intro[0])}</p>
+        <div class="dialog-why"><span>此刻落笔</span><p>这一笔会决定《${escapeHTML(side.title)}》是否真正归卷。</p></div>
         <div class="dialog-preview">
           <div class="preview-label"><span>档案原文</span><span>${count} 字</span></div>
           <p>${escapeHTML(side.level.text)}</p>
@@ -11698,21 +14236,25 @@ window.INK_DEEP = {
     let sub = '';
     let layer = 'outer';
     let seal = '墨';
+    let reason = '';
     if (context.kind === 'story') {
       const part = partOf(context.chapter);
       layer = part.key;
       seal = context.chapter.seal;
       title = context.level.title;
+      reason = context.level.reason || context.level.intro;
       kicker = `${part.label} · 第${context.chapter.numeral}卷 · 刻印 ${context.index + 1} / 3`;
       sub = `${context.chapter.title} · ${context.level.role}`;
     } else if (context.kind === 'side') {
       title = context.side.level.title;
       seal = '笺';
+      reason = `这一笔会决定《${context.side.title}》是否真正归卷。`;
       kicker = `支线档案 ${context.side.no} · ${context.side.tag}`;
       sub = `${context.side.title} · ${context.side.npc}`;
     } else {
       title = context.challenge.title;
       seal = '试';
+      reason = '无前文，无提示。把这一段完整写下来。';
       kicker = `挑战模式 · ${'★'.repeat(context.challenge.tier)} · 同难度随机`;
       sub = `${TIER_MAP.get(context.challenge.tier).name} · ${context.challenge.tag}`;
     }
@@ -11743,6 +14285,7 @@ window.INK_DEEP = {
     $('#typingKicker').textContent = kicker;
     $('#typingTitle').textContent = title;
     $('#typingContext').textContent = sub;
+    $('#typingReason').textContent = reason;
     $('#typingCharCount').textContent = `${typing.targetChars.length} 字 · ${timeLimit ? `限时 ${timeLimit} 秒` : '无时限'}`;
     $('#typingSealMark').textContent = seal;
     $('#liveRemaining').textContent = timeLimit ? String(timeLimit) : '--';
@@ -12194,6 +14737,21 @@ window.INK_DEEP = {
         <div class="dialog-kicker">第${chapter.numeral}卷 · ${part.label}卷末 · SEAL ${chapter.seal}</div>
         <h2>${escapeHTML(chapter.title)}<span class="sub">本卷已完 · 字印已收入${part.title}</span></h2>
         <div class="story-prose">${linkedParagraphsHTML(chapter.outro, '', 2)}</div>
+        ${chapter.interlude ? `
+          <div class="outro-interlude">
+            <span>间章 · ${escapeHTML(chapter.interlude.speaker)}</span>
+            <h3>${escapeHTML(chapter.interlude.title)}</h3>
+            <p>${escapeHTML(chapter.interlude.text)}</p>
+          </div>
+        ` : ''}
+        ${darkForChapter(chapter) ? `
+          <div class="outro-interlude outro-dark">
+            <span>暗线 · ${escapeHTML(darkForChapter(chapter).pov)}</span>
+            <h3>${escapeHTML(darkForChapter(chapter).title)}</h3>
+            <p>${escapeHTML(darkForChapter(chapter).text)}</p>
+            ${darkForChapter(chapter).clue ? `<div class="dark-clue"><span>页边小字</span><p>${escapeHTML(darkForChapter(chapter).clue)}</p></div>` : ''}
+          </div>
+        ` : ''}
         <div class="dialog-actions">
           ${final
             ? `<button class="btn btn-primary" type="button" data-action="open-finale">翻开最后一页 <span class="arrow">→</span></button>`
@@ -12335,6 +14893,17 @@ window.INK_DEEP = {
         <p class="finale-line">${SEAL_SENTENCE}</p>
         <div class="finale-rule"></div>
         <p class="finale-copy">${escapeHTML(outcome.text)}</p>
+        ${(ENDING_ECHOES[outcome.key] || []).filter((id) => CHARACTER_MAP.has(id)).length ? `
+          <div class="ending-echoes">
+            <span>此终局的人物回响 · ECHOES</span>
+            <div>
+              ${(ENDING_ECHOES[outcome.key] || []).filter((id) => CHARACTER_MAP.has(id)).map((id) => {
+                const character = CHARACTER_MAP.get(id);
+                return `<button type="button" data-action="open-character" data-character="${character.id}"><b>${character.seal}</b>${escapeHTML(character.name)}</button>`;
+              }).join('')}
+            </div>
+          </div>
+        ` : ''}
         <p class="finale-done-word">${escapeHTML(outcome.seal)}</p>
         <p class="finale-choice-label">${hidden ? '隐藏终局' : isWord ? '你留下的终字' : '你选择的终局'} · ${escapeHTML(outcome.label)}</p>
         ${statHTML}
@@ -12375,7 +14944,7 @@ window.INK_DEEP = {
       <div class="finale-seals">${seals}</div>
       <p class="finale-line">${SEAL_SENTENCE}</p>
       <div class="finale-rule"></div>
-      <p class="finale-copy">沈砚把笔放在最后一页上，退后一步。她没有替你决定这本书应该怎样结束。合上它、留白，或者写下一个字——而页边还藏着别的走法。</p>
+      <p class="finale-copy">沈砚把笔放在最后一页上，退后一步。她没有替你决定这本书应该怎样结束。合上它、留白，或者写下一个字——而页边还藏着别的走法。没有哪一种选择被世界预先证明为正确。你只能选，然后承担它。</p>
       <div class="finale-choice-grid">
         ${visible.map((ending) => `
           <button class="finale-choice" type="button" data-action="finale-ending" data-ending="${ending.id}">
@@ -12617,9 +15186,9 @@ window.INK_DEEP = {
       nav = 'home';
     } else if (route.name === 'story') {
       const next = nextStoryLevel();
-      layer = route.param === 'inner' ? 'inner' : route.param === 'outer' ? 'outer' : next && next.chapter.part === 'inner' ? 'inner' : 'outer';
+      layer = route.param === 'dark' ? 'dark' : route.param === 'inner' ? 'inner' : route.param === 'outer' ? 'outer' : next && next.chapter.part === 'inner' ? 'inner' : 'outer';
       html = renderStory(layer);
-      pageTitle = `${layer === 'inner' ? '里卷 · 纸背' : '表卷 · 拾字纪'} · 墨蚀`;
+      pageTitle = `${layer === 'dark' ? '暗线 · 页边' : layer === 'inner' ? '里卷 · 纸背' : '表卷 · 拾字纪'} · 墨蚀`;
       nav = 'story';
     } else if (route.name === 'chapter') {
       html = renderChapter(route.param);
@@ -12645,6 +15214,10 @@ window.INK_DEEP = {
       html = renderTree();
       pageTitle = '故事树 · 墨蚀：拾字纪';
       nav = 'tree';
+    } else if (route.name === 'people') {
+      html = renderPeople(route.param);
+      pageTitle = route.param === 'memories' ? '回忆录 · 墨蚀：拾字纪' : '人物志 · 墨蚀：拾字纪';
+      nav = 'people';
     } else {
       html = renderLockedState('这一页被空白吃掉了', '没有找到你想去的地方。回到卷首，重新翻开这本书。', '#/', '回到卷首');
       pageTitle = '页面不存在 · 墨蚀';
@@ -12746,6 +15319,18 @@ window.INK_DEEP = {
 
       case 'read-volume-ending':
         readVolumeEnding(target.dataset.ending);
+        break;
+
+      case 'open-character':
+        openCharacter(target.dataset.character, 'official');
+        break;
+
+      case 'character-view':
+        openCharacter(target.dataset.character, target.dataset.view);
+        break;
+
+      case 'open-memory':
+        openMemory(target.dataset.memory);
         break;
 
       case 'confirm-exit':
