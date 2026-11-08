@@ -12966,8 +12966,8 @@ window.INK_DEEP = {
   function timeLimitForText(text, order) {
     const length = Array.from(String(text || '')).length;
     const index = Number.isFinite(order) ? order : 0;
-    const targetCpm = 50 + Math.min(16, (index / 47) * 16);
-    return Math.max(30, Math.ceil((length / targetCpm) * 60 + 3));
+    const targetCpm = 40 + Math.min(12, (index / 47) * 12);
+    return Math.max(30, Math.ceil((length / targetCpm) * 60 + 12));
   }
 
   function timelyCpmForText(text, order) {
