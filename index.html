@@ -5403,7 +5403,7 @@ body.layer-inner .story-layer-tab.is-active {
   border-style: dashed;
   background: transparent;
   color: rgba(25, 20, 14, 0.45);
-  cursor: default;
+  cursor: pointer;
 }
 
 .lexicon-seen {
@@ -16048,14 +16048,24 @@ window.INK_DEEP = {
     const marked = seen.includes(term);
     lexiconSeenCount.textContent = String(seen.length);
     lexiconMark.classList.toggle('is-marked', marked);
-    lexiconMark.disabled = marked;
-    lexiconMark.textContent = marked ? '这页已经画过圈' : '在页边画一个圈';
+    lexiconMark.disabled = false;
+    lexiconMark.setAttribute('aria-pressed', marked ? 'true' : 'false');
+    lexiconMark.textContent = marked ? '取消这一页的圈' : '在页边画一个圈';
   }
 
   function markLexicon() {
     if (!currentLexiconTerm) return;
     if (!Array.isArray(save.lexiconSeen)) save.lexiconSeen = [];
-    if (save.lexiconSeen.includes(currentLexiconTerm)) return;
+    const index = save.lexiconSeen.indexOf(currentLexiconTerm);
+    if (index >= 0) {
+      save.lexiconSeen.splice(index, 1);
+      save.ink = Math.max(0, save.ink - 3);
+      persist();
+      updateHeader();
+      updateLexiconMark(currentLexiconTerm);
+      toast('页边的圈被擦掉了。');
+      return;
+    }
     save.lexiconSeen.push(currentLexiconTerm);
     save.ink += 3;
     persist();
@@ -16064,7 +16074,7 @@ window.INK_DEEP = {
     if (save.lexiconSeen.length === 7) {
       toast('第七个圈画下了。页边似乎有哪里动了一下。');
     } else {
-      toast('页边多了一个圈。');
+      toast('页边多了一个圈。再点一次可以取消。');
     }
   }
 
