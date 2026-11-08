@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420" role="img" aria-label="墨蚀：拾字纪">
+  <defs>
+    <radialGradient id="bg" cx="78%" cy="20%" r="80%">
+      <stop offset="0" stop-color="#1b3027"/>
+      <stop offset="0.45" stop-color="#0d1713"/>
+      <stop offset="1" stop-color="#080d0b"/>
+    </radialGradient>
+    <radialGradient id="ink" cx="38%" cy="30%" r="70%">
+      <stop offset="0" stop-color="#2b463a"/>
+      <stop offset="0.55" stop-color="#111e18"/>
+      <stop offset="1" stop-color="#070c0a"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f0d9a6"/>
+      <stop offset="1" stop-color="#b38d4e"/>
+    </linearGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" fill="none" stroke="#c9a96a" stroke-opacity=".055"/>
+    </pattern>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="420" fill="url(#bg)"/>
+  <rect width="1280" height="420" fill="url(#grid)"/>
+  <circle cx="1058" cy="180" r="250" fill="#355e4c" opacity=".16" filter="url(#soft)"/>
+
+  <g opacity=".6" fill="none" stroke="#c9a96a">
+    <circle cx="1045" cy="210" r="152" stroke-opacity=".2"/>
+    <circle cx="1045" cy="210" r="119" stroke-opacity=".12" stroke-dasharray="4 9"/>
+    <circle cx="1045" cy="210" r="91" stroke-opacity=".1"/>
+  </g>
+  <circle cx="1045" cy="210" r="76" fill="url(#ink)" stroke="#e9e2d1" stroke-opacity=".12"/>
+  <text x="1045" y="242" text-anchor="middle" font-family="Songti SC, SimSun, serif" font-size="74" fill="#e9e2d1" opacity=".9">永</text>
+
+  <g fill="#c9a96a" font-family="Songti SC, SimSun, serif" font-size="15" opacity=".72">
+    <text x="1118" y="82">字</text>
+    <text x="1204" y="160">墨</text>
+    <text x="1138" y="345">记</text>
+    <text x="948" y="350">白</text>
+  </g>
+
+  <g transform="translate(80 74)">
+    <rect width="60" height="60" rx="5" fill="#9b3b2c" stroke="#e8cb8e" stroke-opacity=".55"/>
+    <text x="30" y="43" text-anchor="middle" font-family="Songti SC, SimSun, serif" font-size="32" fill="#f2e3c9">墨</text>
+  </g>
+
+  <text x="164" y="114" font-family="Songti SC, SimSun, serif" font-size="22" letter-spacing="10" fill="#e9e2d1">墨蚀</text>
+  <text x="290" y="114" font-family="Songti SC, SimSun, serif" font-size="16" letter-spacing="12" fill="#c9a96a">拾字纪</text>
+
+  <text x="80" y="220" font-family="Songti SC, SimSun, serif" font-size="86" font-weight="600" letter-spacing="3" fill="#e9e2d1">墨蚀</text>
+  <text x="310" y="220" font-family="Songti SC, SimSun, serif" font-size="86" font-weight="400" letter-spacing="3" fill="url(#gold)">拾字纪</text>
+  <text x="84" y="264" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" letter-spacing="7" fill="#8d958b">INKFALL · THE UNWRITTEN</text>
+
+  <text x="84" y="318" font-family="KaiTi, STKaiti, serif" font-size="22" letter-spacing="2" fill="#c9c1ad">当世界开始失字，你是最后一个补字师。</text>
+
+  <g font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="12" letter-spacing="2" fill="#8d958b">
+    <text x="84" y="366">12 卷主线</text>
+    <text x="196" y="366">20 篇支线</text>
+    <text x="308" y="366">40 篇挑战</text>
+    <text x="420" y="366">1—5 ★ 难度</text>
+    <text x="535" y="366">中文输入法打字</text>
+  </g>
+
+  <path d="M80 383H1200" stroke="#c9a96a" stroke-opacity=".18"/>
+</svg>

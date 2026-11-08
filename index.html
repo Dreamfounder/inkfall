@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b100e">
+  <meta name="description" content="《墨蚀：拾字纪》——一款以汉字为骨、以故事为墨的叙事打字游戏。12 卷主线、20 篇支线、40 篇难度挑战。">
+  <title>墨蚀：拾字纪 · INKFALL</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="ambient" aria-hidden="true">
+    <div class="ambient-wash wash-a"></div>
+    <div class="ambient-wash wash-b"></div>
+    <div class="ambient-grid"></div>
+    <div class="ambient-grain"></div>
+  </div>
+
+  <div class="site-shell" id="siteShell">
+    <header class="site-header" id="siteHeader">
+      <a class="brand" href="#/" aria-label="墨蚀：拾字纪 首页">
+        <span class="brand-seal" aria-hidden="true">墨</span>
+        <span class="brand-name">
+          <strong>墨蚀</strong>
+          <em>拾字纪</em>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="主导航">
+        <a href="#/" data-nav="home">卷首</a>
+        <a href="#/story" data-nav="story">主线</a>
+        <a href="#/side" data-nav="side">支线</a>
+        <a href="#/challenge" data-nav="challenge">挑战</a>
+      </nav>
+
+      <div class="header-tools">
+        <div class="rank-chip" title="当前墨阶">
+          <span id="rankName">初执笔</span>
+          <small id="rankEn">APPRENTICE</small>
+        </div>
+        <button class="icon-btn" id="soundToggle" type="button" data-action="toggle-sound" aria-label="切换笔触音" aria-pressed="false" title="笔触音：关闭">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 9v6h3l4 3V6L7 9H4z"></path>
+            <path class="sound-wave" d="M15 9.5c1.4.9 1.4 4.1 0 5"></path>
+            <path class="sound-wave" d="M17.6 7c2.6 2 2.6 8 0 10"></path>
+          </svg>
+        </button>
+        <div class="ink-chip" title="墨尘：完成刻印获得的纪念">
+          <span class="ink-dot" aria-hidden="true"></span>
+          <span>墨尘</span>
+          <b id="inkCount">0</b>
+        </div>
+      </div>
+    </header>
+
+    <main id="app" tabindex="-1"></main>
+
+    <footer class="site-footer" id="siteFooter">
+      <div class="footer-mark" aria-hidden="true">字</div>
+      <p>万物有时，字里重逢。</p>
+      <span>《墨蚀：拾字纪》· 本地单人游戏 · 进度保存在你的浏览器</span>
+    </footer>
+  </div>
+
+  <div id="toastRoot" class="toast-root" aria-live="polite" aria-atomic="true"></div>
+
+  <dialog id="gameDialog" class="game-dialog">
+    <div id="dialogContent"></div>
+  </dialog>
+
+  <section id="typingScreen" class="typing-screen" hidden aria-modal="true" role="dialog" aria-labelledby="typingTitle">
+    <div class="typing-topbar">
+      <button class="text-btn" id="typingExit" type="button">
+        <span aria-hidden="true">←</span> 退出刻印
+      </button>
+      <div class="typing-heading">
+        <span id="typingKicker" class="typing-kicker">刻印节点</span>
+        <h2 id="typingTitle">钟铭</h2>
+      </div>
+      <button class="text-btn" id="typingPause" type="button">暂停</button>
+    </div>
+
+    <div class="typing-meter" aria-hidden="true"><span id="typingProgressBar"></span></div>
+
+    <div class="typing-stage">
+      <div class="typing-stats" aria-label="实时数据">
+        <div class="typing-stat">
+          <span>字速</span>
+          <strong id="liveCpm">0</strong>
+          <small>字 / 分</small>
+        </div>
+        <div class="typing-stat">
+          <span>准确</span>
+          <strong id="liveAccuracy">100</strong>
+          <small>%</small>
+        </div>
+        <div class="typing-stat">
+          <span>进度</span>
+          <strong id="liveProgress">0</strong>
+          <small>%</small>
+        </div>
+        <div class="typing-stat">
+          <span>用时</span>
+          <strong id="liveTime">0.0</strong>
+          <small>秒</small>
+        </div>
+      </div>
+
+      <div class="typing-sheet">
+        <div class="sheet-head">
+          <span>刻印原文</span>
+          <span id="typingCharCount">0 字</span>
+        </div>
+
+        <div id="targetText" class="target-text" tabindex="0" aria-label="待输入原文"></div>
+
+        <div class="sheet-rule" aria-hidden="true">
+          <span></span><i>落笔</i><span></span>
+        </div>
+
+        <div class="input-zone" id="inputZone">
+          <textarea id="typingInput" rows="2" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="在此输入与上方相同的文字"></textarea>
+          <div class="input-help">
+            <span id="composeState">输入法组字时会暂时不判定，上屏后继续</span>
+            <span id="typingMistakeLabel">笔误 0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="typing-footnote">
+        <span class="footnote-quill" aria-hidden="true">✦</span>
+        <p>标点可直接用半角输入（，= ,　。= .）。写错时按退格修改，不会中断计时。</p>
+        <span id="typingContext" class="typing-context"></span>
+      </div>
+    </div>
+
+    <div class="pause-veil" id="pauseVeil" hidden>
+      <div class="pause-card">
+        <span class="eyebrow">墨迹暂歇</span>
+        <h2>停笔片刻</h2>
+        <p>空白还在外面等着。准备好时，再落下一笔。</p>
+        <div class="pause-actions">
+          <button class="btn btn-primary" id="resumeTyping" type="button">继续刻印</button>
+          <button class="btn btn-ghost" id="pauseExit" type="button">退出本次刻印</button>
+        </div>
+        <small>按 Esc 也可以继续</small>
+      </div>
+    </div>
+  </section>
+
+  <section id="finaleScreen" class="finale-screen" hidden aria-modal="true" role="dialog" aria-label="终页">
+    <div class="finale-orbit" aria-hidden="true"></div>
+    <div id="finaleContent" class="finale-content"></div>
+  </section>
+
+  <script src="js/data-story.js"></script>
+  <script src="js/data-side.js"></script>
+  <script src="js/data-challenge.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <noscript>
+    <div style="position:fixed;inset:0;z-index:999;display:grid;place-items:center;background:#080d0b;color:#e9e2d1;font-family:serif;text-align:center;padding:30px">
+      <div>
+        <p style="font-size:28px;letter-spacing:.2em">墨迹没有显形</p>
+        <p style="color:#8d958b;font-size:13px">这个游戏需要 JavaScript。请启用后重新翻开这一页。</p>
+      </div>
+    </div>
+  </noscript>
+</body>
+</html>
