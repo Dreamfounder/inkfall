@@ -21,11 +21,11 @@
   --panel: #101915;
   --panel-2: #15211b;
   --panel-3: #1a2922;
-  --paper: #e9e2d1;
-  --paper-2: #c9c1ad;
-  --paper-3: #a49c89;
-  --muted: #8d958b;
-  --faint: #5c665e;
+  --paper: #eee7d6;
+  --paper-2: #d4cbb7;
+  --paper-3: #b1a894;
+  --muted: #9ca397;
+  --faint: #6d776e;
   --gold: #c9a96a;
   --gold-bright: #e8cb8e;
   --gold-dim: #8e7445;
@@ -165,7 +165,7 @@ h1, h2, h3, h4, p {
 .ambient-grain {
   position: absolute;
   inset: 0;
-  opacity: 0.18;
+  opacity: 0.13;
   mix-blend-mode: soft-light;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.48'/%3E%3C/svg%3E");
 }
@@ -1679,6 +1679,10 @@ h1, h2, h3, h4, p {
   padding: clamp(20px, 3vw, 44px) 0 clamp(44px, 6vw, 74px);
   border-bottom: 1px solid var(--line-soft);
   overflow: hidden;
+}
+
+.chapter-minihead {
+  display: none;
 }
 
 .chapter-hero::after {
@@ -3958,8 +3962,8 @@ h1, h2, h3, h4, p {
 }
 
 @keyframes view-in {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: none; }
+  from { transform: translateY(10px); }
+  to { transform: none; }
 }
 
 /* ============================================================
@@ -8057,6 +8061,42 @@ body.layer-inner .story-layer-tab.is-active {
     grid-template-columns: 1fr;
   }
 
+  .chapter-minihead {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 22;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0 0 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line-soft);
+    background: linear-gradient(180deg, rgba(8, 13, 11, 0.94), rgba(8, 13, 11, 0.78));
+    backdrop-filter: blur(12px);
+  }
+
+  .chapter-minihead span {
+    color: var(--gold);
+    font-family: var(--serif);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  .chapter-minihead strong {
+    color: var(--paper);
+    font-family: var(--serif);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+  }
+
+  .chapter-minihead small {
+    margin-left: auto;
+    color: var(--faint);
+    font-size: 8px;
+    letter-spacing: 0.06em;
+  }
+
   .chapter-aside,
   .side-meta-card {
     display: none;
@@ -8325,6 +8365,17 @@ body.layer-inner .story-layer-tab.is-active {
 
   .chapter-intro {
     padding: 38px 0;
+  }
+
+  .story-prose p:first-child::first-letter {
+    margin-right: 8px;
+    font-size: 2.55em;
+    line-height: 0.86;
+  }
+
+  .chapter-novel p:first-of-type::first-letter {
+    margin-right: 5px;
+    font-size: 28px;
   }
 
   .story-prose p {
@@ -14026,6 +14077,12 @@ window.INK_DEEP = {
         <div class="container">
           <div class="breadcrumb">
             <a href="#/story/${part.key}">${part.label}卷宗</a><i>/</i><span>第${chapter.numeral}卷 · ${escapeHTML(chapter.title)}</span>
+          </div>
+
+          <div class="chapter-minihead">
+            <span>第${chapter.numeral}卷</span>
+            <strong>${escapeHTML(chapter.title)}</strong>
+            <small>${doneLevels} / 3 刻印</small>
           </div>
 
           <header class="chapter-hero" data-en="${escapeHTML(chapter.en)}">
