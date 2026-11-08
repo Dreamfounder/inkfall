@@ -5406,6 +5406,26 @@ body.layer-inner .story-layer-tab.is-active {
   cursor: pointer;
 }
 
+.lexicon-mark.is-locked,
+.lexicon-mark:disabled {
+  border-style: dashed;
+  background: transparent;
+  color: rgba(25, 20, 14, 0.4);
+  cursor: not-allowed;
+}
+
+.lexicon-partial {
+  display: block;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(125, 43, 34, 0.35);
+  color: rgba(70, 38, 27, 0.62);
+  font-family: var(--sans);
+  font-size: 10px;
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+}
+
 .lexicon-seen {
   margin-top: 9px;
   color: rgba(25, 20, 14, 0.45);
@@ -8766,7 +8786,7 @@ body.layer-inner .story-layer-tab.is-active {
     <h2 id="lexiconTerm">白蚀</h2>
     <p id="lexiconText"></p>
     <button class="lexicon-mark" id="lexiconMark" type="button" data-action="mark-lexicon">在页边画一个圈</button>
-    <div class="lexicon-seen">页边圈印 <b id="lexiconSeenCount">0</b> / 26</div>
+    <div class="lexicon-seen">页边圈印 <b id="lexiconSeenCount">0</b> / 36</div>
     <div class="lexicon-related-wrap">
       <span>参见</span>
       <div class="lexicon-related" id="lexiconRelated"></div>
@@ -12014,6 +12034,48 @@ window.INK_DARK_LINE = [
 
   </script>
   <script>
+/* 词条显影章节：读完对应卷后，正文里的下划线词条才会出现。 */
+window.INK_TERM_GATES = {
+  '白蚀': 1,
+  '空白': 14,
+  '墨潮': 6,
+  '字脉': 3,
+  '原典': 6,
+  '初版': 6,
+  '版本': 6,
+  '校勘': 6,
+  '里页': 13,
+  '纸背': 13,
+  '读者': 14,
+  '失名者': 1,
+  '补字师': 1,
+  '守字人': 6,
+  '活字塔': 3,
+  '删页会': 5,
+  '初笔': 9,
+  '白页之门': 10,
+  '句号': 7,
+  '阿辞': 10,
+  '沈无咎': 2,
+  '沈砚': 1,
+  '简': 5,
+  '口传': 15,
+  '校勘者按': 16,
+  '墨界': 1,
+  '拾遗城': 1,
+  '第七版': 13,
+  '名册': 9,
+  '阿笺': 2,
+  '陆观澜': 1,
+  '裴照': 3,
+  '存在': 16,
+  '自由': 16,
+  '荒诞': 16,
+  '未完成': 16
+};
+
+  </script>
+  <script>
 /* 《墨蚀：拾字纪》深层档案
  * 页边批注、版本对照与可点击词条。
  * 这些内容不改变关卡文本，只让同一段故事出现第二层读法。
@@ -12379,6 +12441,7 @@ window.INK_DEEP = {
 /* 数据总装与世界观常量 */
 (function () {
   const deep = window.INK_DEEP || { notes: {}, variants: {}, lexicon: [] };
+  const termGates = window.INK_TERM_GATES || {};
   const scenes = window.INK_SCENES || { scenes: {}, interludes: {} };
   const novel = window.INK_NOVEL || {};
   const novelExtra = window.INK_NOVEL_EXTRA || {};
@@ -12442,7 +12505,6 @@ window.INK_DEEP = {
   people.memories.forEach((memory) => {
     memory.clue = hints.memories[memory.id] || '';
   });
-
   window.INK_DATA = {
     meta: {
       title: '墨蚀',
@@ -12739,7 +12801,10 @@ window.INK_DEEP = {
         text: '你删去了十六卷，却把四十八笔都赶在空白之前。第七版的校样自己翻开，里面没有读者，也没有页边；只有沈砚站在空白的正中央，第一次不必等谁来补写她。简在火塘边听见阿辞叫了他一声，没有回头。沈砚抬头看了看你，说：这一版，我自己来。然后书从第一页开始，重新写了一遍。'
       }
     ],
-    lexicon: deep.lexicon || [],
+    lexicon: (deep.lexicon || []).map((entry) => ({
+      ...entry,
+      unlockChapter: termGates[entry.term] || 1
+    })),
     volumeEndings: window.INK_VOLUME_ENDINGS || [],
     characters: (window.INK_PEOPLE && window.INK_PEOPLE.characters) || [],
     memories: (window.INK_PEOPLE && window.INK_PEOPLE.memories) || [],
@@ -12861,6 +12926,7 @@ window.INK_DEEP = {
   let drawHistory = {};
   let audioCtx = null;
   let currentLexiconTerm = '';
+  let currentLexiconLocked = false;
   let characterView = 'official';
   let currentCharacterId = '';
 
@@ -12912,6 +12978,12 @@ window.INK_DEEP = {
 
   function paragraphsHTML(list, className) {
     return (list || []).map((text) => `<p${className ? ` class="${className}"` : ''}>${escapeHTML(text)}</p>`).join('');
+  }
+
+  function termUnlocked(entry) {
+    if (!entry) return false;
+    const chapter = CHAPTERS[entry.unlockChapter - 1];
+    return Boolean(chapter && chapterDone(chapter));
   }
 
   function linkedTextHTML(text, limit) {
@@ -16014,23 +16086,34 @@ window.INK_DEEP = {
      Lexicon drawer
      ------------------------------------------------------------ */
 
+  function partialLexiconText(text) {
+    const source = String(text || '');
+    const cut = source.indexOf('。');
+    return cut >= 0 ? source.slice(0, cut + 1) : `${firstChars(source, 36)}……`;
+  }
+
   function openLexicon(termIndex) {
     const entry = LEXICON[Number(termIndex)];
     if (!entry) return;
+    const unlocked = termUnlocked(entry);
     currentLexiconTerm = entry.term;
-    lexiconKind.textContent = entry.kind || '词条';
+    currentLexiconLocked = !unlocked;
+    const chapter = CHAPTERS[entry.unlockChapter - 1];
+    lexiconKind.textContent = unlocked ? entry.kind || '词条' : `残页 · ${entry.kind || '词条'}`;
     lexiconTerm.textContent = entry.term;
-    lexiconText.textContent = entry.text;
+    lexiconText.innerHTML = unlocked
+      ? escapeHTML(entry.text)
+      : `${escapeHTML(partialLexiconText(entry.text))}<span class="lexicon-partial">……此页尚未读全。读完第${chapter ? chapter.numeral : '对应'}卷后，余下的字才会显影。</span>`;
     updateLexiconMark(entry.term);
     const related = (entry.related || [])
       .map((term) => LEXICON_MAP.get(term))
-      .filter(Boolean);
+      .filter((item) => item && termUnlocked(item));
     lexiconRelated.innerHTML = related.length
       ? related.map((item) => {
         const index = LEXICON.indexOf(item);
         return `<button class="lexicon-link" type="button" data-action="open-lexicon" data-term="${index}">${escapeHTML(item.term)} <span>↗</span></button>`;
       }).join('')
-      : '<span class="lexicon-empty">这一条尚未被别处引用。</span>';
+      : `<span class="lexicon-empty">${unlocked ? '这一条尚未被别处引用。' : '其余词条尚未显影。'}</span>`;
 
     lexiconScrim.hidden = false;
     lexiconDrawer.hidden = false;
@@ -16046,15 +16129,28 @@ window.INK_DEEP = {
   function updateLexiconMark(term) {
     const seen = Array.isArray(save.lexiconSeen) ? save.lexiconSeen : [];
     const marked = seen.includes(term);
+    const entry = LEXICON_MAP.get(term);
+    const chapter = entry ? CHAPTERS[entry.unlockChapter - 1] : null;
     lexiconSeenCount.textContent = String(seen.length);
     lexiconMark.classList.toggle('is-marked', marked);
-    lexiconMark.disabled = false;
+    lexiconMark.classList.toggle('is-locked', currentLexiconLocked);
+    lexiconMark.disabled = currentLexiconLocked;
     lexiconMark.setAttribute('aria-pressed', marked ? 'true' : 'false');
-    lexiconMark.textContent = marked ? '取消这一页的圈' : '在页边画一个圈';
+    if (currentLexiconLocked) {
+      lexiconMark.textContent = `读完第${chapter ? chapter.numeral : '对应'}卷后可画圈`;
+    } else {
+      lexiconMark.textContent = marked ? '取消这一页的圈' : '在页边画一个圈';
+    }
   }
 
   function markLexicon() {
     if (!currentLexiconTerm) return;
+    if (currentLexiconLocked) {
+      const entry = LEXICON_MAP.get(currentLexiconTerm);
+      const chapter = entry ? CHAPTERS[entry.unlockChapter - 1] : null;
+      toast(`这一页还没有读全，读完第${chapter ? chapter.numeral : '对应'}卷后再画圈。`);
+      return;
+    }
     if (!Array.isArray(save.lexiconSeen)) save.lexiconSeen = [];
     const index = save.lexiconSeen.indexOf(currentLexiconTerm);
     if (index >= 0) {
