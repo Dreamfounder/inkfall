@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0b100e">
-  <meta name="description" content="《墨蚀：拾字纪》——一款以汉字为骨、以故事为墨的叙事打字游戏。表卷十二、里卷四，共 48 个刻印节点；20 篇支线，40 篇难度挑战。">
+  <meta name="description" content="《墨蚀：拾字纪》——一款以汉字为骨、以故事为墨的叙事打字游戏。16 卷 48 个刻印节点，每关限时、每卷分支、六种终局；20 篇支线，40 篇难度挑战。">
   <title>墨蚀：拾字纪 · INKFALL</title>
   <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iNiIgZmlsbD0iIzBiMTAwZSIvPgogIDxyZWN0IHg9IjciIHk9IjciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgcng9IjMiIGZpbGw9IiM4ZjMzMjciIHN0cm9rZT0iI2U4Y2I4ZSIgc3Ryb2tlLW9wYWNpdHk9Ii41NSIvPgogIDxwYXRoIGQ9Ik0xMyAxNWgzOE0xMyA0OWgzOE0xNSAxM3YzOE00OSAxM3YzOCIgc3Ryb2tlPSIjZThjYjhlIiBzdHJva2Utb3BhY2l0eT0iLjE4IiBmaWxsPSJub25lIi8+CiAgPHRleHQgeD0iMzIiIHk9IjQzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU2ltU3VuLCBzZXJpZiIgZm9udC1zaXplPSIzMSIgZmlsbD0iI2YyZTNjOSI+5aKoPC90ZXh0Pgo8L3N2Zz4K" type="image/svg+xml">
   <style>
@@ -2178,9 +2178,10 @@ h1, h2, h3, h4, p {
   position: relative;
   z-index: 1;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 8px 16px;
   margin-top: auto;
   padding-top: 22px;
   border-top: 1px solid var(--line-soft);
@@ -3177,7 +3178,7 @@ h1, h2, h3, h4, p {
 
 .typing-stats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 1px;
   margin-bottom: 18px;
   border: 1px solid var(--line-soft);
@@ -4869,6 +4870,581 @@ body.layer-inner .story-layer-tab.is-active {
   grid-template-columns: repeat(8, 1fr);
 }
 
+/* ---------- branches / timers / endings ---------- */
+
+.branch-badge {
+  padding: 2px 6px;
+  border: 1px solid var(--line);
+  color: var(--gold-bright);
+  font-size: 7px;
+  letter-spacing: 0.08em;
+}
+
+.branch-badge.erase {
+  border-color: rgba(185, 74, 55, 0.36);
+  color: var(--cinnabar-bright);
+}
+
+.chapter-branch {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: 30px;
+  margin-top: 36px;
+  padding: clamp(24px, 3.5vw, 36px);
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(120deg, rgba(201, 169, 106, 0.06), transparent 50%),
+    rgba(16, 25, 21, 0.48);
+}
+
+.chapter-branch.has-choice {
+  border-color: rgba(201, 169, 106, 0.32);
+}
+
+.branch-kicker {
+  color: var(--gold);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+}
+
+.branch-copy h2 {
+  margin-top: 8px;
+  font-family: var(--serif);
+  font-size: clamp(23px, 2.6vw, 31px);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+}
+
+.branch-copy p {
+  max-width: 600px;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.9;
+}
+
+.branch-hint {
+  margin-top: 17px;
+  color: var(--faint);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+}
+
+.branch-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  align-self: center;
+}
+
+.branch-option {
+  min-height: 132px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px;
+  border: 1px solid var(--line-soft);
+  background: rgba(8, 13, 11, 0.32);
+  text-align: left;
+  transition: all 0.3s var(--ease);
+}
+
+.branch-option:hover {
+  transform: translateY(-3px);
+  border-color: var(--line-strong);
+  background: rgba(24, 38, 31, 0.6);
+}
+
+.branch-option.is-chosen {
+  border-color: var(--gold);
+  background:
+    linear-gradient(145deg, rgba(201, 169, 106, 0.13), transparent 60%),
+    rgba(24, 38, 31, 0.64);
+}
+
+.branch-option:nth-child(2).is-chosen {
+  border-color: var(--cinnabar);
+  background:
+    linear-gradient(145deg, rgba(185, 74, 55, 0.14), transparent 60%),
+    rgba(31, 16, 13, 0.58);
+}
+
+.branch-seal {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 12px;
+  border: 1px solid rgba(201, 169, 106, 0.44);
+  color: var(--gold-bright);
+  font-family: var(--serif);
+  font-size: 17px;
+}
+
+.branch-seal.is-erase {
+  border-color: rgba(185, 74, 55, 0.5);
+  color: var(--cinnabar-bright);
+}
+
+.branch-option strong {
+  color: var(--paper);
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.branch-option small {
+  margin-top: 5px;
+  color: var(--faint);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+}
+
+.branch-record {
+  grid-column: 1 / -1;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-soft);
+  color: var(--faint);
+  font-size: 9px;
+  letter-spacing: 0.03em;
+}
+
+.chapter-timing {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 20px;
+  align-items: center;
+  margin-top: 16px;
+  padding: 14px 18px;
+  border: 1px solid var(--line-soft);
+  background: rgba(201, 169, 106, 0.025);
+}
+
+.chapter-timing > span {
+  color: var(--faint);
+  font-size: 8px;
+  letter-spacing: 0.16em;
+}
+
+.chapter-timing > b {
+  color: var(--gold-bright);
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+
+.chapter-timing > small {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.7;
+}
+
+.side-branch {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 26px;
+  align-items: center;
+  margin-top: 24px;
+  padding: 24px 28px;
+  border: 1px solid var(--line-soft);
+  background: rgba(201, 169, 106, 0.035);
+}
+
+.side-branch-copy > span {
+  color: var(--gold);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+}
+
+.side-branch-copy h2 {
+  margin-top: 6px;
+  font-family: var(--serif);
+  font-size: 23px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.side-branch-copy p {
+  max-width: 620px;
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.8;
+}
+
+.side-branch-options {
+  display: flex;
+  gap: 8px;
+}
+
+.side-branch-option {
+  min-width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 11px 13px;
+  border: 1px solid var(--line-soft);
+  background: transparent;
+  text-align: left;
+  transition: all 0.25s ease;
+}
+
+.side-branch-option:hover,
+.side-branch-option.is-chosen {
+  border-color: var(--line-strong);
+  background: rgba(201, 169, 106, 0.07);
+}
+
+.side-branch-option > span {
+  color: var(--gold);
+  font-family: var(--serif);
+  font-size: 17px;
+}
+
+.side-branch-option strong {
+  margin-top: 3px;
+  color: var(--paper-2);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+
+.side-branch-option small {
+  margin-top: 2px;
+  color: var(--faint);
+  font-size: 7px;
+}
+
+.level-time {
+  display: block;
+  margin-top: 4px;
+  color: var(--faint);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+}
+
+/* ---------- timed typing ---------- */
+
+.typing-stats {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+#liveRemaining.is-urgent {
+  color: var(--cinnabar-bright);
+  text-shadow: 0 0 16px rgba(227, 120, 96, 0.28);
+}
+
+.typing-screen.is-overtime .typing-meter span {
+  background: linear-gradient(90deg, #7e2c22, #e37860);
+}
+
+.typing-screen.is-overtime .typing-sheet {
+  border-color: rgba(185, 74, 55, 0.45);
+}
+
+.typing-screen.is-overtime .typing-seal-mark {
+  color: rgba(185, 74, 55, 0.12);
+}
+
+.typing-screen.is-overtime .typing-stat:nth-child(4) strong {
+  color: var(--cinnabar-bright);
+}
+
+.result-timebranch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border: 1px solid rgba(127, 169, 151, 0.25);
+  background: rgba(127, 169, 151, 0.045);
+}
+
+.result-timebranch.late {
+  border-color: rgba(185, 74, 55, 0.32);
+  background: rgba(185, 74, 55, 0.055);
+}
+
+.timebranch-seal {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(127, 169, 151, 0.45);
+  color: var(--jade-bright);
+  font-family: var(--serif);
+  font-size: 16px;
+}
+
+.result-timebranch.late .timebranch-seal {
+  border-color: rgba(185, 74, 55, 0.5);
+  color: var(--cinnabar-bright);
+}
+
+.result-timebranch strong {
+  display: block;
+  color: var(--paper);
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+
+.result-timebranch small {
+  display: block;
+  margin-top: 2px;
+  color: var(--faint);
+  font-size: 8px;
+  letter-spacing: 0.03em;
+}
+
+/* ---------- lexicon mark ---------- */
+
+.lexicon-mark {
+  width: 100%;
+  min-height: 42px;
+  margin-top: 24px;
+  border: 1px solid rgba(139, 58, 45, 0.4);
+  background: rgba(139, 58, 45, 0.06);
+  color: #7d2b22;
+  font-family: var(--serif);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  transition: all 0.25s ease;
+}
+
+.lexicon-mark:hover {
+  background: rgba(139, 58, 45, 0.12);
+}
+
+.lexicon-mark.is-marked {
+  border-style: dashed;
+  background: transparent;
+  color: rgba(25, 20, 14, 0.45);
+  cursor: default;
+}
+
+.lexicon-seen {
+  margin-top: 9px;
+  color: rgba(25, 20, 14, 0.45);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-align: right;
+}
+
+.lexicon-seen b {
+  color: #7d2b22;
+  font-weight: 400;
+}
+
+/* ---------- ending gallery ---------- */
+
+.finale-hidden-hint {
+  max-width: 700px;
+  margin: 22px auto 0;
+  color: var(--faint);
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  line-height: 1.8;
+  text-align: center;
+}
+
+.finale-choice.is-hidden-ending {
+  border-color: rgba(196, 117, 94, 0.42);
+  background:
+    radial-gradient(circle at 85% 10%, rgba(196, 117, 94, 0.14), transparent 34%),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.03), transparent 48%),
+    rgba(30, 14, 11, 0.6);
+}
+
+.finale-choice.is-hidden-ending::before {
+  content: "HIDDEN";
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 4px 8px;
+  background: var(--cinnabar);
+  color: #f6e4d1;
+  font-size: 6px;
+  letter-spacing: 0.18em;
+}
+
+.finale-choice.is-hidden-ending:hover {
+  border-color: var(--cinnabar-bright);
+}
+
+.finale-choice.is-hidden-ending .choice-seal {
+  border-color: rgba(196, 117, 94, 0.6);
+  color: #ffd8c7;
+}
+
+.ending-ledger {
+  width: min(840px, 100%);
+  margin: 32px auto 0;
+  border: 1px solid var(--line-soft);
+  background: rgba(13, 21, 18, 0.48);
+  text-align: left;
+}
+
+.ending-ledger summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px 18px;
+  color: var(--gold);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  cursor: pointer;
+  list-style: none;
+}
+
+.ending-ledger summary::-webkit-details-marker {
+  display: none;
+}
+
+.ending-ledger summary b {
+  color: var(--paper-3);
+  font-weight: 400;
+  font-size: 8px;
+}
+
+.ending-ledger-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  border-top: 1px solid var(--line-soft);
+  background: var(--line-soft);
+}
+
+.ending-entry {
+  display: flex;
+  gap: 12px;
+  padding: 17px;
+  background: #0d1512;
+}
+
+.ending-entry.is-hidden {
+  background: #140e0c;
+}
+
+.ending-entry.is-unlocked {
+  background:
+    linear-gradient(120deg, rgba(201, 169, 106, 0.08), transparent 60%),
+    #111a16;
+}
+
+.ending-seal {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  color: var(--gold-bright);
+  font-family: var(--serif);
+  font-size: 16px;
+}
+
+.ending-entry.is-hidden .ending-seal {
+  color: var(--faint);
+  border-style: dashed;
+}
+
+.ending-entry strong {
+  display: block;
+  color: var(--paper-2);
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.ending-entry small {
+  display: block;
+  margin-top: 2px;
+  color: var(--faint);
+  font-size: 7px;
+  letter-spacing: 0.1em;
+}
+
+.ending-entry p {
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 8px;
+  line-height: 1.7;
+}
+
+.ending-entry em {
+  display: block;
+  margin-top: 5px;
+  color: var(--cinnabar-bright);
+  font-size: 7px;
+  font-style: normal;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 920px) {
+  .chapter-branch {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .side-branch {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .ending-ledger-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .branch-options {
+    grid-template-columns: 1fr;
+  }
+
+  .branch-option {
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 38px 1fr;
+    column-gap: 10px;
+    align-items: center;
+  }
+
+  .branch-option .branch-seal {
+    grid-row: span 2;
+    margin-bottom: 0;
+  }
+
+  .branch-option strong,
+  .branch-option small {
+    grid-column: 2;
+  }
+
+  .side-branch-options {
+    width: 100%;
+  }
+
+  .side-branch-option {
+    flex: 1;
+  }
+
+  .typing-stat:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .ending-ledger-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ---------- responsive additions ---------- */
 
 @media (max-width: 1120px) {
@@ -5825,6 +6401,8 @@ body.layer-inner .story-layer-tab.is-active {
     <span class="lexicon-kind" id="lexiconKind">词条</span>
     <h2 id="lexiconTerm">白蚀</h2>
     <p id="lexiconText"></p>
+    <button class="lexicon-mark" id="lexiconMark" type="button" data-action="mark-lexicon">在页边画一个圈</button>
+    <div class="lexicon-seen">页边圈印 <b id="lexiconSeenCount">0</b> / 26</div>
     <div class="lexicon-related-wrap">
       <span>参见</span>
       <div class="lexicon-related" id="lexiconRelated"></div>
@@ -5866,6 +6444,11 @@ body.layer-inner .story-layer-tab.is-active {
           <span>进度</span>
           <strong id="liveProgress">0</strong>
           <small>%</small>
+        </div>
+        <div class="typing-stat">
+          <span>剩余</span>
+          <strong id="liveRemaining">--</strong>
+          <small>秒</small>
         </div>
         <div class="typing-stat">
           <span>用时</span>
@@ -6575,7 +7158,7 @@ window.INK_STORY = [
         role: '写下问题',
         intro: '房间尽头有一面镜子。镜子里没有沈砚，只有一页摊开的纸。纸上浮出一行字：你想让我存在，还是想让你读到的我存在？',
         text: '如果我只是你读到的那个人，那么我此刻的犹豫，也是你给的。如果我不是，那你合上书之后，我会去哪里？',
-        after: '问题写完，镜子裂了。房间外传来母亲的声音：「小砚，不要问读者是谁。问你自己，愿不愿意被读完。」'
+        after: '问题写完，镜子裂成七块。每一块里都有一页不同的最后一页。房间外传来母亲的声音：「小砚，不要问读者是谁。问你自己，愿不愿意被读完。」'
       }
     ],
     outro: [
@@ -7382,22 +7965,26 @@ window.INK_DEEP = {
     ch13: [
       { mark: '朱批', who: '无署名', text: '第七版没有沈砚。第八版有。批注：读者要求。' },
       { mark: '铅笔', who: '读者', text: '你正在读的「第二页」，也许是这一版的初版。' },
-      { mark: '残墨', who: '阿笺', text: '如果每个版本我都不在，那我对你来说，算不算活过？' }
+      { mark: '残墨', who: '阿笺', text: '如果每个版本我都不在，那我对你来说，算不算活过？' },
+      { mark: '暗号', who: '页边', text: '若把十六卷都删去，书会轻得能被一口气读完。' }
     ],
     ch14: [
       { mark: '铅笔', who: '读者', text: '房间里的茶每次都是温的。因为总有人刚刚在读。' },
       { mark: '朱批', who: '简', text: '别找读者。找到他，你就会开始为他而活。' },
-      { mark: '残墨', who: '阿笺', text: '我在那间房里见过你。你坐在椅子上，眉头皱得很紧。' }
+      { mark: '残墨', who: '阿笺', text: '我在那间房里见过你。你坐在椅子上，眉头皱得很紧。' },
+      { mark: '暗号', who: '第七个圈', text: '把十六卷都留在页边，再在七条旁注上画圈。第七个圈会自己合上。' }
     ],
     ch15: [
       { mark: '墨批', who: '老妇人', text: '故事没有第一遍。你听到的，已经是第二遍。' },
       { mark: '朱批', who: '沈无咎', text: '我不是你的作者。我只是第一个读到你的人。' },
-      { mark: '铅笔', who: '读者', text: '第一句话不是「神说」，也不是「我在」。是「你在吗」。' }
+      { mark: '铅笔', who: '读者', text: '第一句话不是「神说」，也不是「我在」。是「你在吗」。' },
+      { mark: '暗号', who: '迟到者', text: '若你有七次在时限之后落笔，空白会认你做朋友。' }
     ],
     ch16: [
       { mark: '朱批', who: '简', text: '合上吧。我不是想毁掉故事，我只是想让阿辞不要再死一次。' },
       { mark: '墨批', who: '沈无咎', text: '别替读者做决定。你已经替他们活了十六卷。' },
-      { mark: '铅笔', who: '读者', text: '这一页原有一行字。被所有版本共同删除了。你可以把它写回来。' }
+      { mark: '铅笔', who: '读者', text: '这一页原有一行字。被所有版本共同删除了。你可以把它写回来。' },
+      { mark: '暗号', who: '未署名', text: '页边还有第四个位置。只有被删去的书，才看得见它。' }
     ]
   },
 
@@ -7617,9 +8204,9 @@ window.INK_DEEP = {
       title: '墨蚀',
       subtitle: '拾字纪',
       en: 'INKFALL · THE UNWRITTEN',
-      version: '2.0',
+      version: '2.1',
       tagline: '当世界开始失字，你是最后一个补字师。',
-      description: '一款以汉字为骨、以故事为墨的叙事打字游戏。表卷十二，里卷四；补全被空白吃掉的字句，在十六卷长卷里，替世界留下一个继续写下去的理由。',
+      description: '一款以汉字为骨、以故事为墨的叙事打字游戏。表卷十二、里卷四，共 16 卷 48 个刻印节点；每关限时，每卷分支，六种终局。',
       world: [
         {
           title: '墨界',
@@ -7706,6 +8293,68 @@ window.INK_DEEP = {
       { min: 40, name: '执笔人', en: 'THE AUTHOR' },
       { min: 58, name: '读页人', en: 'THE READER' }
     ],
+    endings: [
+      {
+        id: 'closed',
+        name: '合卷',
+        seal: '合',
+        en: 'THE CLOSED BOOK',
+        hidden: false,
+        hint: '给世界一个不再改写的结局。',
+        title: '世界有了一个不再改写的结局',
+        text: '你合上了书。拾遗城停在最后一页，所有人终于不必再被下一版修改。沈砚没有消失，她只是停在你合上书的那一页里。'
+      },
+      {
+        id: 'blank',
+        name: '留白',
+        seal: '空',
+        en: 'THE OPEN MARGIN',
+        hidden: false,
+        hint: '不写结局，把空白留成邀请。',
+        title: '空白第一次成为邀请',
+        text: '你把最后一页留空。没有结局，也没有告别。空白不再是白蚀，而是下一本书尚未落笔的地方。'
+      },
+      {
+        id: 'word',
+        name: '终字',
+        seal: '字',
+        en: 'THE READER’S WORD',
+        hidden: false,
+        hint: '在最后一页留下一个自己的字。',
+        title: '世界记得你写下的字',
+        text: '你在最后一页留下了一个字。它不会被上传，也不会被排名，只留在这台机器和这段故事里。'
+      },
+      {
+        id: 'seventh',
+        name: '第七位读者',
+        seal: '柒',
+        en: 'THE SEVENTH READER',
+        hidden: true,
+        hint: '十六卷都留在页边，在七条旁注上画圈。',
+        title: '第七个圈终于合上',
+        text: '你没有合书，也没有留白。你在第十六卷的页边画下第七个圈。圈合拢时，沈砚从纸面抬起头，第一次真正看见了你。她不再是被读到的人，也不再是作者；她成了与你共读的那一个。墨界从此有两个读者，一个在书外，一个在页边。'
+      },
+      {
+        id: 'slow',
+        name: '慢读者',
+        seal: '迟',
+        en: 'THE LATE READER',
+        hidden: true,
+        hint: '在七次时限之后仍然把字写完。',
+        title: '空白为迟到的人留了一把椅子',
+        text: '你总是晚一步。空白先漫过纸面，你才把最后一个字补上。可空白没有吃掉你，它在每一次迟到的地方为你留了一把椅子。后来拾遗城的人说，夜里能听见翻页声，很慢，很稳，像一个不肯赶路的人。'
+      },
+      {
+        id: 'unwriter',
+        name: '无字之约',
+        seal: '删',
+        en: 'THE UNWRITTEN PACT',
+        hidden: true,
+        hint: '把十六卷全部从目录里删去。',
+        title: '书轻得能被一口气读完',
+        text: '你删去了所有卷宗。世界变得很轻，轻到能够被一口气读完。沈砚没有消失，她只是成了页边的一条空白。删页会终于承认：他们不是恨故事，他们只是希望故事不要再让人疼。'
+      }
+    ],
     lexicon: deep.lexicon || [],
     chapters: window.INK_STORY,
     sideStories: window.INK_SIDES,
@@ -7729,6 +8378,8 @@ window.INK_DEEP = {
   const CHALLENGES = DATA.challenges;
   const TIERS = DATA.tiers;
   const RANKS = DATA.ranks;
+  const ENDINGS = DATA.endings || [];
+  const ENDING_MAP = new Map(ENDINGS.map((ending) => [ending.id, ending]));
   const PARTS = DATA.meta.parts || {
     outer: { key: 'outer', seal: '表', label: '表卷', en: 'THE SURFACE', title: '纸面', desc: '' },
     inner: { key: 'inner', seal: '背', label: '里卷', en: 'THE VERSO', title: '纸背', desc: '' }
@@ -7772,6 +8423,8 @@ window.INK_DEEP = {
   const lexiconKind = $('#lexiconKind');
   const lexiconText = $('#lexiconText');
   const lexiconRelated = $('#lexiconRelated');
+  const lexiconMark = $('#lexiconMark');
+  const lexiconSeenCount = $('#lexiconSeenCount');
 
   let save = loadSave();
   let typing = null;
@@ -7780,6 +8433,7 @@ window.INK_DEEP = {
   let currentRoute = { name: 'home', param: '' };
   let drawHistory = {};
   let audioCtx = null;
+  let currentLexiconTerm = '';
 
   /* ------------------------------------------------------------
      Utilities
@@ -7880,6 +8534,88 @@ window.INK_DEEP = {
     return CHAPTERS.filter((chapter) => (chapter.part === 'inner' ? 'inner' : 'outer') === layer);
   }
 
+  function timeLimitForText(text) {
+    const length = Array.from(String(text || '')).length;
+    return Math.max(30, Math.round(length * 1.05 + 10));
+  }
+
+  function chapterChoice(chapterId) {
+    return save.choices[chapterId] || '';
+  }
+
+  function sideChoice(sideId) {
+    return save.sideChoices[sideId] || '';
+  }
+
+  function chapterChoiceCount(choice) {
+    return CHAPTERS.filter((chapter) => chapterChoice(chapter.id) === choice).length;
+  }
+
+  function sideChoiceCount(choice) {
+    return SIDES.filter((side) => sideChoice(side.id) === choice).length;
+  }
+
+  function lateLevelCount() {
+    const storyLate = CHAPTERS.reduce(
+      (sum, chapter) => sum + chapter.levels.filter((level) => save.levels[level.id] && save.levels[level.id].branch === 'late').length,
+      0
+    );
+    const sideLate = SIDES.filter((side) => save.sides[side.id] && save.sides[side.id].branch === 'late').length;
+    return storyLate + sideLate;
+  }
+
+  function timelyLevelCount() {
+    const storyTimely = CHAPTERS.reduce(
+      (sum, chapter) => sum + chapter.levels.filter((level) => save.levels[level.id] && save.levels[level.id].branch === 'timely').length,
+      0
+    );
+    const sideTimely = SIDES.filter((side) => save.sides[side.id] && save.sides[side.id].branch === 'timely').length;
+    return storyTimely + sideTimely;
+  }
+
+  function lexiconMarkCount() {
+    return Array.isArray(save.lexiconSeen) ? save.lexiconSeen.length : 0;
+  }
+
+  function currentEndingId() {
+    return save.endingKey || (save.legacyWord ? 'word' : save.finaleChoice || '');
+  }
+
+  function endingProgress(id) {
+    if (id === 'seventh') {
+      return `保留 ${chapterChoiceCount('keep')} / 16 · 旁注圈印 ${lexiconMarkCount()} / 7`;
+    }
+    if (id === 'slow') {
+      return `迟笔 ${lateLevelCount()} / 7`;
+    }
+    if (id === 'unwriter') {
+      return `删去 ${chapterChoiceCount('erase')} / 16`;
+    }
+    return '';
+  }
+
+  function endingEligible(id) {
+    if (id === 'closed' || id === 'blank' || id === 'word') return true;
+    if (id === 'seventh') return chapterChoiceCount('keep') === CHAPTERS.length && lexiconMarkCount() >= 7;
+    if (id === 'slow') return lateLevelCount() >= 7;
+    if (id === 'unwriter') return chapterChoiceCount('erase') === CHAPTERS.length;
+    return false;
+  }
+
+  function endingOutcome(id) {
+    const def = ENDING_MAP.get(id);
+    if (!def) return null;
+    if (id === 'word' && !save.legacyWord) return null;
+    if (id === 'word') {
+      return Object.assign({ key: id }, def, {
+        seal: save.legacyWord,
+        title: `世界记得「${save.legacyWord}」`,
+        label: '终字'
+      });
+    }
+    return Object.assign({ key: id }, def, { label: def.name });
+  }
+
   function parseHash() {
     const raw = String(location.hash || '').replace(/^#\/?/, '');
     const parts = raw.split('/').filter(Boolean);
@@ -7949,6 +8685,11 @@ window.INK_DEEP = {
       },
       legacyWord: '',
       finaleChoice: '',
+      endingKey: '',
+      endings: {},
+      choices: {},
+      sideChoices: {},
+      lexiconSeen: [],
       storyCompleteAt: null,
       completedAt: null
     };
@@ -7986,7 +8727,13 @@ window.INK_DEEP = {
     merged.ink = Number(merged.ink) || 0;
     merged.legacyWord = typeof merged.legacyWord === 'string' ? merged.legacyWord : '';
     merged.finaleChoice = typeof merged.finaleChoice === 'string' ? merged.finaleChoice : '';
+    merged.endingKey = typeof merged.endingKey === 'string' ? merged.endingKey : '';
+    merged.endings = raw.endings && typeof raw.endings === 'object' ? raw.endings : {};
+    merged.choices = raw.choices && typeof raw.choices === 'object' ? raw.choices : {};
+    merged.sideChoices = raw.sideChoices && typeof raw.sideChoices === 'object' ? raw.sideChoices : {};
+    merged.lexiconSeen = Array.isArray(raw.lexiconSeen) ? raw.lexiconSeen.filter((term) => typeof term === 'string') : [];
     if (merged.legacyWord && !merged.finaleChoice) merged.finaleChoice = 'word';
+    if (!merged.endingKey && merged.finaleChoice) merged.endingKey = merged.finaleChoice;
     return merged;
   }
 
@@ -8060,34 +8807,8 @@ window.INK_DEEP = {
 
   function finaleOutcome() {
     if (!allChaptersDone()) return null;
-    if (save.finaleChoice === 'closed') {
-      return {
-        key: 'closed',
-        seal: '合',
-        label: '合卷',
-        title: '世界有了一个不再改写的结局',
-        text: '你合上了书。拾遗城停在最后一页，所有人终于不必再被下一版修改。沈砚没有消失，她只是停在你合上书的那一页里。'
-      };
-    }
-    if (save.finaleChoice === 'blank') {
-      return {
-        key: 'blank',
-        seal: '空',
-        label: '留白',
-        title: '空白第一次成为邀请',
-        text: '你把最后一页留空。没有结局，也没有告别。空白不再是白蚀，而是下一本书尚未落笔的地方。'
-      };
-    }
-    if (save.finaleChoice === 'word' && save.legacyWord) {
-      return {
-        key: 'word',
-        seal: save.legacyWord,
-        label: '终字',
-        title: `世界记得「${save.legacyWord}」`,
-        text: '你在最后一页留下了一个字。它不会被上传，也不会被排名，只留在这台机器和这段故事里。'
-      };
-    }
-    return null;
+    const id = currentEndingId();
+    return id ? endingOutcome(id) : null;
   }
 
   function getRank() {
@@ -8302,7 +9023,7 @@ window.INK_DEEP = {
               <a class="mode-card" href="#/story" data-glyph="卷">
                 <div class="mode-top">
                   <span class="mode-number">01 · STORY</span>
-                  <span class="mode-badge">16 卷 · ${totalStory} 节点</span>
+                  <span class="mode-badge">16 卷 · ${totalStory} 节点 · 全关限时</span>
                 </div>
                 <div>
                   <h3>主线 · 拾字纪<small>THE UNWRITTEN ARCHIVE</small></h3>
@@ -8425,7 +9146,7 @@ window.INK_DEEP = {
                 ${next
                   ? `<a class="btn btn-ghost" href="#/chapter/${next.chapter.id}">${partOf(next.chapter).key === 'inner' ? '翻到纸背' : '继续落笔'} <span class="arrow">→</span></a>`
                   : outcome
-                    ? `<a class="btn btn-ghost" href="#/story">回到卷宗 <span class="arrow">→</span></a>`
+                    ? `<button class="btn btn-ghost" type="button" data-action="open-finale">终局档案 <span class="arrow">→</span></button>`
                     : `<button class="btn btn-primary" type="button" data-action="open-finale"><span>翻开最后一页</span><span class="arrow">→</span></button>`}
               </div>
             </div>
@@ -8474,7 +9195,7 @@ window.INK_DEEP = {
               <h1>${activeLayer === 'inner' ? '里卷 · 纸背' : '表卷 · 拾字纪'}<br><em>${activeLayer === 'inner' ? '四卷，写给读完的人。' : '十二卷，一句重逢。'}</em></h1>
               <p class="page-lede">${activeLayer === 'inner'
                 ? '纸背不是续集，是同一本书的背面。这里没有英雄式的补字，只有被删掉的版本、读到故事的读者，以及一句尚未写完的话。'
-                : '每一卷三段刻印。补完一段，下一段才会显形；补完一卷，取回一枚字印。十二卷之后，书页会翻到背面。'}</p>
+                : '每一卷三段刻印，每关限时。补完一段，下一段才会显形；补完一卷，取回一枚字印，并决定把它留在页边还是从目录删去。十二卷之后，书页会翻到背面。'}</p>
             </div>
             <div class="page-side">
               <span>${part.label}完卷</span>
@@ -8543,6 +9264,7 @@ window.INK_DEEP = {
                     <span>${done ? '已完卷' : current ? '待续' : unlocked ? '可重读' : '未启封'}</span>
                     ${chapter.notes && chapter.notes.length ? `<span class="deep-badge">批注 ${String(chapter.notes.length).padStart(2, '0')}</span>` : ''}
                     ${chapter.variants && chapter.variants.length ? `<span class="deep-badge">异文 ${String(chapter.variants.length).padStart(2, '0')}</span>` : ''}
+                    ${chapterChoice(chapter.id) ? `<span class="branch-badge ${chapterChoice(chapter.id)}">${chapterChoice(chapter.id) === 'keep' ? '留卷' : '删卷'}</span>` : ''}
                   </div>
                   <h2>${escapeHTML(chapter.title)}</h2>
                   <p>${escapeHTML(chapter.summary)}</p>
@@ -8710,6 +9432,7 @@ window.INK_DEEP = {
                       <span class="level-role">${escapeHTML(level.role)}</span>
                       <h3>${escapeHTML(level.title)}</h3>
                       <span class="level-excerpt">${record ? '已刻印 · 可重读此段' : `${firstChars(level.text, 26)}…`}</span>
+                      <span class="level-time">限时 ${timeLimitForText(level.text)} 秒 · ${record && record.branch === 'late' ? '上次迟笔' : record && record.branch === 'timely' ? '上次及时' : '等待落笔'}</span>
                     </span>
                     <span class="level-state">
                       ${record
@@ -8743,6 +9466,38 @@ window.INK_DEEP = {
             <div class="side-unlock-note">
               <span>本卷关联支线已解锁：${unlockedSides.map((side) => `<strong>${escapeHTML(side.title)}</strong>`).join('、')}</span>
               <a class="text-link" href="#/side">查看档案 <span>→</span></a>
+            </div>
+          ` : ''}
+
+          ${done ? `
+            <section class="chapter-branch ${chapterChoice(chapter.id) ? 'has-choice' : ''}">
+              <div class="branch-copy">
+                <span class="branch-kicker">卷末抉择 · THE MARGIN DECISION</span>
+                <h2>这一卷，留在页边，还是从目录里删去？</h2>
+                <p>留在页边，它会被后来的人重新翻到；从目录删去，书会轻一页，但你仍得记得它。这个选择会写进终局档案。</p>
+                <div class="branch-hint">已保留 ${chapterChoiceCount('keep')} / 16 · 已删去 ${chapterChoiceCount('erase')} / 16</div>
+              </div>
+              <div class="branch-options">
+                <button class="branch-option ${chapterChoice(chapter.id) === 'keep' ? 'is-chosen' : ''}" type="button" data-action="chapter-choice" data-chapter="${chapter.id}" data-choice="keep">
+                  <span class="branch-seal">留</span>
+                  <strong>留在页边</strong>
+                  <small>让它继续被读到</small>
+                </button>
+                <button class="branch-option ${chapterChoice(chapter.id) === 'erase' ? 'is-chosen' : ''}" type="button" data-action="chapter-choice" data-chapter="${chapter.id}" data-choice="erase">
+                  <span class="branch-seal is-erase">删</span>
+                  <strong>从目录删去</strong>
+                  <small>让书轻一页</small>
+                </button>
+              </div>
+              ${chapterChoice(chapter.id) ? `<div class="branch-record">本卷当前：${chapterChoice(chapter.id) === 'keep' ? '留在页边' : '已从目录删去'}。可以重新选择，直到你翻开最后一页。</div>` : '<div class="branch-record">尚未选择。你可以先读完卷末，再决定。</div>'}
+            </section>
+          ` : ''}
+
+          ${done ? `
+            <div class="chapter-timing">
+              <span>本卷时限记录 · TIME BRANCHES</span>
+              <b>及时 ${chapter.levels.filter((level) => save.levels[level.id] && save.levels[level.id].branch === 'timely').length} · 迟笔 ${chapter.levels.filter((level) => save.levels[level.id] && save.levels[level.id].branch === 'late').length}</b>
+              <small>${chapter.levels.some((level) => save.levels[level.id] && save.levels[level.id].branch === 'late') ? '空白在本卷页边留下了一道湿痕。重刻可以改写这一笔。' : '三笔都赶在空白之前。纸面很干净。'}</small>
             </div>
           ` : ''}
 
@@ -8811,7 +9566,7 @@ window.INK_DEEP = {
                   <p>${escapeHTML(side.summary)}</p>
                   <div class="side-foot">
                     ${done
-                      ? `<span class="mini-stars">${starsText(record.stars)}</span><span>${record.cpm} 字/分</span>`
+                      ? `<span class="mini-stars">${starsText(record.stars)}</span><span>${record.cpm} 字/分</span>${sideChoice(side.id) ? `<span class="branch-badge ${sideChoice(side.id)}">${sideChoice(side.id) === 'keep' ? '归卷' : '留边'}</span>` : ''}`
                       : unlocked
                         ? `<span>可读取</span><span>→</span>`
                         : `<span class="side-lockline">封 · 完成第${side.chapter}章解锁</span>`}
@@ -8874,6 +9629,7 @@ window.INK_DEEP = {
                 <div><dt>关联卷宗</dt><dd>第${chapter.numeral}卷 · ${escapeHTML(chapter.title)}</dd></div>
                 <div><dt>档案人物</dt><dd>${escapeHTML(side.npc)}</dd></div>
                 <div><dt>刻印篇幅</dt><dd>${Array.from(side.level.text).length} 字</dd></div>
+                <div><dt>限时</dt><dd>${timeLimitForText(side.level.text)} 秒</dd></div>
                 <div><dt>档案状态</dt><dd>${done ? '已归卷' : '待读取'}</dd></div>
               </dl>
             </aside>
@@ -8903,6 +9659,24 @@ window.INK_DEEP = {
               </button>
             </div>
           </section>
+
+          ${done ? `
+            <section class="side-branch">
+              <div class="side-branch-copy">
+                <span>页边去留 · THE SIDE MARGIN</span>
+                <h2>这份档案，归卷还是留在页边？</h2>
+                <p>归卷会成为正史的一行注脚；留在页边，则可能被下一个读者捡到。它不会改变主线，但会改变你记得这个人的方式。</p>
+              </div>
+              <div class="side-branch-options">
+                <button class="side-branch-option ${sideChoice(side.id) === 'keep' ? 'is-chosen' : ''}" type="button" data-action="side-choice" data-side="${side.id}" data-choice="keep">
+                  <span>归</span><strong>归卷</strong><small>写进正史</small>
+                </button>
+                <button class="side-branch-option ${sideChoice(side.id) === 'erase' ? 'is-chosen' : ''}" type="button" data-action="side-choice" data-side="${side.id}" data-choice="erase">
+                  <span>留</span><strong>留在页边</strong><small>等下一个读者</small>
+                </button>
+              </div>
+            </section>
+          ` : ''}
 
           ${done ? `
             <section class="chapter-outro">
@@ -9062,6 +9836,7 @@ window.INK_DEEP = {
         </div>
         <div class="dialog-meta">
           <span>字数 <b>${count}</b></span>
+          <span>限时 <b>${timeLimitForText(level.text)} 秒</b></span>
           <span>历史最佳 <b>${record ? `${record.cpm} 字/分 · ${record.accuracy}%` : '尚未落笔'}</b></span>
           <span>标点 <b>可用半角</b></span>
         </div>
@@ -9069,7 +9844,7 @@ window.INK_DEEP = {
           <button class="btn btn-primary" type="button" data-action="start-story" data-level="${level.id}" autofocus>开始刻印 <span class="arrow">→</span></button>
           <button class="btn btn-ghost" type="button" data-action="close-dialog">稍后再来</button>
         </div>
-        <p class="dialog-note">计时从第一次落笔或开始组字时启动。输入法组字期间不判定，上屏后再比较。三星条件：准确率 ≥ 97% 且字速 ≥ 60 字/分；二星：准确率 ≥ 93% 且字速 ≥ 40 字/分。</p>
+        <p class="dialog-note">计时从第一次落笔或开始组字时启动。输入法组字期间不判定，上屏后再比较。超时不会中断，但会进入“迟笔”分支；可在结算后重刻改写分支。</p>
       </div>
     `);
   }
@@ -9095,12 +9870,14 @@ window.INK_DEEP = {
         </div>
         <div class="dialog-meta">
           <span>人物 <b>${escapeHTML(side.npc)}</b></span>
+          <span>限时 <b>${timeLimitForText(side.level.text)} 秒</b></span>
           <span>历史最佳 <b>${record ? `${record.cpm} 字/分 · ${record.accuracy}%` : '尚未落笔'}</b></span>
         </div>
         <div class="dialog-actions">
           <button class="btn btn-primary" type="button" data-action="start-side" data-side="${side.id}" autofocus>开始刻印 <span class="arrow">→</span></button>
           <button class="btn btn-ghost" type="button" data-action="close-dialog">稍后再来</button>
         </div>
+        <p class="dialog-note">超时不会中断，但会记入“迟笔”分支；档案仍然会归卷，只是墨色不同。</p>
       </div>
     `);
   }
@@ -9204,6 +9981,7 @@ window.INK_DEEP = {
       : context.kind === 'side'
         ? context.side.level.text
         : context.challenge.text;
+    const timeLimit = context.kind === 'story' || context.kind === 'side' ? timeLimitForText(text) : 0;
 
     let title = '';
     let kicker = '';
@@ -9246,6 +10024,8 @@ window.INK_DEEP = {
       finalMs: 0,
       pausedAt: 0,
       pausedTotal: 0,
+      timeLimit,
+      timedOut: false,
       timer: null,
       trimmed: false
     };
@@ -9253,10 +10033,13 @@ window.INK_DEEP = {
     $('#typingKicker').textContent = kicker;
     $('#typingTitle').textContent = title;
     $('#typingContext').textContent = sub;
-    $('#typingCharCount').textContent = `${typing.targetChars.length} 字`;
+    $('#typingCharCount').textContent = `${typing.targetChars.length} 字 · ${timeLimit ? `限时 ${timeLimit} 秒` : '无时限'}`;
     $('#typingSealMark').textContent = seal;
+    $('#liveRemaining').textContent = timeLimit ? String(timeLimit) : '--';
     typingScreen.dataset.layer = layer;
     typingScreen.classList.toggle('is-verso', layer === 'inner');
+    typingScreen.classList.toggle('is-timed', Boolean(timeLimit));
+    typingScreen.classList.remove('is-overtime');
     $('#composeState').textContent = '输入法组字时会暂时不判定，上屏后继续';
     $('#typingMistakeLabel').textContent = '笔误 0';
     $('#typingPause').textContent = '暂停';
@@ -9336,13 +10119,24 @@ window.INK_DEEP = {
     const progress = target.length ? Math.round((prefix / target.length) * 100) : 0;
     const liveCpm = elapsed > 0 ? Math.round(correct / (Math.max(elapsed, 800) / 60000)) : 0;
     const liveAccuracy = input.length ? Math.round((correct / input.length) * 100) : 100;
+    const elapsedSeconds = elapsed / 1000;
+    const remaining = typing.timeLimit ? Math.max(0, typing.timeLimit - elapsedSeconds) : null;
+
+    if (typing.timeLimit && !typing.timedOut && elapsedSeconds >= typing.timeLimit) {
+      typing.timedOut = true;
+      typingScreen.classList.add('is-overtime');
+      toast('时限已过。空白先漫过了纸面，你进入了迟笔分支。');
+      playTone(145, 0.12, 0.02, 'triangle');
+    }
 
     $('#liveCpm').textContent = String(liveCpm);
     $('#liveAccuracy').textContent = String(liveAccuracy);
     $('#liveProgress').textContent = String(progress);
     $('#liveTime').textContent = (elapsed / 1000).toFixed(1);
+    $('#liveRemaining').textContent = remaining === null ? '--' : String(Math.ceil(remaining));
+    $('#liveRemaining').classList.toggle('is-urgent', remaining !== null && remaining <= 10);
     $('#typingProgressBar').style.width = `${progress}%`;
-    $('#typingMistakeLabel').textContent = `笔误 ${typing.mistakes}`;
+    $('#typingMistakeLabel').textContent = `笔误 ${typing.mistakes}${typing.timedOut ? ' · 迟笔分支' : ''}`;
     $('#inputZone').classList.toggle('has-errors', wrong > 0);
     typing.displayProgress = progress;
   }
@@ -9480,6 +10274,13 @@ window.INK_DEEP = {
     const unlockLines = result.unlockedSides && result.unlockedSides.length
       ? `<p class="dialog-note">新档案解锁：${result.unlockedSides.map((side) => `<b style="color:var(--gold-bright);font-weight:400">${escapeHTML(side.title)}</b>`).join('、')}。可在支线档案中读取。</p>`
       : '';
+    const timeBranchHTML = result.kind !== 'challenge' && result.timeLimit
+      ? `<div class="result-timebranch ${result.timely ? 'timely' : 'late'}">
+          <span class="timebranch-seal">${result.timely ? '及' : '迟'}</span>
+          <div><strong>${result.timely ? '及时落笔' : '迟笔分支'}</strong><small>限时 ${result.timeLimit} 秒 · ${result.timely ? '空白没有先漫过纸面。' : '空白先一步漫过，但字还是写完了。'}</small></div>
+        </div>`
+      : '';
+
 
     openDialog(`
       <div class="dialog-card result-card">
@@ -9504,6 +10305,7 @@ window.INK_DEEP = {
         </div>
 
         ${result.after ? `<div class="result-after"><span>刻印余波</span><p>${escapeHTML(result.after)}</p></div>` : ''}
+        ${timeBranchHTML}
         ${result.gain ? `<div class="result-gain">墨尘 +${result.gain}${result.firstClear ? ' · 首次归卷' : result.newBest ? ' · 刷新最佳' : ''}</div>` : ''}
         ${unlockLines}
         ${result.chapterJustDone ? '<p class="dialog-note">本卷已完卷。字印已收入卷宗。</p>' : ''}
@@ -9530,6 +10332,8 @@ window.INK_DEEP = {
     const accuracy = Math.max(0, Math.min(100, Math.round((length / (length + typing.mistakes)) * 100)));
     const mistakes = typing.mistakes;
     const stars = calcStars(cpm, accuracy);
+    const timely = !typing.timeLimit || (!typing.timedOut && seconds <= typing.timeLimit + 0.05);
+    const timeBranch = timely ? 'timely' : 'late';
     let gain = 0;
     let result = null;
 
@@ -9546,6 +10350,7 @@ window.INK_DEEP = {
         accuracy: Math.max(previous ? previous.accuracy : 0, accuracy),
         bestSeconds: previous && previous.bestSeconds ? Math.min(previous.bestSeconds, seconds) : seconds,
         plays: (previous && previous.plays ? previous.plays : 0) + 1,
+        branch: timeBranch,
         at: Date.now()
       };
 
@@ -9576,6 +10381,9 @@ window.INK_DEEP = {
         chapterJustDone,
         allStoryDone: allDone,
         unlockedSides,
+        timely,
+        timeLimit: typing.timeLimit,
+        timeBranch,
         after: level.after,
         gain
       };
@@ -9590,6 +10398,7 @@ window.INK_DEEP = {
         accuracy: Math.max(previous ? previous.accuracy : 0, accuracy),
         bestSeconds: previous && previous.bestSeconds ? Math.min(previous.bestSeconds, seconds) : seconds,
         plays: (previous && previous.plays ? previous.plays : 0) + 1,
+        branch: timeBranch,
         at: Date.now()
       };
       if (firstClear) gain += 45;
@@ -9605,6 +10414,9 @@ window.INK_DEEP = {
         stars,
         firstClear,
         newBest,
+        timely,
+        timeLimit: typing.timeLimit,
+        timeBranch,
         after: side.level.after,
         gain
       };
@@ -9683,6 +10495,79 @@ window.INK_DEEP = {
     `, { wide: true });
   }
 
+  function endingGalleryHTML() {
+    const unlockedCount = Object.keys(save.endings || {}).length;
+    return `
+      <details class="ending-ledger" ${unlockedCount > 0 ? '' : 'open'}>
+        <summary>
+          <span>终局档案 · ENDING ARCHIVE</span>
+          <b>${unlockedCount} / ${ENDINGS.length}</b>
+        </summary>
+        <div class="ending-ledger-grid">
+          ${ENDINGS.map((ending) => {
+            const unlocked = Boolean(save.endings && save.endings[ending.id]);
+            const eligible = endingEligible(ending.id);
+            const reveal = !ending.hidden || unlocked || eligible;
+            return `
+              <div class="ending-entry ${unlocked ? 'is-unlocked' : ''} ${ending.hidden ? 'is-hidden' : ''} ${eligible ? 'is-eligible' : ''}">
+                <span class="ending-seal">${unlocked ? ending.seal : '？'}</span>
+                <div>
+                  <strong>${reveal ? escapeHTML(ending.name) : '？？？'}</strong>
+                  <small>${unlocked ? '已收录' : eligible ? '条件已满足' : '未解锁'}</small>
+                  <p>${escapeHTML(ending.hint)}</p>
+                  ${ending.hidden ? `<em>${escapeHTML(endingProgress(ending.id))}</em>` : ''}
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </details>
+    `;
+  }
+
+  function chooseEnding(id) {
+    const def = ENDING_MAP.get(id);
+    if (!def) return;
+    if (!endingEligible(id)) {
+      toast('这个终局的条件还没有满足。去看看页边留下的暗号。');
+      return;
+    }
+    if (id === 'word') {
+      save.endingKey = 'word';
+      save.finaleChoice = 'word';
+      save.legacyWord = '';
+      persist();
+      renderFinale();
+      setTimeout(() => {
+        const input = $('#legacyWord');
+        if (input) input.focus({ preventScroll: true });
+      }, 160);
+      return;
+    }
+    save.endingKey = id;
+    save.finaleChoice = id;
+    save.legacyWord = '';
+    const firstUnlock = !save.endings[id];
+    save.endings[id] = Date.now();
+    save.completedAt = Date.now();
+    if (firstUnlock) {
+      save.ink += id === 'seventh' ? 500 : id === 'slow' ? 320 : id === 'unwriter' ? 320 : 180;
+    }
+    persist();
+    updateHeader();
+    playCompleteTone();
+    renderFinale();
+  }
+
+  function reconsiderFinale() {
+    save.endingKey = '';
+    save.finaleChoice = '';
+    save.legacyWord = '';
+    persist();
+    renderFinale();
+    toast('书重新翻开了。已收录的终局仍在档案里。');
+  }
+
   function renderFinale() {
     if (!allChaptersDone()) return;
     const outcome = finaleOutcome();
@@ -9698,25 +10583,28 @@ window.INK_DEEP = {
 
     if (outcome) {
       const isWord = outcome.key === 'word';
+      const hidden = Boolean(outcome.hidden);
       finaleContent.innerHTML = `
-        <div class="finale-kicker">${isWord ? 'THE LAST WORD · 终字已落' : 'THE BOOK IS CLOSED · 终局已定'}</div>
+        <div class="finale-kicker">${hidden ? 'HIDDEN ENDING · 隐藏终局' : isWord ? 'THE LAST WORD · 终字已落' : 'ENDING · 终局已定'}</div>
         <h1 class="finale-title">${isWord ? '世界记得' : escapeHTML(outcome.title)}<br><em>${isWord ? escapeHTML(outcome.seal) : escapeHTML(outcome.label)}</em></h1>
         <div class="finale-seals">${seals}</div>
         <p class="finale-line">${SEAL_SENTENCE}</p>
         <div class="finale-rule"></div>
         <p class="finale-copy">${escapeHTML(outcome.text)}</p>
         <p class="finale-done-word">${escapeHTML(outcome.seal)}</p>
-        <p class="finale-choice-label">${isWord ? '你留下的终字' : '你选择的终局'} · ${escapeHTML(outcome.label)}</p>
+        <p class="finale-choice-label">${hidden ? '隐藏终局' : isWord ? '你留下的终字' : '你选择的终局'} · ${escapeHTML(outcome.label)}</p>
         ${statHTML}
         <div class="finale-actions">
           <button class="btn btn-primary" type="button" data-action="finale-home">回到卷首 <span class="arrow">→</span></button>
           <button class="btn btn-ghost" type="button" data-action="finale-story">回看十六卷</button>
+          <button class="btn btn-ghost" type="button" data-action="finale-reconsider">重新翻开最后一页</button>
         </div>
+        ${endingGalleryHTML()}
       `;
       return;
     }
 
-    if (save.finaleChoice === 'word' && !save.legacyWord) {
+    if (save.finaleChoice === 'word' || save.endingKey === 'word') {
       finaleContent.innerHTML = `
         <div class="finale-kicker">THE LAST WORD · 落字</div>
         <h1 class="finale-title">最后一页，<br><em>只等你一个字。</em></h1>
@@ -9735,34 +10623,36 @@ window.INK_DEEP = {
       return;
     }
 
+    const hiddenEligible = ENDINGS.filter((ending) => ending.hidden && endingEligible(ending.id));
+    const visible = ENDINGS.filter((ending) => !ending.hidden);
     finaleContent.innerHTML = `
       <div class="finale-kicker">THE UNFINISHED BOOK · 未完成之书</div>
       <h1 class="finale-title">十六卷已尽，<br><em>最后一页留给你。</em></h1>
       <div class="finale-seals">${seals}</div>
       <p class="finale-line">${SEAL_SENTENCE}</p>
       <div class="finale-rule"></div>
-      <p class="finale-copy">沈砚把笔放在最后一页上，退后一步。她没有替你决定这本书应该怎样结束。合上它、留白，或者写下一个字——三种选择都会让这个世界变成另一种样子。</p>
+      <p class="finale-copy">沈砚把笔放在最后一页上，退后一步。她没有替你决定这本书应该怎样结束。合上它、留白，或者写下一个字——而页边还藏着别的走法。</p>
       <div class="finale-choice-grid">
-        <button class="finale-choice" type="button" data-action="finale-choice" data-choice="closed">
-          <span class="choice-seal">合</span>
-          <strong>合上书</strong>
-          <p>给世界一个不再被改写的结局。沈砚会停在最后一页，所有人都不必再被下一版修改。</p>
-          <em>THE CLOSED BOOK</em>
-        </button>
-        <button class="finale-choice" type="button" data-action="finale-choice" data-choice="blank">
-          <span class="choice-seal">空</span>
-          <strong>留一页空白</strong>
-          <p>不写结局。空白第一次不是白蚀，而是下一本书尚未落笔的地方。</p>
-          <em>THE OPEN MARGIN</em>
-        </button>
-        <button class="finale-choice" type="button" data-action="finale-choice" data-choice="word">
-          <span class="choice-seal">字</span>
-          <strong>留下一个字</strong>
-          <p>把最后一页交给正在读它的人。写下你的字，让世界记得一个不属于原典的词。</p>
-          <em>THE READER’S WORD</em>
-        </button>
+        ${visible.map((ending) => `
+          <button class="finale-choice" type="button" data-action="finale-ending" data-ending="${ending.id}">
+            <span class="choice-seal">${ending.seal}</span>
+            <strong>${escapeHTML(ending.name)}</strong>
+            <p>${escapeHTML(ending.hint)}</p>
+            <em>${escapeHTML(ending.en)}</em>
+          </button>
+        `).join('')}
+        ${hiddenEligible.map((ending) => `
+          <button class="finale-choice is-hidden-ending" type="button" data-action="finale-ending" data-ending="${ending.id}">
+            <span class="choice-seal">${ending.seal}</span>
+            <strong>${escapeHTML(ending.name)}</strong>
+            <p>${escapeHTML(ending.hint)}</p>
+            <em>HIDDEN · 条件已满足</em>
+          </button>
+        `).join('')}
       </div>
       <div class="finale-seals-note">十六枚字印：${SEAL_SENTENCE}</div>
+      <p class="finale-hidden-hint">页边还有没被写出的结局。注意每卷的“卷末抉择”、迟笔记录，以及旁注里画下的圈。</p>
+      ${endingGalleryHTML()}
       <button class="finale-skip" type="button" data-action="close-finale">先不选，回头再来</button>
     `;
   }
@@ -9879,9 +10769,11 @@ window.INK_DEEP = {
   function openLexicon(termIndex) {
     const entry = LEXICON[Number(termIndex)];
     if (!entry) return;
+    currentLexiconTerm = entry.term;
     lexiconKind.textContent = entry.kind || '词条';
     lexiconTerm.textContent = entry.term;
     lexiconText.textContent = entry.text;
+    updateLexiconMark(entry.term);
     const related = (entry.related || [])
       .map((term) => LEXICON_MAP.get(term))
       .filter(Boolean);
@@ -9901,6 +10793,31 @@ window.INK_DEEP = {
     });
     syncBodyLock();
     setTimeout(() => $('.lexicon-close').focus({ preventScroll: true }), 180);
+  }
+
+  function updateLexiconMark(term) {
+    const seen = Array.isArray(save.lexiconSeen) ? save.lexiconSeen : [];
+    const marked = seen.includes(term);
+    lexiconSeenCount.textContent = String(seen.length);
+    lexiconMark.classList.toggle('is-marked', marked);
+    lexiconMark.disabled = marked;
+    lexiconMark.textContent = marked ? '这页已经画过圈' : '在页边画一个圈';
+  }
+
+  function markLexicon() {
+    if (!currentLexiconTerm) return;
+    if (!Array.isArray(save.lexiconSeen)) save.lexiconSeen = [];
+    if (save.lexiconSeen.includes(currentLexiconTerm)) return;
+    save.lexiconSeen.push(currentLexiconTerm);
+    save.ink += 3;
+    persist();
+    updateHeader();
+    updateLexiconMark(currentLexiconTerm);
+    if (save.lexiconSeen.length === 7) {
+      toast('第七个圈画下了。页边似乎有哪里动了一下。');
+    } else {
+      toast('页边多了一个圈。');
+    }
   }
 
   function closeLexicon() {
@@ -10057,6 +10974,28 @@ window.INK_DEEP = {
         renderRoute({ preserveScroll: true });
         break;
 
+      case 'chapter-choice': {
+        const chapter = CHAPTER_MAP.get(target.dataset.chapter);
+        const choice = target.dataset.choice;
+        if (!chapter || !['keep', 'erase'].includes(choice) || !chapterDone(chapter)) return;
+        save.choices[chapter.id] = choice;
+        persist();
+        renderRoute({ preserveScroll: true });
+        toast(choice === 'keep' ? '这一卷留在了页边。' : '这一卷从目录里被删去了。');
+        break;
+      }
+
+      case 'side-choice': {
+        const side = SIDE_MAP.get(target.dataset.side);
+        const choice = target.dataset.choice;
+        if (!side || !['keep', 'erase'].includes(choice) || !sideDone(side)) return;
+        save.sideChoices[side.id] = choice;
+        persist();
+        renderRoute({ preserveScroll: true });
+        toast(choice === 'keep' ? '档案已归卷。' : '档案被留在页边。');
+        break;
+      }
+
       case 'confirm-exit':
         closeDialog();
         exitTyping();
@@ -10128,31 +11067,13 @@ window.INK_DEEP = {
         navigate('story');
         break;
 
-      case 'finale-choice': {
-        const choice = target.dataset.choice;
-        if (!['closed', 'blank', 'word'].includes(choice)) return;
-        save.finaleChoice = choice;
-        save.completedAt = Date.now();
-        if (choice !== 'word') {
-          save.legacyWord = '';
-          save.ink += 180;
-          playCompleteTone();
-          toast(choice === 'closed' ? '你合上了书。' : '你留下了一页空白。');
-        } else {
-          save.legacyWord = '';
-          save.ink += 80;
-        }
-        persist();
-        updateHeader();
-        renderFinale();
-        if (choice === 'word') {
-          setTimeout(() => {
-            const input = $('#legacyWord');
-            if (input) input.focus({ preventScroll: true });
-          }, 160);
-        }
+      case 'finale-ending':
+        chooseEnding(target.dataset.ending);
         break;
-      }
+
+      case 'finale-reconsider':
+        reconsiderFinale();
+        break;
 
       case 'open-lexicon':
         openLexicon(target.dataset.term);
@@ -10160,6 +11081,10 @@ window.INK_DEEP = {
 
       case 'close-lexicon':
         closeLexicon();
+        break;
+
+      case 'mark-lexicon':
+        markLexicon();
         break;
 
       case 'toggle-sound':
@@ -10210,10 +11135,13 @@ window.INK_DEEP = {
       return;
     }
     if (save.legacyWord) return;
+    const wordWasUnlocked = Boolean(save.endings.word);
     save.finaleChoice = 'word';
+    save.endingKey = 'word';
     save.legacyWord = word;
+    save.endings.word = Date.now();
     save.completedAt = Date.now();
-    save.ink += 300;
+    if (!wordWasUnlocked) save.ink += 300;
     persist();
     updateHeader();
     playCompleteTone();
