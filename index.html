@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0b100e">
-  <meta name="description" content="《墨蚀：拾字纪》——一款以汉字为骨、以故事为墨的叙事打字游戏。16 卷 48 个刻印节点；明线 16 卷 + 暗线 16 段；36 个世界观词条、20 份人物档案、32 段回忆、44 种正经结局。">
+  <meta name="description" content="《墨蚀：拾字纪》——一款以汉字为骨、以故事为墨的叙事打字游戏。16 卷 48 个刻印节点；16 卷中篇叙事、明线 16 卷 + 暗线 16 段；36 个世界观词条、20 份人物档案、8 份城志、32 段回忆、44 种正经结局。">
   <title>墨蚀：拾字纪 · INKFALL</title>
   <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iNiIgZmlsbD0iIzBiMTAwZSIvPgogIDxyZWN0IHg9IjciIHk9IjciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgcng9IjMiIGZpbGw9IiM4ZjMzMjciIHN0cm9rZT0iI2U4Y2I4ZSIgc3Ryb2tlLW9wYWNpdHk9Ii41NSIvPgogIDxwYXRoIGQ9Ik0xMyAxNWgzOE0xMyA0OWgzOE0xNSAxM3YzOE00OSAxM3YzOCIgc3Ryb2tlPSIjZThjYjhlIiBzdHJva2Utb3BhY2l0eT0iLjE4IiBmaWxsPSJub25lIi8+CiAgPHRleHQgeD0iMzIiIHk9IjQzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU2ltU3VuLCBzZXJpZiIgZm9udC1zaXplPSIzMSIgZmlsbD0iI2YyZTNjOSI+5aKoPC90ZXh0Pgo8L3N2Zz4K" type="image/svg+xml">
   <style>
@@ -1792,6 +1792,50 @@ h1, h2, h3, h4, p {
 .chapter-intro {
   max-width: 760px;
   padding: clamp(48px, 6vw, 78px) 0;
+}
+
+.chapter-novel {
+  margin-top: 30px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.chapter-novel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 14px;
+}
+
+.chapter-novel-head span {
+  color: var(--gold);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+}
+
+.chapter-novel-head b {
+  color: var(--faint);
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+
+.chapter-novel p {
+  color: var(--paper-2);
+  font-family: var(--kai);
+  font-size: 16px;
+  line-height: 2.05;
+}
+
+.chapter-novel p:first-of-type::first-letter {
+  float: left;
+  margin: 5px 7px 0 0;
+  color: var(--cinnabar-bright);
+  font-family: var(--serif);
+  font-size: 34px;
+  line-height: 0.85;
 }
 
 .story-prose p {
@@ -6526,7 +6570,7 @@ body.layer-inner .story-layer-tab.is-active {
 
 .people-tabs {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 260px));
+  grid-template-columns: repeat(3, minmax(0, 260px));
   gap: 10px;
   margin-bottom: 26px;
 }
@@ -7085,7 +7129,7 @@ body.layer-inner .story-layer-tab.is-active {
 
 @media (max-width: 760px) {
   .people-tabs {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .people-tab {
@@ -7524,6 +7568,182 @@ body.layer-inner .story-layer-tab.is-active {
 
   .dark-line-list::before {
     left: 20px;
+  }
+}
+
+/* ---------- city archive ---------- */
+
+.archive-intro {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.archive-intro > span {
+  color: var(--gold);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+
+.archive-intro p {
+  max-width: 560px;
+  color: var(--faint);
+  font-size: 9px;
+  line-height: 1.7;
+}
+
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.archive-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr);
+  gap: 14px;
+  min-height: 148px;
+  padding: 16px;
+  border: 1px solid var(--line-soft);
+  background:
+    linear-gradient(135deg, rgba(201, 169, 106, 0.04), transparent 55%),
+    rgba(13, 21, 18, 0.4);
+  text-align: left;
+  transition: all 0.3s var(--ease);
+}
+
+.archive-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--line);
+  background-color: rgba(23, 36, 30, 0.56);
+}
+
+.archive-seal {
+  width: 62px;
+  height: 78px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(201, 169, 106, 0.3);
+  background:
+    radial-gradient(circle at 40% 25%, rgba(201, 169, 106, 0.14), transparent 48%),
+    #0b1210;
+  color: var(--gold-bright);
+  font-family: var(--serif);
+  font-size: 28px;
+}
+
+.archive-seal.large {
+  width: 72px;
+  height: 90px;
+  font-size: 34px;
+  flex: 0 0 auto;
+}
+
+.archive-copy small {
+  color: var(--faint);
+  font-size: 7px;
+  letter-spacing: 0.08em;
+}
+
+.archive-copy strong {
+  display: block;
+  margin-top: 5px;
+  color: var(--paper);
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.archive-copy p {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.8;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.archive-arrow {
+  position: absolute;
+  right: 13px;
+  top: 12px;
+  color: var(--gold-dim);
+  font-size: 11px;
+}
+
+.archive-dialog-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding-right: 32px;
+}
+
+.archive-record {
+  margin-top: 15px;
+  padding: 15px 17px;
+  border: 1px solid var(--line-soft);
+  background: rgba(13, 21, 18, 0.4);
+}
+
+.archive-record.margin {
+  border-color: rgba(196, 117, 94, 0.3);
+  background: rgba(28, 14, 11, 0.36);
+}
+
+.archive-record > span,
+.archive-related > span {
+  color: var(--gold);
+  font-size: 7px;
+  letter-spacing: 0.14em;
+}
+
+.archive-record p {
+  margin-top: 7px;
+  color: var(--paper-2);
+  font-family: var(--kai);
+  font-size: 14px;
+  line-height: 2;
+}
+
+.archive-related {
+  margin-top: 18px;
+  padding-top: 13px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.archive-related > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.archive-term {
+  padding: 4px 8px;
+  border: 1px solid var(--line-soft);
+  color: var(--paper-3);
+  font-size: 8px;
+}
+
+@media (max-width: 920px) {
+  .archive-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .archive-intro {
+    display: block;
+  }
+
+  .archive-intro p {
+    margin-top: 7px;
   }
 }
 
@@ -10863,6 +11083,94 @@ window.INK_PEOPLE = {
 
   </script>
   <script>
+/* 《墨蚀：拾字纪》城志档案
+ * 地点与机构，官修记录 + 页边记录。
+ */
+window.INK_ARCHIVE = [
+  {
+    id: 'city',
+    name: '拾遗城',
+    seal: '城',
+    kind: '地点',
+    unlockChapter: 1,
+    official: '墨界最后一座仍有活字的城。户籍在册者九万七千四百二十一人，城墙周长十二里，北门正对报晓钟。',
+    margin: '城名换过三次：拾遗、不归、记得。每一次改名都对应一次版本更替。城里的人记得城名，却很少有人记得改名那天谁哭了。',
+    related: ['白蚀', '活字塔', '名册']
+  },
+  {
+    id: 'tower',
+    name: '活字塔',
+    seal: '塔',
+    kind: '建筑',
+    unlockChapter: 3,
+    official: '城心建筑，由十万枚铜活字垒成。每夜轮转，排出全城姓名、账目、婚书与墓志。塔门只对校书人开放。',
+    margin: '塔身不是墙，是一本立起来的书。第七行缺的那句话，是整座城共同的伤口；裴家每一代都有人偷偷把被删的名字刻回铜字背面。',
+    related: ['裴照', '字脉', '第七版']
+  },
+  {
+    id: 'scriptorium',
+    name: '校经阁',
+    seal: '校',
+    kind: '机构',
+    unlockChapter: 1,
+    official: '负责校勘《万卷初版》、修补失字、登记版本更替。主事陆观澜于墨历九十七年离职，下落不明。',
+    margin: '校经阁的档案柜有十三层，最下面一层不上锁，因为里面只放被删掉的校勘记录。沈砚后来在那里找到母亲的名字。',
+    related: ['陆观澜', '校勘', '初版']
+  },
+  {
+    id: 'delete-society',
+    name: '删页会',
+    seal: '删',
+    kind: '组织',
+    unlockChapter: 5,
+    official: '非法组织，主张删去一切姓名，认为名字是痛苦的根源。书楼纵火案后遭全城通缉。',
+    margin: '删页会没有总坛，只有一间间轮流借用的茶室。会员不交换姓名，只交换想忘掉的人。简不是创始人，但他让这个组织第一次有了一个像样的理由。',
+    related: ['简', '阿辞', '白蚀']
+  },
+  {
+    id: 'name-market',
+    name: '借名市场',
+    seal: '名',
+    kind: '地下市场',
+    unlockChapter: 4,
+    official: '城隍庙后的地下交易场所，无营业执照。以名字为抵押，期限一至十年，利息按笔画计算。',
+    margin: '市场里最贵的不是名字，是“还有人记得你”这件事。春生的当票背面有一行小字：赎金已付，取件人，阿笺。掌柜至今没敢把那一页归档。',
+    related: ['春生', '阿笺', '名册']
+  },
+  {
+    id: 'river-post',
+    name: '逆流邮局',
+    seal: '邮',
+    kind: '机构',
+    unlockChapter: 12,
+    official: '城西邮局，专送无法投递的信件。工龄最长者老骆，四十三年无退件记录。',
+    margin: '邮局不按地址分信，按“收件人还活着”分。老骆把没有地址的信按季节装袋，春天寄给孩子，冬天寄给老人。他说，地址不存在，收件人存在。',
+    related: ['老骆', '逆流河', '读者']
+  },
+  {
+    id: 'white-door',
+    name: '白页之门',
+    seal: '门',
+    kind: '边界',
+    unlockChapter: 10,
+    official: '城北空白中心的无门之门。无登记入口，无出口记录。进入者需以全城姓名搓绳系身。',
+    margin: '门内没有时间，只有页。每走一步，身上就少一个字。阿笺在那里散成纸桥；沈砚后来在桥边捡到一张写着自己名字的纸屑。',
+    related: ['空白', '阿笺', '简']
+  },
+  {
+    id: 'night-watch',
+    name: '守夜人更房',
+    seal: '夜',
+    kind: '机构',
+    unlockChapter: 9,
+    official: '负责夜间巡城、敲更与失名者登记。守夜人不识字，以符号记名。',
+    margin: '更房的墙上有七册手画名册，最后一页永远空着。瞿不忘说，那是留给守夜人自己的；等哪天他忘了自己，就请别人替他画一个圈。',
+    related: ['瞿不忘', '名册', '失名者']
+  }
+];
+
+  </script>
+  <script>
 /* 《墨蚀：拾字纪》场景细描与间章
  * scenes：每卷开头的电影式场景描写
  * interludes：每卷卷末的间章，用次要人物补完主线之间的空白
@@ -10968,6 +11276,143 @@ window.INK_SCENES = {
       speaker: '最后一页之后',
       text: '书没有合上。风从页间穿过，吹动所有版本。沈砚把笔搁在最后一页旁边，向后退了一步。桌上多出一张空白纸，纸上没有字，只有一道很浅的折痕。她知道，那是留给下一个人的。没有人能替她决定这张纸该写什么，她也不打算再等一个正确的版本。'
     }
+  }
+};
+
+  </script>
+  <script>
+/* 《墨蚀：拾字纪》中篇叙事
+ * 每卷三小段，接在卷首场景之后、原有正文之前。
+ * 只补人物内心、动作与过渡，不改动主线事件。
+ */
+window.INK_NOVEL = {
+  ch1: {
+    title: '钟楼上的第一笔',
+    paragraphs: [
+      '沈砚把手贴在钟壁上，铜的凉意顺着掌纹爬上来。她能摸到那个缺口：不是被砸掉的，也不是被磨平的，像有人用指甲把「鸣」字从铭文里轻轻抠走，连铜屑都没有留下。晨雾从城北漫过来，雾里有豆浆的甜味、煤炉的呛味，还有一个孩子断断续续喊娘的声音。',
+      '陆观澜在楼下又喊了一声。她听见师父的嗓音里有一丝她从未听过的急。钟腹很暗，暗得像另一间屋子。她低头往里看，看见铜壁上有一行粉笔字，笔画很细，收尾却往上挑——那是母亲写字时才会有的习惯。',
+      '她伸手去擦，粉笔灰沾在指腹上，怎么都不肯掉。钟楼外，第一缕天光落在城墙上，把「拾遗」两个字照得发白。沈砚忽然觉得，这座城不是在等天亮，而是在等一个人先开口。'
+    ]
+  },
+  ch2: {
+    title: '纸人开口',
+    paragraphs: [
+      '纸雨下到第三天，窗纸已经湿透。沈砚把母亲留下的空白页摊在桌上，纸面浮出一个浅浅的人形，像谁从纸背走过，留下了一道体温。她伸手去碰，人形坐了起来，纸屑从肩头簌簌落下。',
+      '阿笺的第一句话是母亲的声音。沈砚愣在原地，喉咙里像塞了一团湿棉花。她想问「你见过她吗」，又怕一开口，那个声音就会从阿笺身上退回去。阿笺歪头看她，眼睛像两滴未化的墨，安静得让人心慌。',
+      '陆观澜来的时候，手里的茶盏碎了。他叫出一个名字，又立刻收声。沈砚看见阿笺的纸页在那一瞬间烫了一下，像被火苗舔过。她什么都没问。雨还在下，纸屑落在窗台上，一片一片，像有人从很远的地方寄来的信。'
+    ]
+  },
+  ch3: {
+    title: '铜字的声音',
+    paragraphs: [
+      '活字塔里没有风，却有雨声。十万枚铜字在塔身里慢慢转动，字与字咬合，发出细密的、像雨点落在铁皮上的响。沈砚跟在陆观澜身后，脚下是磨得发亮的铜板，每一步都能听见自己的回声。',
+      '裴照蹲在第三层的字架前，袖子卷到手肘，手臂上全是细小的划痕。他敲字的时候不看人，只盯着铜字背面，像在跟一个看不见的师父较劲。沈砚注意到，他每敲完一枚字，都会用指腹把字背擦一下。',
+      '「别碰第七行。」裴照忽然说。他没有抬头，锤子却停在半空。沈砚看见他手背上有一道旧疤，形状像半个「罪」字。塔心深处，有铜字一枚接一枚地落下去，声音很轻，像有人在很远的地方数数。'
+    ]
+  },
+  ch4: {
+    title: '名字的价钱',
+    paragraphs: [
+      '地下市场的灯一盏挨着一盏，每一盏都罩着写了名字的薄纸。光透过纸，名字落在人脸上，像一层洗不掉的灰。沈砚跟着阿笺穿过摊位，闻见药渣、湿棉花和面汤混在一起的味道。',
+      '春生坐在最里面，怀里的阿禾烧得脸颊通红。木牌上写着「春生，三年，两斗米」。她写字的时候，手腕很稳，只有写到最后一笔，笔尖才轻轻抖了一下。阿禾在她怀里翻了个身，叫了一声娘。',
+      '沈砚替她写契，写到「自愿」二字时停住了。春生说：「写吧。名字没了，娘还在。」她说完低下头，把阿禾往怀里紧了紧。市场尽头的掌柜收起算盘，算珠碰撞的声音，像一串很小的、替人送葬的铃。'
+    ]
+  },
+  ch5: {
+    title: '火里的三千页',
+    paragraphs: [
+      '书楼烧到后半夜，天边被照成一种脏兮兮的橘红。纸灰飞得很高，落在沈砚肩上，像一场倒着下的雪。她站在街对面，闻见墨被烧焦后的苦味，还有旧纸里藏着的、很淡的樟脑香。',
+      '闻笙坐在废墟外弹琴。她看不见火，却把头偏向火最旺的地方，手指在琴弦上走得很慢。她说火里有三千本书在喊疼，沈砚起初以为那是疯话，直到她听见风里真的传来许多重叠的、细碎的呻吟。',
+      '阿笺袖中的纸页烫起来。沈砚按住她的手腕，感觉到纸面下有什么在跳，像一颗很小的心。闻笙忽然停下琴，说：「有一页没有声音。」她抬手，指向火场最深处。那里有一页纸，火舌绕开它，像绕开一个不该被烧的人。'
+    ]
+  },
+  ch6: {
+    title: '墙后的书房',
+    paragraphs: [
+      '砖墙被推开的时候，灰尘在光里浮了很久。书房只有五步宽，窗是封死的，桌上却有一层薄薄的月光。沈砚站在门口，忽然不敢往里走。她记得母亲从前总把她挡在这面墙外，说里面潮，对纸不好。',
+      '砚台里的月光墨已经干裂。她用指尖蘸了一点，在桌上写了一个「归」字。字没有留下墨迹，反而慢慢淡下去，像被桌面吸走了。阿笺在身后轻声说：「她不想让你找她。」沈砚没有回头：「那她为什么留门。」',
+      '书架最底层压着一封没有信封的信。纸很薄，正面是校勘记录，背面才是字。沈砚把纸举到光下，看见母亲的字迹从纸背渗出来，第一句是：「小砚，如果你读到这里，说明我还是没能把空白按住。」'
+    ]
+  },
+  ch7: {
+    title: '逆流而上',
+    paragraphs: [
+      '逆流河的水声是倒着走的。浪头从下游往上游推，水面上漂着撕碎的信、划掉的名字和没有说完的话。船夫把竹篙插进水里，篙尖碰到河底的名字，发出细碎的碰撞声。',
+      '阿笺坐在船头，纸裙被水汽打湿。她身上的字正在变淡，每淡一个，她就轻轻数一声，像在数自己还剩多少时间。沈砚把外衣披到她肩上，阿笺抬头笑了一下，说：「别把我当纸。纸不会冷。」',
+      '船到河心，闻笙忽然按住琴弦。她说句号就在下面，很重，像一句话说了一半就沉下去。沈砚把手伸进水里，河水冷得不像水，像无数只没有温度的手，同时从指缝里穿过去。'
+    ]
+  },
+  ch8: {
+    title: '没有名字的宴',
+    paragraphs: [
+      '市政厅的吊灯有九十七盏，每一盏都罩着磨砂玻璃，光落下来像一层薄薄的雪。沈砚走进宴会厅时，所有人都戴着半张白纸面具，面具上只写编号，不写名字。侍者端着菜从身边经过，脚步轻得像怕踩醒什么。',
+      '裴照坐在她旁边，脸色很难看。他说，裴家的位置本来在第三桌，今天却被挪到了最后一桌。沈砚顺着他的目光看过去，看见主桌旁有一张空椅子，椅背上贴着一张没有写字的请柬。',
+      '简就是在这个时候进来的。他没有戴面具，也没有人拦他。他在空椅子旁站了一会儿，抬手摸了摸椅背，像在摸一个人的头发。然后他转身，朝沈砚的方向举了举杯。杯子里没有酒。'
+    ]
+  },
+  ch9: {
+    title: '地下的供词',
+    paragraphs: [
+      '活字塔的地下没有白天。铜字堆成墙，墙上渗着绿色的铜锈，空气里有金属和旧纸混合的腥味。沈砚沿着台阶往下走，听见自己的脚步声被铜字吞掉，又在前方很远的地方吐出来。',
+      '陆观澜坐在一堆废字中间，面前摊着三十年前的校勘原稿。他没有抬头，只把原稿往沈砚的方向推了推。纸页已经发脆，边角却被人反复抚平。沈砚看见第一页上并排写着三个名字：沈无咎、裴玄、陆观澜。',
+      '「你母亲负责找句子，裴玄负责刻版，我负责落刀。」陆观澜终于开口。他的声音很平，像在念一段别人的供词。沈砚看见他胸口的衣襟动了一下，那里有一道旧疤，形状像一个自己刻上去的字。'
+    ]
+  },
+  ch10: {
+    title: '白页里的绳',
+    paragraphs: [
+      '白页之门没有门框，只有一片不断扩大的白。沈砚把全城人写下的名字搓成一根长绳，一头系在城门，一头系在腰间。绳子很沉，每走一步，都有名字在身后轻轻拖过地面。',
+      '阿笺走在最前面。她身上的墨让空白暂时不敢靠近，可每走一步，衣角的字就淡一个。沈砚叫她，她回头，笑得像一张刚折好的纸：「别停。停下我就想起来了，想起来就会怕。」',
+      '门内没有风，也没有回声。沈砚踩下去，脚下像踩着一层很厚的雪，却留不下脚印。远处有一道白得发亮的光，光里站着一个人影。她看不清那人的脸，却听见母亲的声音从四面八方传来：「小砚，别怕空白。」'
+    ]
+  },
+  ch11: {
+    title: '万人同写',
+    paragraphs: [
+      '沈砚从白页之门出来时，城外已经过了七天。半座城变成空白，剩下的人挤在活字塔周围，用身体护着最后一批书。有人在哭，有人在写字，一个卖豆腐的老人忘了「豆」字，却记得死去妻子的名字。',
+      '裴照还活着。他左臂缠着布，正在塔下刻字。十七抱着阿禾在分发面汤。闻笙坐在塔顶，弹一架没有弦的琴。沈砚从他们中间走过去，没有人问她门里有什么，所有人都在等她手里那支笔。',
+      '她把句号放在原版上。句号落下去，整座塔亮了一瞬，又暗了。还差一页。瞿不忘在塔下画圈，画到第九十七个，停下来问她：「够了吗？」沈砚看着城门外那片白，说：「还不够。还要一个字。」'
+    ]
+  },
+  ch12: {
+    title: '最后一页之前',
+    paragraphs: [
+      '最后一页是一张白纸。简站在纸的另一边，身后是整片空白。他没有戴面具，也没有拿书，只把双手垂在身侧。沈砚忽然发现，他比第一次出现时老了很多，鬓角的白不是墨，是真正的白。',
+      '「你写什么都会消失。」简说，「你母亲已经证明过了。」沈砚把初笔蘸满墨。她想起母亲的字帖，想起阿笺的掌心，想起钟楼、雨巷、活字塔、逆流河，想起所有被删掉又被人念回来的名字。',
+      '她落笔的时候，手很稳。她写下的第一个字不是「记」，也不是「忘」，而是一个很小的「你」。简看着那个字，脸上的表情终于裂开一道缝。他往后退了一步，身后的空白也跟着退了一步。'
+    ]
+  },
+  ch13: {
+    title: '纸背上的第二页',
+    paragraphs: [
+      '拾遗城保住了。城门重新挂上「记得」二字，纸鸟落在窗台，所有人都在庆祝一个终于结束的故事。沈砚却睡不着。她总觉得，一个被救回来的故事不该这么轻。',
+      '第七天，她修补原版时，指尖触到纸背。那里还有一层纸。不是衬纸，是另一页初版，薄得像蝉翼，边缘被整齐裁过。第二页上记着同一场灾难：同样的钟、同样的火、同样的白页之门。',
+      '可结局不同。那一版的沈砚没有写「记得」，她写的是「忘」。页脚有一行朱批：第七版。前六次均以「记得」作结，皆归于第八次。建议本版删除主角。沈砚盯着「删除」两个字，很久没有呼吸。'
+    ]
+  },
+  ch14: {
+    title: '读者的房间',
+    paragraphs: [
+      '批注里反复出现一个词：读者。沈砚原以为那是某种官名。直到她在活字塔背面找到一条铅笔画的箭头，箭头指向墙里。墙后是一间很窄的房间，一张桌子，一把椅子，一杯凉透的茶。',
+      '桌上摊着《万卷初版》，书页新得像刚印出来。书页边全是人的痕迹：折角、泪痕、咖啡渍、用指甲划出的线。有一页被反复翻看，纸都起了毛边。那一页写着沈砚的名字。',
+      '她伸手去碰，指尖穿过书页，触到一只正在翻页的手。那只手很暖，指腹有一点薄茧。沈砚没有缩回来。她听见一个很轻的呼吸声，像有人隔着一整本书，和她坐在同一张桌子旁。'
+    ]
+  },
+  ch15: {
+    title: '火塘边之前',
+    paragraphs: [
+      '第二页的背面还有一行更小的字：初版之前，口传。沈砚把字读出声，纸页忽然变成一扇门。门后没有城，没有塔，没有字。只有一群人围着一堆火，火光照着他们的脸，也照着他们身后无边的黑。',
+      '一个老妇人坐在火塘边，手里没有书，也没有笔。她讲同一个故事，已经讲了很多遍。每一遍里，白蚀的形状不同，删页的人不同，沈砚的结局也不同。听众记住的，才是下一版。',
+      '沈砚问：第一版在哪里。老妇人笑：孩子，第一版就是刚才那一遍。你来得太晚，已经有人讲过了。火塘里的火没有烟，光却把每个人的脸照得很清楚。沈砚在那些脸中间，看见了一张很像自己的脸。'
+    ]
+  },
+  ch16: {
+    title: '所有版本叠在一起',
+    paragraphs: [
+      '最后一页不是白纸。它是所有版本的叠影：第一版的火塘，第三版的洪水，第六版的母亲，第七版的沈砚。每一层都在说话，声音重叠在一起，像一场下了很久的雨。',
+      '简坐在页边，怀里抱着阿辞的画像。他说：「合上吧。只要书还在被读，就会有人被改写。」母亲站在另一侧，手里没有笔。她说：「可只要书还在被读，就会有人被记住。」',
+      '沈砚站在两种正确之间。她终于明白，这不是善恶之争，而是两种爱之间的分歧：一种爱想停止失去，一种爱愿意继续失去。她没有替他们决定。她只是把笔放在最后一页旁边，向后退了一步。'
+    ]
   }
 };
 
@@ -11589,6 +12034,7 @@ window.INK_DEEP = {
 (function () {
   const deep = window.INK_DEEP || { notes: {}, variants: {}, lexicon: [] };
   const scenes = window.INK_SCENES || { scenes: {}, interludes: {} };
+  const novel = window.INK_NOVEL || {};
   const bridges = window.INK_BRIDGES || {};
   const hints = window.INK_HINTS || { characters: {}, memories: {} };
 
@@ -11598,6 +12044,7 @@ window.INK_DEEP = {
     chapter.variants = deep.variants[chapter.id] || [];
     chapter.scene = scenes.scenes[chapter.id] || '';
     chapter.interlude = scenes.interludes[chapter.id] || null;
+    chapter.novel = novel[chapter.id] || null;
     chapter.levels.forEach((level) => {
       level.reason = bridges[level.id] || level.intro;
     });
@@ -11616,9 +12063,9 @@ window.INK_DEEP = {
       title: '墨蚀',
       subtitle: '拾字纪',
       en: 'INKFALL · THE UNWRITTEN',
-      version: '3.2',
+      version: '3.3',
       tagline: '当世界开始失字，你是最后一个补字师。',
-      description: '一款以汉字为骨、以故事为墨的叙事打字游戏。16 卷 48 个刻印节点；明线 16 卷 + 暗线 16 段；36 个世界观词条、20 份人物档案、32 段回忆、44 种正经结局。',
+      description: '一款以汉字为骨、以故事为墨的叙事打字游戏。16 卷 48 个刻印节点；16 卷中篇叙事、明线 16 卷 + 暗线 16 段；36 个世界观词条、20 份人物档案、8 份城志、32 段回忆、44 种正经结局。',
       world: [
         {
           title: '墨界',
@@ -11912,6 +12359,7 @@ window.INK_DEEP = {
     characters: (window.INK_PEOPLE && window.INK_PEOPLE.characters) || [],
     memories: (window.INK_PEOPLE && window.INK_PEOPLE.memories) || [],
     darkLine: window.INK_DARK_LINE || [],
+    archive: window.INK_ARCHIVE || [],
     chapters: window.INK_STORY,
     sideStories: window.INK_SIDES,
     challenges: window.INK_CHALLENGES
@@ -11947,6 +12395,8 @@ window.INK_DEEP = {
   const DARK_LINE = DATA.darkLine || [];
   const DARK_MAP = new Map(DARK_LINE.map((entry) => [entry.chapter, entry]));
   const TOTAL_DARK = DARK_LINE.length;
+  const ARCHIVE = DATA.archive || [];
+  const ARCHIVE_MAP = new Map(ARCHIVE.map((entry) => [entry.id, entry]));
   const ENDING_ECHOES = {
     closed: ['qu-bu-wang', 'lao-zhou', 'a-jian'],
     blank: ['old-woman', 'a-jian'],
@@ -12225,6 +12675,12 @@ window.INK_DEEP = {
       const chapter = CHAPTER_MAP.get(entry.chapter);
       return Boolean(chapter && chapterDone(chapter));
     }).length;
+  }
+
+  function archiveVisible(entry) {
+    if (!entry) return false;
+    const chapter = CHAPTERS[entry.unlockChapter - 1];
+    return Boolean(chapter && chapterUnlocked(chapter));
   }
 
   function sideChoiceCount(choice) {
@@ -12884,10 +13340,11 @@ window.INK_DEEP = {
   }
 
   function renderPeople(tab) {
-    const active = tab === 'memories' ? 'memories' : 'characters';
+    const active = tab === 'memories' ? 'memories' : tab === 'archive' ? 'archive' : 'characters';
     const visibleCharacters = CHARACTERS.filter(characterVisible);
     const hiddenCount = CHARACTERS.length - visibleCharacters.length;
     const unlockedMemories = MEMORIES.filter(memoryUnlocked);
+    const visibleArchive = ARCHIVE.filter(archiveVisible);
     const memoryChapters = CHAPTERS.filter((chapter) => chapterDone(chapter) && memoriesForChapter(chapter).length);
 
     return `
@@ -12902,7 +13359,7 @@ window.INK_DEEP = {
             <div class="page-side">
               <span>已显影人物</span>
               <strong>${visibleCharacters.length} / ${CHARACTERS.length}</strong>
-              <small>回忆显影 · ${unlockedMemories.length} / ${TOTAL_MEMORIES}</small>
+              <small>回忆 ${unlockedMemories.length} / ${TOTAL_MEMORIES} · 城志 ${visibleArchive.length} / ${ARCHIVE.length}</small>
             </div>
           </div>
 
@@ -12912,6 +13369,9 @@ window.INK_DEEP = {
             </a>
             <a class="people-tab ${active === 'memories' ? 'is-active' : ''}" href="#/people/memories">
               <span>忆</span><strong>回忆录</strong><small>${unlockedMemories.length} / ${TOTAL_MEMORIES}</small>
+            </a>
+            <a class="people-tab ${active === 'archive' ? 'is-active' : ''}" href="#/people/archive">
+              <span>志</span><strong>城志</strong><small>${visibleArchive.length} / ${ARCHIVE.length}</small>
             </a>
           </div>
 
@@ -12934,7 +13394,7 @@ window.INK_DEEP = {
               `).join('')}
             </div>
             ${visibleCharacters.length ? '' : '<div class="empty-state"><div><div class="seal-mark">人</div><h2>还没有人显影</h2><p>先去主线里遇见第一个人。</p></div></div>'}
-          ` : `
+          ` : active === 'memories' ? `
             <div class="memory-summary">
               <div><span>回忆录</span><strong>${unlockedMemories.length} / ${TOTAL_MEMORIES}</strong></div>
               <p>每一卷有两段回忆。它们不是正文，而是正文没有写下的那部分。</p>
@@ -12957,10 +13417,61 @@ window.INK_DEEP = {
                 </div>
               </section>
             `).join('') : '<div class="empty-state"><div><div class="seal-mark">忆</div><h2>回忆还没有显影</h2><p>完成一卷后，再回到这里。</p></div></div>'}
+          ` : `
+            <div class="archive-intro">
+              <span>城志 · 地点与机构</span>
+              <p>官修记录写它们“是什么”，页边记录写它们“替谁承担了什么”。读完对应卷宗后显影。</p>
+            </div>
+            <div class="archive-grid">
+              ${visibleArchive.map((entry, index) => `
+                <button class="archive-card" type="button" data-action="open-archive" data-archive="${entry.id}" style="--i:${index}">
+                  <span class="archive-seal">${entry.seal}</span>
+                  <span class="archive-copy">
+                    <small>${escapeHTML(entry.kind)} · 档案 ${String(index + 1).padStart(2, '0')}</small>
+                    <strong>${escapeHTML(entry.name)}</strong>
+                    <p>${escapeHTML(entry.official)}</p>
+                  </span>
+                  <span class="archive-arrow">↗</span>
+                </button>
+              `).join('')}
+            </div>
+            ${visibleArchive.length ? '' : '<div class="empty-state"><div><div class="seal-mark">志</div><h2>城志还没有显影</h2><p>先完成第一卷。</p></div></div>'}
           `}
         </div>
       </div>
     `;
+  }
+
+  function openArchive(archiveId) {
+    const entry = ARCHIVE_MAP.get(archiveId);
+    if (!entry || !archiveVisible(entry)) {
+      toast('这份城志还没有显影。');
+      return;
+    }
+    openDialog(`
+      <div class="dialog-card archive-dialog">
+        ${closeButtonHTML()}
+        <div class="archive-dialog-head">
+          <span class="archive-seal large">${entry.seal}</span>
+          <div>
+            <div class="dialog-kicker">城志 · ${escapeHTML(entry.kind)}</div>
+            <h2>${escapeHTML(entry.name)}<span class="sub">第${entry.unlockChapter}卷起可查</span></h2>
+          </div>
+        </div>
+        <div class="archive-record">
+          <span>CITY RECORD · 官修</span>
+          <p>${escapeHTML(entry.official)}</p>
+        </div>
+        <div class="archive-record margin">
+          <span>MARGIN · 页边</span>
+          <p>${escapeHTML(entry.margin)}</p>
+        </div>
+        ${entry.related && entry.related.length ? `<div class="archive-related"><span>相关词条</span><div>${entry.related.map((term) => `<span class="archive-term">${escapeHTML(term)}</span>`).join('')}</div></div>` : ''}
+        <div class="dialog-actions">
+          <button class="btn btn-ghost" type="button" data-action="close-dialog">合上城志 <span class="arrow">→</span></button>
+        </div>
+      </div>
+    `, { wide: true });
   }
 
   function openCharacter(characterId, view) {
@@ -13545,6 +14056,15 @@ window.INK_DEEP = {
           <div class="chapter-reading">
             <article class="chapter-intro story-prose">
               ${linkedParagraphsHTML(chapter.intro, '', 2)}
+              ${chapter.novel ? `
+                <div class="chapter-novel">
+                  <div class="chapter-novel-head">
+                    <span>中篇叙事 · NOVELLA</span>
+                    <b>${escapeHTML(chapter.novel.title)}</b>
+                  </div>
+                  ${linkedParagraphsHTML(chapter.novel.paragraphs, '', 2)}
+                </div>
+              ` : ''}
             </article>
             <aside class="chapter-marginalia">
               <div class="marginalia-head">
@@ -15216,7 +15736,7 @@ window.INK_DEEP = {
       nav = 'tree';
     } else if (route.name === 'people') {
       html = renderPeople(route.param);
-      pageTitle = route.param === 'memories' ? '回忆录 · 墨蚀：拾字纪' : '人物志 · 墨蚀：拾字纪';
+      pageTitle = route.param === 'memories' ? '回忆录 · 墨蚀：拾字纪' : route.param === 'archive' ? '城志 · 墨蚀：拾字纪' : '人物志 · 墨蚀：拾字纪';
       nav = 'people';
     } else {
       html = renderLockedState('这一页被空白吃掉了', '没有找到你想去的地方。回到卷首，重新翻开这本书。', '#/', '回到卷首');
@@ -15323,6 +15843,10 @@ window.INK_DEEP = {
 
       case 'open-character':
         openCharacter(target.dataset.character, 'official');
+        break;
+
+      case 'open-archive':
+        openArchive(target.dataset.archive);
         break;
 
       case 'character-view':
